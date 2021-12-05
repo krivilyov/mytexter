@@ -1,6 +1,8 @@
-import { Controller, Post, Get, Body } from '@nestjs/common';
+import { Controller, Post, Get, Body, UseGuards } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
+import { Roles } from 'src/authorisation/roles.decorator';
+import { RolesGuard } from 'src/authorisation/roles.guard';
 
 @Controller('/api')
 export class UsersController {
@@ -11,6 +13,8 @@ export class UsersController {
     return this.usersServise.createUser(userDto);
   }
 
+  @Roles('admin')
+  @UseGuards(RolesGuard)
   @Get('/users')
   getAllUsers() {
     return this.usersServise.getAllUsers();

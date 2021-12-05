@@ -3,6 +3,7 @@ import { Column, Model, Table, DataType } from 'sequelize-typescript';
 interface UserCreationAttributes {
   email: string;
   password: string;
+  role: string;
 }
 
 @Table({ tableName: 'users' })
@@ -26,7 +27,7 @@ export class User extends Model<User, UserCreationAttributes> {
   password: string;
 
   @Column({
-    type: DataType.ENUM('customer', 'admin'),
+    type: DataType.ENUM('customer', 'teacher', 'admin'),
     defaultValue: 'customer',
   })
   role: string;
