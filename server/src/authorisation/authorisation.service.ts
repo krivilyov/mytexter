@@ -70,4 +70,17 @@ export class AuthorisationService {
       message: 'Некорректный пароль',
     });
   }
+
+  async getProfile(user: any) {
+    const currentUser = await this.userServise.getUserByEmail(user.email);
+    const currentDate = Math.floor(Date.now() / 1000);
+    if (currentUser) {
+      //check token time
+      if (user.exp < currentDate) {
+        return null;
+      }
+    }
+
+    return user;
+  }
 }
