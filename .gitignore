@@ -1,36 +1,45 @@
+# build output
+dist
+.next
+target
+
 # dependencies
-/server/node_modules/
-/server/dist
+node_modules
+package-lock.json
+yarn.lock
+!/yarn.lock
+test/node_modules
 
-# IDE
-/.idea
-/.awcache
-/.vscode
-*.code-workspace
+# logs & pids
+*.log
+pids
+*.cpuprofile
 
-# bundle
-/server/packages/**/*.d.ts
-/server/packages/**/*.js
+# coverage
+.nyc_output
+coverage
 
-# misc
-/server/.DS_Store
-/server/lerna-debug.log
-/server/npm-debug.log
-/server/yarn-error.log
-/**/npm-debug.log
-/server/packages/**/.npmignore
-/server/packages/**/LICENSE
+# test output
+test/**/out*
+test/**/next-env.d.ts
+.DS_Store
+/e2e-tests
+test/tmp/**
 
-# example
-/server/quick-start
-/server/example_dist
-/server/example
+# Editors
+**/.idea
+**/.#*
 
-# tests
-/server/test
-/server/benchmarks/memory
-/server/coverage
-/server/.nyc_output
-/server/packages/graphql
-/server/benchmarks/memory
-/server/build/config\.gypi
+# examples
+examples/**/out
+examples/**/.env*.local
+
+pr-stats.md
+test-timings.json
+
+# Vercel
+.vercel
+.now
+
+# Cache
+*.tsbuildinfo
