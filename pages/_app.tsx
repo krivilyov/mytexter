@@ -1,4 +1,4 @@
-import "../styles/globals.css";
+import "../styles/globals.scss";
 import type { AppProps } from "next/app";
 import { useState, useEffect, createContext } from "react";
 import Cookies from "js-cookie";
@@ -20,17 +20,12 @@ function MyApp({ Component, pageProps }: AppProps) {
 	const [user, setUser] = useState();
 
 	useEffect(() => {
-		// get the token from the cookie
-		Cookies.set(
-			"token",
-			"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJYRUdPQHlhbmRleC5ydSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYzOTg1NTM2NSwiZXhwIjoxNjM5ODk4NTY1fQ.79wUvmxeqAe5_nBbxzcIoRCfG6WepGgn-h5wLFXGRo4"
-		);
 		const cookieToken = Cookies.get("token");
-		console.log(cookieToken);
+
 		if (cookieToken) {
 			//check user
 			axios
-				.get(`http://localhost:8000/api/auth/profile`, {
+				.get(`${process.env.NEXT_PUBLIC_API_URL}/auth/profile`, {
 					headers: { Authorization: `Bearer ${cookieToken}` },
 				})
 				.then((res) => {

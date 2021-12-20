@@ -8,7 +8,7 @@ const Home: NextPage = () => {
 
 	return (
 		<div>
-			<h1>{user?.email}</h1>
+			<h1>Index{user?.email}</h1>
 		</div>
 	);
 };
