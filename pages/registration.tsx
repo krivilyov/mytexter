@@ -1,30 +1,27 @@
 import type { NextPage } from "next";
-import { useRouter } from "next/router";
-import React, { useState } from "react";
-import axios from "axios";
-import styles from "../styles/Login.module.scss";
-import "bootstrap/dist/css/bootstrap.min.css";
-
-import { Button } from "react-bootstrap";
-import Input from "../components/input";
+import { useState } from "react";
+import styles from "../styles/Registration.module.scss";
 import { GetServerSideProps } from "next";
+import Input from "../components/input";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Button } from "react-bootstrap";
+import axios from "axios";
+import { useRouter } from "next/router";
 
-const Login: NextPage = () => {
+const Registration: NextPage = () => {
 	const router = useRouter();
 
 	const [values, setValues] = useState({
+		name: "",
 		email: "",
 		password: "",
 	});
 
-	const [emailError, setEmailError] = useState("");
-	const [passwordError, setPasswordError] = useState("");
-
-	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setValues({ ...values, [e.target.name]: e.target.value.trim() });
-	};
-
 	const errors = {
+		name: {
+			wrong:
+				"The name must be no shorter than 3 characters and no longer than 10",
+		},
 		email: {
 			wrong: "It should be a valid email address",
 		},
@@ -34,8 +31,20 @@ const Login: NextPage = () => {
 		},
 	};
 
+	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setValues({ ...values, [e.target.name]: e.target.value.trim() });
+	};
+
 	const handleCheckErrors = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const inputName: string = e.target.name;
+
+		//for name
+		if (inputName === "name") {
+			const filterName = /[a-zA-Z][a-zA-Z0-9-_]{3,10}/;
+			if (!filterName.test(String(values.name).toLowerCase()))
+				setNameError(errors.name.wrong);
+			else setNameError("");
+		}
 
 		//for email
 		if (inputName === "email") {
@@ -56,14 +65,19 @@ const Login: NextPage = () => {
 		}
 	};
 
+	const [nameError, setNameError] = useState("");
+	const [emailError, setEmailError] = useState("");
+	const [passwordError, setPasswordError] = useState("");
+
 	const handleFormSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 
-		if (!emailError && !passwordError) {
+		if (!nameError && !emailError && !passwordError) {
 			axios
 				.post(
-					`${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
+					`${process.env.NEXT_PUBLIC_API_URL}/auth/registration`,
 					{
+						name: values.name,
 						email: values.email,
 						password: values.password,
 					},
@@ -79,11 +93,16 @@ const Login: NextPage = () => {
 	};
 
 	interface Errors {
+		name: string;
 		email: string;
 		password: string;
 	}
 
 	const handleErrorForm = (errors: Errors) => {
+		if (errors.name) {
+			setNameError(errors.name);
+		}
+
 		if (errors.email) {
 			setEmailError(errors.email);
 		}
@@ -97,7 +116,21 @@ const Login: NextPage = () => {
 		<div className={styles.container}>
 			<div className={styles.wrapper}>
 				<form onSubmit={handleFormSubmit}>
-					<h1>Sign in</h1>
+					<h1>Sign up</h1>
+					<div className={styles.formGroup}>
+						<label className="form-label" htmlFor="email">
+							Name
+						</label>
+						<Input
+							type="text"
+							id="name"
+							name="name"
+							value={values.name}
+							onChange={onChange}
+							onBlur={handleCheckErrors}
+						/>
+						{nameError && <span className={styles.formError}>{nameError}</span>}
+					</div>
 					<div className={styles.formGroup}>
 						<label className="form-label" htmlFor="email">
 							E-mail
@@ -139,7 +172,7 @@ const Login: NextPage = () => {
 	);
 };
 
-export default Login;
+export default Registration;
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 	const token = req.cookies.token || "";
