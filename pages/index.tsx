@@ -1,16 +1,48 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { useContext } from "react";
-import { UserContext } from "./_app";
+import { GetServerSideProps } from "next";
 
-const Home: NextPage = () => {
-	const { user } = useContext(UserContext);
+interface UserDocument {
+	id: string;
+	email: string;
+	role: string;
+	iat: number;
+	exp: number;
+}
+
+interface HomeProps {
+	user?: UserDocument;
+}
+
+const Home: NextPage<HomeProps> = (props) => {
+	const { user } = props;
 
 	return (
 		<div>
-			<h1>Index{user?.email}</h1>
+			<h1>Index UserToken {user?.email}</h1>
 		</div>
 	);
 };
 
 export default Home;
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+	const token = req.cookies.token || "";
+	let user = null;
+
+	if (token) {
+		const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/profile`, {
+			headers: { Authorization: `Bearer ${token}` },
+		});
+
+		if (res.ok) {
+			user = await res.json();
+		}
+	}
+
+	return {
+		props: {
+			user: user,
+		},
+	};
+};

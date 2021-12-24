@@ -1,15 +1,17 @@
 import type { NextPage } from "next";
-import Router from "next/router";
-import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import React, { useState } from "react";
 import axios from "axios";
 import styles from "../styles/login.module.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Cookies from "js-cookie";
 
 import { Button } from "react-bootstrap";
 import Input from "../components/input";
+import { GetServerSideProps } from "next";
 
 const Login: NextPage = () => {
+	const router = useRouter();
+
 	const [values, setValues] = useState({
 		email: "",
 		password: "",
@@ -59,28 +61,21 @@ const Login: NextPage = () => {
 
 		if (!emailError && !passwordError) {
 			axios
-				.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
-					email: values.email,
-					password: values.password,
-				})
-				.then((res) => handleSuccessLogin(res.data.token))
+				.post(
+					`${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
+					{
+						email: values.email,
+						password: values.password,
+					},
+					{ withCredentials: true }
+				)
+				.then((res) => router.push("/"))
 				.catch((error) => {
 					if (error.response) {
-						console.log(error.response.data);
 						handleErrorForm(error.response.data);
 					}
 				});
 		}
-	};
-
-	const handleSuccessLogin = (token: string) => {
-		//6h
-		const quarterOfADay = 1 / 4;
-		Cookies.set("token", token, {
-			expires: quarterOfADay,
-		});
-
-		Router.push("/");
 	};
 
 	interface Errors {
@@ -145,3 +140,31 @@ const Login: NextPage = () => {
 };
 
 export default Login;
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+	const token = req.cookies.token || "";
+	let user = null;
+
+	if (token) {
+		const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/profile`, {
+			headers: { Authorization: `Bearer ${token}` },
+		});
+
+		if (res.ok) {
+			user = await res.json();
+		}
+	}
+
+	if (user) {
+		return {
+			redirect: {
+				destination: "/",
+				statusCode: 302,
+			},
+		};
+	}
+
+	return {
+		props: {},
+	};
+};
