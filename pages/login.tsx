@@ -5,7 +5,7 @@ import axios from "axios";
 import styles from "../styles/Login.module.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import { Button } from "react-bootstrap";
+import { Button } from "@mui/material";
 import Input from "../components/input";
 import { GetServerSideProps } from "next";
 
@@ -130,7 +130,7 @@ const Login: NextPage = () => {
 							<span className={styles.formError}>{passwordError}</span>
 						)}
 					</div>
-					<Button variant="primary" type="submit">
+					<Button variant="contained" type="submit">
 						Login
 					</Button>
 				</form>

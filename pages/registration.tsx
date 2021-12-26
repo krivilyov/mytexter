@@ -4,7 +4,7 @@ import styles from "../styles/Registration.module.scss";
 import { GetServerSideProps } from "next";
 import Input from "../components/input";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Button } from "react-bootstrap";
+import { Button } from "@mui/material";
 import axios from "axios";
 import { useRouter } from "next/router";
 
@@ -163,8 +163,8 @@ const Registration: NextPage = () => {
 							<span className={styles.formError}>{passwordError}</span>
 						)}
 					</div>
-					<Button variant="primary" type="submit">
-						Login
+					<Button variant="contained" type="submit">
+						Registration
 					</Button>
 				</form>
 			</div>

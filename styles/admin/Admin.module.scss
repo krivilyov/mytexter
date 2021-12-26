@@ -1,0 +1,25 @@
+$screen-small: "(max-width: 414px)";
+$screen-medium-down: "(min-width: 415px) and (max-width: 1199px)";
+$screen-medium-up: "(min-width: 1200px) and (max-width: 1799px)";
+$screen-medium: "(min-width: 415px) and (max-width: 1799px)";
+$screen-large: "(min-width: 1800px)";
+
+$multiplier-small: 3.75vw;
+$multiplier-medium: 12vw;
+$multiplier-large: 1.25px;
+
+.container {
+	display: flex;
+
+	@media #{$screen-large} {
+	}
+
+	@media #{$screen-medium-up} {
+	}
+
+	@media #{$screen-medium-down} {
+	}
+
+	@media #{$screen-small} {
+	}
+}
