@@ -39,3 +39,264 @@ $screen-large: "(min-width: 1800px)";
 	@media #{$screen-small} {
 	}
 }
+
+.sidebarWrapper {
+	width: 100%;
+
+	@media #{$screen-large} {
+		padding: large(30);
+	}
+
+	@media #{$screen-medium-up} {
+		padding: 30px;
+	}
+
+	@media #{$screen-medium-down} {
+		padding: medium-down(30);
+	}
+
+	@media #{$screen-small} {
+	}
+}
+
+.title {
+	font-weight: 700;
+	text-align: center;
+
+	@media #{$screen-large} {
+		font-size: large(24);
+		line-height: large(28);
+		margin-bottom: large(16);
+	}
+
+	@media #{$screen-medium-up} {
+		font-size: 24px;
+		line-height: 28px;
+		margin-bottom: 16px;
+	}
+
+	@media #{$screen-medium-down} {
+		font-size: medium-down(24);
+		line-height: medium-down(28);
+		margin-bottom: medium-down(16);
+	}
+
+	@media #{$screen-small} {
+	}
+
+	a {
+		color: #444;
+		text-decoration: none;
+		cursor: pointer;
+	}
+
+	span {
+		display: block;
+		font-weight: 400;
+
+		@media #{$screen-large} {
+			font-size: large(14);
+			line-height: large(18);
+		}
+
+		@media #{$screen-medium-up} {
+			font-size: 14px;
+			line-height: 18px;
+		}
+
+		@media #{$screen-medium-down} {
+			font-size: medium-down(14);
+			line-height: medium-down(18);
+		}
+
+		@media #{$screen-small} {
+		}
+	}
+}
+
+.userInfo {
+	display: flex;
+	justify-content: center;
+
+	@media #{$screen-large} {
+		margin-bottom: large(25);
+	}
+
+	@media #{$screen-medium-up} {
+		margin-bottom: 25px;
+	}
+
+	@media #{$screen-medium-down} {
+		margin-bottom: medium-down(25);
+	}
+
+	@media #{$screen-small} {
+	}
+}
+
+.userName {
+	display: flex;
+	align-items: center;
+	color: #fff;
+	background-color: #673ab7;
+
+	@media #{$screen-large} {
+		font-size: large(18);
+		line-height: large(24);
+		padding: large(5) large(12);
+	}
+
+	@media #{$screen-medium-up} {
+		font-size: 18px;
+		line-height: 24px;
+		padding: 5px 12px;
+	}
+
+	@media #{$screen-medium-down} {
+		font-size: medium-down(18);
+		line-height: medium-down(24);
+		padding: medium-down(5) medium-down(12);
+	}
+
+	@media #{$screen-small} {
+	}
+
+	span {
+		@media #{$screen-large} {
+			margin-right: large(12);
+		}
+
+		@media #{$screen-medium-up} {
+			margin-right: 12px;
+		}
+
+		@media #{$screen-medium-down} {
+			margin-right: medium-down(12);
+		}
+
+		@media #{$screen-small} {
+		}
+	}
+
+	svg {
+		@media #{$screen-large} {
+			font-size: large(18);
+		}
+
+		@media #{$screen-medium-up} {
+			font-size: 18px;
+		}
+
+		@media #{$screen-medium-down} {
+			font-size: medium-down(18);
+		}
+
+		@media #{$screen-small} {
+		}
+	}
+}
+
+.hr {
+	border-bottom: 1px solid rgba(139, 136, 136, 0.2);
+
+	@media #{$screen-large} {
+		margin-bottom: large(25);
+	}
+
+	@media #{$screen-medium-up} {
+		margin-bottom: 25px;
+	}
+
+	@media #{$screen-medium-down} {
+		margin-bottom: medium-down(25);
+	}
+
+	@media #{$screen-small} {
+	}
+}
+
+.saidebarList {
+	list-style-type: none;
+}
+
+.saidebarListItem {
+	@media #{$screen-large} {
+		margin: large(10) 0;
+	}
+
+	@media #{$screen-medium-up} {
+		margin: 10px 0;
+	}
+
+	@media #{$screen-medium-down} {
+		margin: medium-down(10) 0;
+	}
+
+	@media #{$screen-small} {
+	}
+
+	a {
+		display: flex;
+		align-items: center;
+		text-decoration: none;
+		cursor: pointer;
+		color: #444;
+
+		@media #{$screen-large} {
+			padding: large(5) large(10);
+			font-size: large(16);
+		}
+
+		@media #{$screen-medium-up} {
+			padding: 5px 10px;
+			font-size: 16px;
+		}
+
+		@media #{$screen-medium-down} {
+			padding: medium-down(5) medium-down(10);
+			font-size: medium-down(16);
+		}
+
+		@media #{$screen-small} {
+		}
+
+		svg {
+			@media #{$screen-large} {
+				font-size: large(24);
+				margin-right: large(8);
+			}
+
+			@media #{$screen-medium-up} {
+				font-size: 24px;
+				margin-right: 8px;
+			}
+
+			@media #{$screen-medium-down} {
+				font-size: medium-down(24);
+				margin-right: medium-down(8);
+			}
+
+			@media #{$screen-small} {
+			}
+		}
+
+		&:hover {
+			background: rgba(103, 58, 183, 0.1);
+
+			@media #{$screen-large} {
+				border-radius: large(3);
+			}
+
+			@media #{$screen-medium-up} {
+				border-radius: 3px;
+			}
+
+			@media #{$screen-medium-down} {
+				border-radius: medium-down(3);
+			}
+
+			@media #{$screen-small} {
+			}
+		}
+	}
+}

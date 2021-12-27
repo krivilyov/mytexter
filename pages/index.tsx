@@ -1,14 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { GetServerSideProps } from "next";
-
-interface UserDocument {
-	id: string;
-	email: string;
-	role: string;
-	iat: number;
-	exp: number;
-}
+import { UserDocument } from "../interfaces/interfaces";
 
 interface HomeProps {
 	user?: UserDocument;
