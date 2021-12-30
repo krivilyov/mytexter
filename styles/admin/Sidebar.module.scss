@@ -18,8 +18,8 @@ $screen-large: "(min-width: 1800px)";
 
 .sidebar {
 	display: flex;
-	height: 100%;
-	position: fixed;
+	height: 100vh;
+	position: sticky;
 	top: 0;
 	left: 0;
 	background-color: rgb(251, 251, 255);
@@ -298,5 +298,24 @@ $screen-large: "(min-width: 1800px)";
 			@media #{$screen-small} {
 			}
 		}
+	}
+}
+
+.active {
+	background: rgba(103, 58, 183, 0.1);
+
+	@media #{$screen-large} {
+		border-radius: large(3);
+	}
+
+	@media #{$screen-medium-up} {
+		border-radius: 3px;
+	}
+
+	@media #{$screen-medium-down} {
+		border-radius: medium-down(3);
+	}
+
+	@media #{$screen-small} {
 	}
 }

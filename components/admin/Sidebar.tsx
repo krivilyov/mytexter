@@ -54,7 +54,11 @@ const Sidebar = (props: SidebarProps) => {
 				</div>
 				<div className={styles.hr}></div>
 				<ul className={styles.saidebarList}>
-					<li className={styles.saidebarListItem}>
+					<li
+						className={`${styles.saidebarListItem} ${
+							router.pathname == "/admin/users" ? styles.active : ""
+						}`}
+					>
 						<Link href="/admin/users">
 							<a>
 								<ManageAccountsIcon />
