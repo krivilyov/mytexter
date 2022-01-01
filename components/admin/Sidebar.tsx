@@ -56,7 +56,7 @@ const Sidebar = (props: SidebarProps) => {
 				<ul className={styles.saidebarList}>
 					<li
 						className={`${styles.saidebarListItem} ${
-							router.pathname == "/admin/users" ? styles.active : ""
+							router.pathname.indexOf("user") !== -1 ? styles.active : ""
 						}`}
 					>
 						<Link href="/admin/users">

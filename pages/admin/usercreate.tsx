@@ -1,20 +1,17 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Sidebar from "../../components/admin/Sidebar";
-import UserList from "../../components/admin/UserList";
-import { GetServerSideProps } from "next";
 import { UserDocument } from "../../interfaces/interfaces";
-import { UsersData } from "../../interfaces/interfaces";
+import { GetServerSideProps } from "next";
+import styles from "../../styles/admin/UserCreate.module.scss";
+import CreateUser from "../../components/admin/CreateUser";
 
-import styles from "../../styles/admin/Users.module.scss";
-
-interface UsersProps {
+interface UserCreateProps {
 	user: UserDocument;
-	users: UsersData[];
 }
 
-const Users: NextPage<UsersProps> = (props) => {
-	const { user, users } = props;
+const UserCreate: NextPage<UserCreateProps> = (props) => {
+	const { user } = props;
 
 	return (
 		<>
@@ -25,14 +22,14 @@ const Users: NextPage<UsersProps> = (props) => {
 			<div className={styles.container}>
 				<Sidebar user={user} />
 				<div className={styles.rightColumn}>
-					<UserList users={users} />
+					<CreateUser />
 				</div>
 			</div>
 		</>
 	);
 };
 
-export default Users;
+export default UserCreate;
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 	const token = req.cookies.token || "";

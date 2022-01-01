@@ -16,25 +16,6 @@ $screen-large: "(min-width: 1800px)";
 	@return calc($value / $size * 100vw);
 }
 
-.userList {
-	@media #{$screen-large} {
-		width: large(290);
-		width: calc(100vw - large(290));
-	}
-
-	@media #{$screen-medium-up} {
-		width: 290px;
-		width: calc(100vw - 290px);
-	}
-
-	@media #{$screen-medium-down} {
-		width: calc(100vw - medium-down(290));
-	}
-
-	@media #{$screen-small} {
-	}
-}
-
 .createUserContainer {
 	display: flex;
 	justify-content: flex-end;
@@ -52,5 +33,132 @@ $screen-large: "(min-width: 1800px)";
 	}
 
 	@media #{$screen-small} {
+	}
+}
+
+.root {
+	@media #{$screen-large} {
+		font-size: large(16);
+	}
+
+	@media #{$screen-medium-up} {
+		font-size: 16px;
+	}
+
+	@media #{$screen-medium-down} {
+		font-size: medium-down(16);
+	}
+
+	@media #{$screen-small} {
+	}
+}
+
+.userAvatar {
+	@media #{$screen-large} {
+		width: large(40);
+		height: large(40);
+		margin-right: large(20);
+	}
+
+	@media #{$screen-medium-up} {
+		width: 40px;
+		height: 40px;
+		margin-right: 20px;
+	}
+
+	@media #{$screen-medium-down} {
+		width: medium-down(40);
+		height: medium-down(40);
+		margin-right: 20px;
+	}
+
+	@media #{$screen-small} {
+	}
+}
+
+.userAvatarImage {
+	border-radius: 50%;
+}
+
+.userInfo {
+	display: flex;
+	align-items: center;
+
+	@media #{$screen-large} {
+	}
+
+	@media #{$screen-medium-up} {
+	}
+
+	@media #{$screen-medium-down} {
+	}
+
+	@media #{$screen-small} {
+	}
+}
+
+.actionContainer {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	width: 100%;
+}
+
+.actionDeleteIcon {
+	display: flex;
+	cursor: pointer;
+
+	@media #{$screen-large} {
+		margin-left: large(15);
+	}
+
+	@media #{$screen-medium-up} {
+		margin-left: 15px;
+	}
+
+	@media #{$screen-medium-down} {
+		margin-left: medium-down(15);
+	}
+
+	@media #{$screen-small} {
+	}
+
+	svg {
+		@media #{$screen-large} {
+			font-size: large(22);
+		}
+
+		@media #{$screen-medium-up} {
+			font-size: 22px;
+		}
+
+		@media #{$screen-medium-down} {
+			font-size: medium-down(22);
+		}
+
+		@media #{$screen-small} {
+		}
+	}
+}
+
+.userEditLink {
+	display: flex;
+	color: #2979ff;
+
+	svg {
+		@media #{$screen-large} {
+			font-size: large(22);
+		}
+
+		@media #{$screen-medium-up} {
+			font-size: 22px;
+		}
+
+		@media #{$screen-medium-down} {
+			font-size: medium-down(22);
+		}
+
+		@media #{$screen-small} {
+		}
 	}
 }

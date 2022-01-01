@@ -44,15 +44,15 @@ $screen-large: "(min-width: 1800px)";
 	width: 100%;
 
 	@media #{$screen-large} {
-		padding: large(30);
+		padding: large(40) large(30) large(30);
 	}
 
 	@media #{$screen-medium-up} {
-		padding: 30px;
+		padding: 40px 30px 30px;
 	}
 
 	@media #{$screen-medium-down} {
-		padding: medium-down(30);
+		padding: medium-down(40) medium-down(30) medium-down(30);
 	}
 
 	@media #{$screen-small} {
