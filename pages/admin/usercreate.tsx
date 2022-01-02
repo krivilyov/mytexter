@@ -4,7 +4,7 @@ import Sidebar from "../../components/admin/Sidebar";
 import { UserDocument } from "../../interfaces/interfaces";
 import { GetServerSideProps } from "next";
 import styles from "../../styles/admin/UserCreate.module.scss";
-import CreateUser from "../../components/admin/CreateUser";
+import UserDataForm from "../../components/admin/UserDataForm";
 
 interface UserCreateProps {
 	user: UserDocument;
@@ -22,7 +22,10 @@ const UserCreate: NextPage<UserCreateProps> = (props) => {
 			<div className={styles.container}>
 				<Sidebar user={user} />
 				<div className={styles.rightColumn}>
-					<CreateUser />
+					<div className={styles.wrapper}>
+						<h1>New User</h1>
+						<UserDataForm user={user} />
+					</div>
 				</div>
 			</div>
 		</>
@@ -43,6 +46,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
 		if (res.ok) {
 			user = await res.json();
+			user.token = token;
 		}
 	}
 

@@ -5,7 +5,6 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import { UserDocument } from "../../interfaces/interfaces";
 import React from "react";
-import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import axios from "axios";
 

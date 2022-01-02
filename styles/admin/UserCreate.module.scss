@@ -20,6 +20,54 @@ $screen-large: "(min-width: 1800px)";
 	display: flex;
 }
 
+.wrapper {
+	background-color: #fff;
+
+	@media #{$screen-large} {
+		margin: large(20);
+		padding: large(20);
+		box-shadow: 0px 0px large(15) large(-10) rgba(0, 0, 0, 0.75);
+	}
+
+	@media #{$screen-medium-up} {
+		margin: 20px;
+		padding: 20px;
+		box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+	}
+
+	@media #{$screen-medium-down} {
+		margin: medium-down(20);
+		padding: medium-down(20);
+		box-shadow: 0px 0px medium-down(15) medium-down(-10) rgba(0, 0, 0, 0.75);
+	}
+
+	@media #{$screen-small} {
+	}
+
+	h1 {
+		@media #{$screen-large} {
+			font-size: large(24);
+			line-height: large(28);
+			margin-bottom: large(30);
+		}
+
+		@media #{$screen-medium-up} {
+			font-size: 24px;
+			line-height: 28px;
+			margin-bottom: 30px;
+		}
+
+		@media #{$screen-medium-down} {
+			font-size: medium-down(24);
+			line-height: medium-down(28);
+			margin-bottom: medium-down(30);
+		}
+
+		@media #{$screen-small} {
+		}
+	}
+}
+
 .rightColumn {
 	@media #{$screen-large} {
 		width: large(290);

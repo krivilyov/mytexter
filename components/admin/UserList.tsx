@@ -15,6 +15,9 @@ const columns: GridColDef[] = [
 		headerName: "User name",
 		flex: 3,
 		renderCell: (params) => {
+			const src = params.row.avatar
+				? params.row.avatar
+				: "/images/empty_avatar.jpg";
 			return (
 				<div className={styles.userInfo}>
 					<div className={styles.userAvatar}>
@@ -96,7 +99,7 @@ const UserList = (props: UserListProps) => {
 			users.map((user, index) => {
 				container[index] = createData(
 					user.id,
-					"",
+					user.avatar ? `http://localhost:8000/${user.avatar}` : "",
 					`${user.name}`,
 					`${user.email}`,
 					`${user.role}`
@@ -121,8 +124,8 @@ const UserList = (props: UserListProps) => {
 			<DataGrid
 				rows={rows}
 				columns={columns}
-				pageSize={10}
-				rowsPerPageOptions={[10, 25, 50]}
+				pageSize={15}
+				rowsPerPageOptions={[15, 25, 50]}
 				checkboxSelection
 				className={styles.root}
 			/>

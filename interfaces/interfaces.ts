@@ -5,11 +5,13 @@ export interface UserDocument {
 	role: string;
 	iat: number;
 	exp: number;
+	avatar: string;
+	token?: string;
 }
 
 export interface UsersData {
 	id: number;
-	avatar: string;
+	avatar: File;
 	name: string;
 	email: string;
 	role: string;
