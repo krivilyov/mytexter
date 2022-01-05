@@ -62,7 +62,7 @@ const Login: NextPage = () => {
 		if (!emailError && !passwordError) {
 			axios
 				.post(
-					`${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
+					`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`,
 					{
 						email: values.email,
 						password: values.password,

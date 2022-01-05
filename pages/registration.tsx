@@ -62,7 +62,7 @@ const Registration: NextPage = () => {
 		if (!nameError && !emailError && !passwordError) {
 			axios
 				.post(
-					`${process.env.NEXT_PUBLIC_API_URL}/auth/registration`,
+					`${process.env.NEXT_PUBLIC_API_URL}/api/auth/registration`,
 					{
 						name: values.name,
 						email: values.email,
@@ -166,9 +166,12 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 	let user = null;
 
 	if (token) {
-		const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/profile`, {
-			headers: { Authorization: `Bearer ${token}` },
-		});
+		const res = await fetch(
+			`${process.env.NEXT_PUBLIC_API_URL}/api/auth/profile`,
+			{
+				headers: { Authorization: `Bearer ${token}` },
+			}
+		);
 
 		if (res.ok) {
 			user = await res.json();

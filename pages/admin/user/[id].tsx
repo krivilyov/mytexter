@@ -1,17 +1,18 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Sidebar from "../../components/admin/Sidebar";
-import { UserDocument } from "../../interfaces/interfaces";
+import Sidebar from "../../../components/admin/Sidebar";
+import { UserDocument } from "../../../interfaces/interfaces";
 import { GetServerSideProps } from "next";
-import styles from "../../styles/admin/UserCreate.module.scss";
-import UserCreateForm from "../../components/admin/UserCreateForm";
+import styles from "../../../styles/admin/UserUpdate.module.scss";
+import UserUpdateForm from "../../../components/admin/UserUpdateForm";
 
-interface UserCreateProps {
+interface UserUpdateProps {
 	user: UserDocument;
+	currentUser: UserDocument;
 }
 
-const UserCreate: NextPage<UserCreateProps> = (props) => {
-	const { user } = props;
+const UserUpdate: NextPage<UserUpdateProps> = (props) => {
+	const { user, currentUser } = props;
 
 	return (
 		<>
@@ -24,7 +25,7 @@ const UserCreate: NextPage<UserCreateProps> = (props) => {
 				<div className={styles.rightColumn}>
 					<div className={styles.wrapper}>
 						<h1>New User</h1>
-						<UserCreateForm user={user} />
+						<UserUpdateForm user={user} currentUser={currentUser} />
 					</div>
 				</div>
 			</div>
@@ -32,12 +33,15 @@ const UserCreate: NextPage<UserCreateProps> = (props) => {
 	);
 };
 
-export default UserCreate;
+export default UserUpdate;
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+	req,
+	query,
+}) => {
 	const token = req.cookies.token || "";
 	let user = null;
-	let users = [];
+	let currentUser = null;
 
 	if (token) {
 		const res = await fetch(
@@ -62,19 +66,22 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 		};
 	}
 
-	//get users list
-	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users`, {
-		headers: { Authorization: `Bearer ${token}` },
-	});
+	//get updating user
+	const res = await fetch(
+		`${process.env.NEXT_PUBLIC_API_URL}/api/user/${query.id}`,
+		{
+			headers: { Authorization: `Bearer ${token}` },
+		}
+	);
 
 	if (res.ok) {
-		users = await res.json();
+		currentUser = await res.json();
 	}
 
 	return {
 		props: {
 			user: user,
-			users: users,
+			currentUser: currentUser,
 		},
 	};
 };

@@ -1,11 +1,11 @@
-import styles from "../../styles/admin/UserDataForm.module.scss";
+import styles from "../../styles/admin/UserCreateForm.module.scss";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import React, { FocusEventHandler, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Button from "@mui/material/Button";
 import DownloadIcon from "@mui/icons-material/Download";
@@ -15,11 +15,11 @@ import { errors } from "../../lib/messages";
 import axios from "axios";
 import { useRouter } from "next/router";
 
-interface UserDataFormProps {
+interface UserCreateFormProps {
 	user: UserDocument;
 }
 
-const UserDataForm = (props: UserDataFormProps) => {
+const UserCreateForm = (props: UserCreateFormProps) => {
 	const { user } = props;
 	const router = useRouter();
 
@@ -58,10 +58,47 @@ const UserDataForm = (props: UserDataFormProps) => {
 		}
 	}, [image]);
 
+	const formValidate = (): boolean => {
+		let validateName = true;
+		let validateEmail = true;
+		let validatePassword = true;
+
+		//validate name
+		const filterName = /[a-zA-Z][a-zA-Z0-9-_]{3,10}/;
+		if (!filterName.test(String(values.name).toLowerCase())) {
+			validateName = false;
+			setNameError(errors.name.wrong);
+		} else setNameError(null);
+
+		//validate email
+		const filterEmail =
+			/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+		if (!filterEmail.test(String(values.email).toLowerCase())) {
+			validateEmail = false;
+			setEmailError(errors.email.wrong);
+		} else setEmailError(null);
+
+		//validate password
+		const filterPassword =
+			/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,12}$/;
+		if (!filterPassword.test(String(values.password).toLowerCase())) {
+			validatePassword = false;
+			setPasswordError(errors.password.wrong);
+		} else setPasswordError(null);
+
+		if (validateName && validateEmail && validatePassword) {
+			return true;
+		} else {
+			return false;
+		}
+	};
+
 	const handleFormSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-		console.log(values, image);
-		if (!nameError && !emailError && !passwordError) {
+
+		const validate = formValidate();
+
+		if (validate) {
 			const data = new FormData();
 			const file = image ? image : "";
 			data.append("name", values.name);
@@ -71,7 +108,7 @@ const UserDataForm = (props: UserDataFormProps) => {
 			data.append("file", file);
 
 			axios
-				.post(`${process.env.NEXT_PUBLIC_API_URL}/user`, data, {
+				.post(`${process.env.NEXT_PUBLIC_API_URL}/api/user`, data, {
 					headers: {
 						Authorization: `Bearer ${user.token}`,
 					},
@@ -80,9 +117,20 @@ const UserDataForm = (props: UserDataFormProps) => {
 				.then((res) => router.push("/admin/users"))
 				.catch((error) => {
 					if (error.response) {
-						console.log(error.response);
+						handleErrorForm(error.response.data);
 					}
 				});
+		}
+	};
+
+	interface Errors {
+		email: string;
+		password: string;
+	}
+
+	const handleErrorForm = (errors: Errors) => {
+		if (errors.email) {
+			setEmailError(errors.email);
 		}
 	};
 
@@ -200,7 +248,7 @@ const UserDataForm = (props: UserDataFormProps) => {
 										typeof e.target.files?.length !== "undefined"
 											? e.target.files[0]
 											: null;
-									console.log(e.target.files);
+
 									if (file && file.type.substr(0, 5) === "image") {
 										setImage(file);
 										setValues({ ...values, [e.target.name]: file });
@@ -219,4 +267,4 @@ const UserDataForm = (props: UserDataFormProps) => {
 	);
 };
 
-export default UserDataForm;
+export default UserCreateForm;

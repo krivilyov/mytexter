@@ -24,9 +24,12 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 	let user = null;
 
 	if (token) {
-		const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/profile`, {
-			headers: { Authorization: `Bearer ${token}` },
-		});
+		const res = await fetch(
+			`${process.env.NEXT_PUBLIC_API_URL}/api/auth/profile`,
+			{
+				headers: { Authorization: `Bearer ${token}` },
+			}
+		);
 
 		if (res.ok) {
 			user = await res.json();

@@ -44,19 +44,19 @@ $screen-large: "(min-width: 1800px)";
 		@media #{$screen-large} {
 			font-size: large(24);
 			line-height: large(28);
-			margin-bottom: large(30);
+			margin-bottom: large(15);
 		}
 
 		@media #{$screen-medium-up} {
 			font-size: 24px;
 			line-height: 28px;
-			margin-bottom: 30px;
+			margin-bottom: 15px;
 		}
 
 		@media #{$screen-medium-down} {
 			font-size: medium-down(24);
 			line-height: medium-down(28);
-			margin-bottom: medium-down(30);
+			margin-bottom: medium-down(15);
 		}
 
 		@media #{$screen-small} {
@@ -68,6 +68,21 @@ $screen-large: "(min-width: 1800px)";
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+
+	@media #{$screen-large} {
+		padding-top: large(15);
+	}
+
+	@media #{$screen-medium-up} {
+		padding-top: 15px;
+	}
+
+	@media #{$screen-medium-down} {
+		padding-top: medium-down(15);
+	}
+
+	@media #{$screen-small} {
+	}
 }
 
 .formContainer {

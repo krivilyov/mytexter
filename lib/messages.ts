@@ -9,5 +9,9 @@ export const errors = {
 	password: {
 		wrong:
 			"Password should be 8-20 characters and include at least 1 letter, 1 number and 1 special character.",
+		empty: "Password shouldn't be empty",
+	},
+	confirmPassword: {
+		wrong: "Field 'Confirm Password' does not match the password",
 	},
 };

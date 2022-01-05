@@ -40,9 +40,12 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 	let users = [];
 
 	if (token) {
-		const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/profile`, {
-			headers: { Authorization: `Bearer ${token}` },
-		});
+		const res = await fetch(
+			`${process.env.NEXT_PUBLIC_API_URL}/api/auth/profile`,
+			{
+				headers: { Authorization: `Bearer ${token}` },
+			}
+		);
 
 		if (res.ok) {
 			user = await res.json();
@@ -59,7 +62,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 	}
 
 	//get users list
-	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
+	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users`, {
 		headers: { Authorization: `Bearer ${token}` },
 	});
 

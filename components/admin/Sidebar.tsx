@@ -22,7 +22,7 @@ const Sidebar = (props: SidebarProps) => {
 
 		axios
 			.post(
-				`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`,
+				`${process.env.NEXT_PUBLIC_API_URL}/api/auth/logout`,
 				{},
 				{
 					withCredentials: true,
