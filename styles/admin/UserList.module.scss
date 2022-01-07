@@ -37,6 +37,8 @@ $screen-large: "(min-width: 1800px)";
 }
 
 .root {
+	height: 100vh;
+
 	@media #{$screen-large} {
 		font-size: large(16);
 	}

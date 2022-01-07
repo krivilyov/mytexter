@@ -25,7 +25,7 @@ const Users: NextPage<UsersProps> = (props) => {
 			<div className={styles.container}>
 				<Sidebar user={user} />
 				<div className={styles.rightColumn}>
-					<UserList users={users} />
+					<UserList users={users} user={user} />
 				</div>
 			</div>
 		</>
@@ -49,6 +49,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
 		if (res.ok) {
 			user = await res.json();
+			user.token = token;
 		}
 	}
 

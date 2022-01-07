@@ -7,38 +7,82 @@ import Image from "next/image";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import AlertDialog from "../admin/AlertDialog";
+import axios from "axios";
+import { UserDocument } from "../../interfaces/interfaces";
 
 interface UserListProps {
 	users: UsersData[];
+	user: UserDocument;
 }
 
 const UserList = (props: UserListProps) => {
-	const { users } = props;
+	const { users, user } = props;
 
 	const [usersData, setUsersData] = useState(users);
+	const [alertDialogValues, setAlertDialogValues] = useState({
+		open: false,
+		title: "",
+		message: "",
+		userId: "",
+	});
+	const [canDeleteValues, setCanDeleteValues] = useState({
+		access: false,
+		id: "",
+	});
 
-	const handleDelete = (id: string) => {};
-
-	const getRows = (usersData: UsersData[]) => {
-		const container: Data[] = [];
-
-		if (usersData.length > 0) {
-			users.map((user, index) => {
-				container[index] = createData(
-					user.id,
-					user.avatar ? `http://localhost:8000/${user.avatar}` : "",
-					`${user.name}`,
-					`${user.email}`,
-					`${user.role}`
-				);
-			});
-		}
-
-		return container;
+	const handleDelete = (id: string) => {
+		setAlertDialogValues({
+			open: true,
+			title: `Delete user ID: ${id}`,
+			message: "Are you sure you want to delete this user?",
+			userId: id,
+		});
 	};
 
-	const rows = getRows(usersData);
+	const getUsers = (token?: string) => {
+		axios
+			.get(`${process.env.NEXT_PUBLIC_API_URL}/api/users`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+				withCredentials: true,
+			})
+			.then((res) => {
+				const updatedUsers = res.data;
+				setUsersData(updatedUsers);
+			})
+			.catch((error) => {
+				if (error.response) {
+					console.log(error.response);
+				}
+			});
+	};
+
+	useEffect(() => {
+		if (canDeleteValues.id) {
+			axios
+				.delete(
+					`${process.env.NEXT_PUBLIC_API_URL}/api/user/${canDeleteValues.id}`,
+					{
+						headers: {
+							Authorization: `Bearer ${user.token}`,
+						},
+						withCredentials: true,
+					}
+				)
+				.then((res) => {
+					getUsers(user.token);
+					setAlertDialogValues({ ...alertDialogValues, open: false });
+				})
+				.catch((error) => {
+					if (error.response) {
+						console.log(error.response);
+					}
+				});
+		}
+	}, [canDeleteValues.id]);
 
 	const columns: GridColDef[] = [
 		{ field: "id", type: "number", headerName: "ID", flex: 1, align: "center" },
@@ -47,9 +91,6 @@ const UserList = (props: UserListProps) => {
 			headerName: "User name",
 			flex: 3,
 			renderCell: (params) => {
-				const src = params.row.avatar
-					? params.row.avatar
-					: "/images/empty_avatar.jpg";
 				return (
 					<div className={styles.userInfo}>
 						<div className={styles.userAvatar}>
@@ -57,7 +98,7 @@ const UserList = (props: UserListProps) => {
 								className={styles.userAvatarImage}
 								src={
 									params.row.avatar
-										? params.row.avatar
+										? `http://localhost:8000/${params.row.avatar}`
 										: "/images/empty_avatar.jpg"
 								}
 								alt="user avatar"
@@ -97,30 +138,6 @@ const UserList = (props: UserListProps) => {
 		},
 	];
 
-	interface Data {
-		id: number;
-		avatar: string;
-		name: string;
-		email: string;
-		role: string;
-	}
-
-	function createData(
-		id: number,
-		avatar: string,
-		name: string,
-		email: string,
-		role: string
-	): Data {
-		return {
-			id,
-			avatar,
-			name,
-			email,
-			role,
-		};
-	}
-
 	return (
 		<>
 			<div className={styles.createUserContainer}>
@@ -131,12 +148,17 @@ const UserList = (props: UserListProps) => {
 				</Link>
 			</div>
 			<DataGrid
-				rows={rows}
+				rows={usersData}
 				columns={columns}
 				pageSize={15}
 				rowsPerPageOptions={[15, 25, 50]}
-				// checkboxSelection
 				className={styles.root}
+			/>
+			<AlertDialog
+				alertDialogValues={alertDialogValues}
+				setAlertDialogValues={setAlertDialogValues}
+				canDeleteValues={canDeleteValues}
+				setCanDeleteValues={setCanDeleteValues}
 			/>
 		</>
 	);
