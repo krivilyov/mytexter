@@ -26,3 +26,9 @@ export interface TopicsData {
 	alias: string;
 	title: string;
 }
+
+export interface LevelsData {
+	id: number;
+	alias: string;
+	title: string;
+}

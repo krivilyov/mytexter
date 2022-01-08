@@ -1,41 +1,39 @@
-import type { NextPage } from "next";
 import Head from "next/head";
 import Sidebar from "../../components/admin/Sidebar";
-import { UserDocument, TopicsData } from "../../interfaces/interfaces";
-import styles from "../../styles/admin/PageWithList.module.scss";
 import { GetServerSideProps } from "next";
-import TopicList from "../../components/admin/topic/TopicList";
+import { UserDocument, LevelsData } from "../../interfaces/interfaces";
 
-interface TopicsProps {
+import styles from "../../styles/admin/PageWithList.module.scss";
+import LevelList from "../../components/admin/level/LevelList";
+
+type LevelsProps = {
 	user: UserDocument;
-	topics: TopicsData[];
-}
+	levels: LevelsData[];
+};
 
-const Topics: NextPage<TopicsProps> = (props) => {
-	const { user, topics } = props;
+export default function Levels(props: LevelsProps) {
+	const { user, levels } = props;
 
 	return (
 		<>
 			<Head>
-				<title>Topics</title>
+				<title>Language level</title>
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 			</Head>
 			<div className={styles.container}>
 				<Sidebar user={user} />
 				<div className={styles.rightColumn}>
-					<TopicList user={user} topics={topics} />
+					<LevelList user={user} levels={levels} />
 				</div>
 			</div>
 		</>
 	);
-};
-
-export default Topics;
+}
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 	const token = req.cookies.token || "";
 	let user = null;
-	let topics = null;
+	let levels = null;
 
 	if (token) {
 		const res = await fetch(
@@ -60,19 +58,19 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 		};
 	}
 
-	//get topics
-	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/topics`, {
+	//get levels
+	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/levels`, {
 		headers: { Authorization: `Bearer ${token}` },
 	});
 
 	if (res.ok) {
-		topics = await res.json();
+		levels = await res.json();
 	}
 
 	return {
 		props: {
 			user: user,
-			topics: topics,
+			levels: levels,
 		},
 	};
 };

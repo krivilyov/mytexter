@@ -6,7 +6,7 @@ import { GetServerSideProps } from "next";
 import { UserDocument } from "../../interfaces/interfaces";
 import { UsersData } from "../../interfaces/interfaces";
 
-import styles from "../../styles/admin/Users.module.scss";
+import styles from "../../styles/admin/PageWithList.module.scss";
 
 interface UsersProps {
 	user: UserDocument;

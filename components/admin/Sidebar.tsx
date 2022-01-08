@@ -3,6 +3,7 @@ import styles from "../../styles/admin/Sidebar.module.scss";
 
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import SchoolIcon from "@mui/icons-material/School";
 import TopicIcon from "@mui/icons-material/Topic";
 import { UserDocument } from "../../interfaces/interfaces";
 import React from "react";
@@ -75,6 +76,18 @@ const Sidebar = (props: SidebarProps) => {
 							<a>
 								<TopicIcon />
 								Topics
+							</a>
+						</Link>
+					</li>
+					<li
+						className={`${styles.saidebarListItem} ${
+							router.pathname.indexOf("level") !== -1 ? styles.active : ""
+						}`}
+					>
+						<Link href="/admin/levels">
+							<a>
+								<SchoolIcon />
+								Language levels
 							</a>
 						</Link>
 					</li>
