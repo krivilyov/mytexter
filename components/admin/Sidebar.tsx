@@ -3,6 +3,7 @@ import styles from "../../styles/admin/Sidebar.module.scss";
 
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import TopicIcon from "@mui/icons-material/Topic";
 import { UserDocument } from "../../interfaces/interfaces";
 import React from "react";
 import { useRouter } from "next/router";
@@ -62,6 +63,18 @@ const Sidebar = (props: SidebarProps) => {
 							<a>
 								<ManageAccountsIcon />
 								Users
+							</a>
+						</Link>
+					</li>
+					<li
+						className={`${styles.saidebarListItem} ${
+							router.pathname.indexOf("topic") !== -1 ? styles.active : ""
+						}`}
+					>
+						<Link href="/admin/topics">
+							<a>
+								<TopicIcon />
+								Topics
 							</a>
 						</Link>
 					</li>

@@ -1,43 +1,41 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Sidebar from "../../components/admin/Sidebar";
-import { UserDocument } from "../../interfaces/interfaces";
+import { UserDocument, TopicsData } from "../../interfaces/interfaces";
+import styles from "../../styles/admin/topic/Topics.module.scss";
 import { GetServerSideProps } from "next";
-import styles from "../../styles/admin/CreateItemPage.module.scss";
-import UserCreateForm from "../../components/admin/UserCreateForm";
+import TopicList from "../../components/admin/topic/TopicList";
 
-interface UserCreateProps {
+interface TopicsProps {
 	user: UserDocument;
+	topics: TopicsData[];
 }
 
-const UserCreate: NextPage<UserCreateProps> = (props) => {
-	const { user } = props;
+const Topics: NextPage<TopicsProps> = (props) => {
+	const { user, topics } = props;
 
 	return (
 		<>
 			<Head>
-				<title>Users</title>
+				<title>Topics</title>
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 			</Head>
 			<div className={styles.container}>
 				<Sidebar user={user} />
 				<div className={styles.rightColumn}>
-					<div className={styles.wrapper}>
-						<h1>New User</h1>
-						<UserCreateForm user={user} />
-					</div>
+					<TopicList user={user} topics={topics} />
 				</div>
 			</div>
 		</>
 	);
 };
 
-export default UserCreate;
+export default Topics;
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 	const token = req.cookies.token || "";
 	let user = null;
-	let users = [];
+	let topics = null;
 
 	if (token) {
 		const res = await fetch(
@@ -62,19 +60,19 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 		};
 	}
 
-	//get users list
-	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users`, {
+	//get topics
+	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/topics`, {
 		headers: { Authorization: `Bearer ${token}` },
 	});
 
 	if (res.ok) {
-		users = await res.json();
+		topics = await res.json();
 	}
 
 	return {
 		props: {
 			user: user,
-			users: users,
+			topics: topics,
 		},
 	};
 };

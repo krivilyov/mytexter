@@ -9,7 +9,7 @@ type alertDialogValues = {
 	open: boolean;
 	title: string;
 	message: string;
-	userId: string;
+	id: string;
 };
 
 type canDeleteValues = {
@@ -72,7 +72,7 @@ const AlertDialog = (props: AlertDialofProps) => {
 							setCanDeleteValues({
 								...canDeleteValues,
 								access: true,
-								id: alertDialogValues.userId,
+								id: alertDialogValues.id,
 							})
 						}
 					>

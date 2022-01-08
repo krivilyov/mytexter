@@ -20,3 +20,9 @@ export interface UsersData {
 export interface Users {
 	users: UsersData[];
 }
+
+export interface TopicsData {
+	id: number;
+	alias: string;
+	title: string;
+}

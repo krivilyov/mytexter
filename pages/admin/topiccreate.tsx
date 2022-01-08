@@ -1,31 +1,30 @@
 import type { NextPage } from "next";
+import { UserDocument } from "../../interfaces/interfaces";
 import Head from "next/head";
-import Sidebar from "../../../components/admin/Sidebar";
-import { UserDocument } from "../../../interfaces/interfaces";
+import styles from "../../styles/admin/CreateItemPage.module.scss";
+import Sidebar from "../../components/admin/Sidebar";
+import TopicCreateForm from "../../components/admin/topic/TopicCreateForm";
 import { GetServerSideProps } from "next";
-import styles from "../../../styles/admin/UpdateForm.module.scss";
-import UserUpdateForm from "../../../components/admin/UserUpdateForm";
 
-interface UserUpdateProps {
+interface TopicCrteateProps {
 	user: UserDocument;
-	currentUser: UserDocument;
 }
 
-const UserUpdate: NextPage<UserUpdateProps> = (props) => {
-	const { user, currentUser } = props;
+const TopicCrteate: NextPage<TopicCrteateProps> = (props) => {
+	const { user } = props;
 
 	return (
 		<>
 			<Head>
-				<title>Users</title>
+				<title>Create topic</title>
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 			</Head>
 			<div className={styles.container}>
 				<Sidebar user={user} />
 				<div className={styles.rightColumn}>
 					<div className={styles.wrapper}>
-						<h1>New User</h1>
-						<UserUpdateForm user={user} currentUser={currentUser} />
+						<h1>New Topic</h1>
+						<TopicCreateForm user={user} />
 					</div>
 				</div>
 			</div>
@@ -33,15 +32,11 @@ const UserUpdate: NextPage<UserUpdateProps> = (props) => {
 	);
 };
 
-export default UserUpdate;
+export default TopicCrteate;
 
-export const getServerSideProps: GetServerSideProps = async ({
-	req,
-	query,
-}) => {
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 	const token = req.cookies.token || "";
 	let user = null;
-	let currentUser = null;
 
 	if (token) {
 		const res = await fetch(
@@ -66,22 +61,9 @@ export const getServerSideProps: GetServerSideProps = async ({
 		};
 	}
 
-	//get updating user
-	const res = await fetch(
-		`${process.env.NEXT_PUBLIC_API_URL}/api/user/${query.id}`,
-		{
-			headers: { Authorization: `Bearer ${token}` },
-		}
-	);
-
-	if (res.ok) {
-		currentUser = await res.json();
-	}
-
 	return {
 		props: {
 			user: user,
-			currentUser: currentUser,
 		},
 	};
 };

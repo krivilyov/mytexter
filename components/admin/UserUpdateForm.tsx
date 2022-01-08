@@ -38,9 +38,18 @@ const UserUpdateForm = (props: UserUpdateFormProps) => {
 	});
 
 	//alert
-	const [showAlert, setShowAlert] = useState<boolean>(false);
-	const [alertType, setAlertType] = useState<AlertColor>("success");
-	const [alertMessage, setAlertMessage] = useState<string>("");
+	type alertValues = {
+		show: boolean;
+		type: AlertColor;
+		message: string;
+	};
+
+	//alert
+	const [alertValues, setAlertValues] = useState<alertValues>({
+		show: false,
+		type: "success",
+		message: "",
+	});
 
 	//for change email
 	const oldEmail = currentUser.email;
@@ -144,7 +153,7 @@ const UserUpdateForm = (props: UserUpdateFormProps) => {
 	const handleFormSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 		//close alert
-		setShowAlert(false);
+		setAlertValues({ ...alertValues, show: false });
 
 		const validate = formValidate();
 
@@ -171,9 +180,12 @@ const UserUpdateForm = (props: UserUpdateFormProps) => {
 				)
 				.then((res) => {
 					//show success alert
-					setShowAlert(true);
-					setAlertType("success");
-					setAlertMessage("Success!");
+					setAlertValues({
+						...alertValues,
+						show: true,
+						type: "success",
+						message: "Updated success",
+					});
 				})
 				.catch((error) => {
 					if (error.response) {
@@ -189,9 +201,12 @@ const UserUpdateForm = (props: UserUpdateFormProps) => {
 	}
 
 	const handleErrorForm = (errors: Errors) => {
-		setShowAlert(true);
-		setAlertType("error");
-		setAlertMessage(`${errors.email}`);
+		setAlertValues({
+			...alertValues,
+			show: true,
+			type: "error",
+			message: `${errors.email}`,
+		});
 
 		if (errors.email) {
 			setEmailError(errors.email);
@@ -200,11 +215,10 @@ const UserUpdateForm = (props: UserUpdateFormProps) => {
 
 	return (
 		<>
-			{showAlert && (
+			{alertValues.show && (
 				<AlertComponent
-					type={alertType}
-					message={alertMessage}
-					setShowAlert={setShowAlert}
+					alertValues={alertValues}
+					setAlertValues={setAlertValues}
 				/>
 			)}
 			<Box

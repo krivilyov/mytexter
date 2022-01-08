@@ -1,6 +1,4 @@
-import styles from "../../styles/admin/UserList.module.scss";
-import { Button } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
+import styles from "../../styles/admin/MUITable.module.scss";
 import { UsersData } from "../../interfaces/interfaces";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Image from "next/image";
@@ -11,6 +9,7 @@ import { useEffect, useState } from "react";
 import AlertDialog from "../admin/AlertDialog";
 import axios from "axios";
 import { UserDocument } from "../../interfaces/interfaces";
+import CreateItemContainer from "./CreateItemContainer";
 
 interface UserListProps {
 	users: UsersData[];
@@ -25,7 +24,7 @@ const UserList = (props: UserListProps) => {
 		open: false,
 		title: "",
 		message: "",
-		userId: "",
+		id: "",
 	});
 	const [canDeleteValues, setCanDeleteValues] = useState({
 		access: false,
@@ -37,7 +36,7 @@ const UserList = (props: UserListProps) => {
 			open: true,
 			title: `Delete user ID: ${id}`,
 			message: "Are you sure you want to delete this user?",
-			userId: id,
+			id: id,
 		});
 	};
 
@@ -140,13 +139,7 @@ const UserList = (props: UserListProps) => {
 
 	return (
 		<>
-			<div className={styles.createUserContainer}>
-				<Link href="/admin/usercreate">
-					<Button variant="contained" color="success" startIcon={<AddIcon />}>
-						User
-					</Button>
-				</Link>
-			</div>
+			<CreateItemContainer link="/admin/usercreate" btnName="User" />
 			<DataGrid
 				rows={usersData}
 				columns={columns}

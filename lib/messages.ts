@@ -14,4 +14,7 @@ export const errors = {
 	confirmPassword: {
 		wrong: "Field 'Confirm Password' does not match the password",
 	},
+	field: {
+		empty: "Field shouldn't be empty",
+	},
 };

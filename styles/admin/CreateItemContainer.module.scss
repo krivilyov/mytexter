@@ -1,0 +1,37 @@
+$screen-small: "(max-width: 414px)";
+$screen-medium-down: "(min-width: 415px) and (max-width: 1199px)";
+$screen-medium-up: "(min-width: 1200px) and (max-width: 1799px)";
+$screen-medium: "(min-width: 415px) and (max-width: 1799px)";
+$screen-large: "(min-width: 1800px)";
+
+@function large($value) {
+	@return calc($value * 1.25px);
+}
+
+@function medium-down($value, $size: 1200) {
+	@return calc($value / $size * 100vw);
+}
+
+@function small($value, $size: 375) {
+	@return calc($value / $size * 100vw);
+}
+
+.createItemContainer {
+	display: flex;
+	justify-content: flex-end;
+
+	@media #{$screen-large} {
+		margin: large(15) large(30);
+	}
+
+	@media #{$screen-medium-up} {
+		margin: 15px 30px;
+	}
+
+	@media #{$screen-medium-down} {
+		margin: medium-down(15) medium-down(30);
+	}
+
+	@media #{$screen-small} {
+	}
+}

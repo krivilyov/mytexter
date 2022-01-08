@@ -1,31 +1,31 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Sidebar from "../../../components/admin/Sidebar";
-import { UserDocument } from "../../../interfaces/interfaces";
-import { GetServerSideProps } from "next";
+import { UserDocument, TopicsData } from "../../../interfaces/interfaces";
 import styles from "../../../styles/admin/UpdateForm.module.scss";
-import UserUpdateForm from "../../../components/admin/UserUpdateForm";
+import TopicUpdateForm from "../../../components/admin/topic/TopicUpdateForm";
+import { GetServerSideProps } from "next";
 
-interface UserUpdateProps {
+interface TopicUpdateProps {
 	user: UserDocument;
-	currentUser: UserDocument;
+	topic: TopicsData;
 }
 
-const UserUpdate: NextPage<UserUpdateProps> = (props) => {
-	const { user, currentUser } = props;
+const TopicUpdate: NextPage<TopicUpdateProps> = (props) => {
+	const { user, topic } = props;
 
 	return (
 		<>
 			<Head>
-				<title>Users</title>
+				<title>Update topic - {topic.title}</title>
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 			</Head>
 			<div className={styles.container}>
 				<Sidebar user={user} />
 				<div className={styles.rightColumn}>
 					<div className={styles.wrapper}>
-						<h1>New User</h1>
-						<UserUpdateForm user={user} currentUser={currentUser} />
+						<h1>Topic - "{topic.title}"</h1>
+						<TopicUpdateForm user={user} topic={topic} />
 					</div>
 				</div>
 			</div>
@@ -33,7 +33,7 @@ const UserUpdate: NextPage<UserUpdateProps> = (props) => {
 	);
 };
 
-export default UserUpdate;
+export default TopicUpdate;
 
 export const getServerSideProps: GetServerSideProps = async ({
 	req,
@@ -41,7 +41,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 }) => {
 	const token = req.cookies.token || "";
 	let user = null;
-	let currentUser = null;
+	let topic = null;
 
 	if (token) {
 		const res = await fetch(
@@ -66,22 +66,22 @@ export const getServerSideProps: GetServerSideProps = async ({
 		};
 	}
 
-	//get updating user
+	//get topic
 	const res = await fetch(
-		`${process.env.NEXT_PUBLIC_API_URL}/api/user/${query.id}`,
+		`${process.env.NEXT_PUBLIC_API_URL}/api/topic/${query.id}`,
 		{
 			headers: { Authorization: `Bearer ${token}` },
 		}
 	);
 
 	if (res.ok) {
-		currentUser = await res.json();
+		topic = await res.json();
 	}
 
 	return {
 		props: {
 			user: user,
-			currentUser: currentUser,
+			topic: topic,
 		},
 	};
 };
