@@ -32,3 +32,10 @@ export interface LevelsData {
 	alias: string;
 	title: string;
 }
+
+export interface LanguagesData {
+	id: number;
+	alias: string;
+	title: string;
+	isActive: number;
+}

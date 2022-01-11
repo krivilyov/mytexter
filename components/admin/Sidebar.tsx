@@ -5,6 +5,7 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import SchoolIcon from "@mui/icons-material/School";
 import TopicIcon from "@mui/icons-material/Topic";
+import LanguageIcon from "@mui/icons-material/Language";
 import { UserDocument } from "../../interfaces/interfaces";
 import React from "react";
 import { useRouter } from "next/router";
@@ -64,6 +65,18 @@ const Sidebar = (props: SidebarProps) => {
 							<a>
 								<ManageAccountsIcon />
 								Users
+							</a>
+						</Link>
+					</li>
+					<li
+						className={`${styles.saidebarListItem} ${
+							router.pathname.indexOf("language") !== -1 ? styles.active : ""
+						}`}
+					>
+						<Link href="/admin/languages">
+							<a>
+								<LanguageIcon />
+								Languages
 							</a>
 						</Link>
 					</li>
