@@ -55,6 +55,10 @@ $screen-large: "(min-width: 1800px)";
 	}
 }
 
+.imageContainer {
+	display: flex;
+}
+
 .userAvatar {
 	@media #{$screen-large} {
 		width: large(40);

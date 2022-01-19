@@ -37,5 +37,23 @@ export interface LanguagesData {
 	id: number;
 	alias: string;
 	title: string;
+	code: string;
 	isActive: number;
+}
+
+export interface WordsData {
+	id: number;
+	alias: string;
+	title: string;
+	transcription: string;
+	description: string;
+	prem_description: string;
+	is_phrase: boolean;
+	is_active: boolean;
+	image: string;
+	level_id: number;
+	topic_id: number;
+	language_id: number;
+	language: LanguagesData;
+	isClicked?: boolean;
 }

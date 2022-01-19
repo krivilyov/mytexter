@@ -19,9 +19,13 @@ export default function LanguageCreateForm(props: LanguageCreateFormProps) {
 	const { user } = props;
 	const router = useRouter();
 
-	const [title, setTitle] = useState<string>("");
+	const [values, setValues] = useState({
+		title: "",
+		code: "",
+	});
 	const [checked, setChecked] = useState(false);
 	const [titleError, setTitleError] = useState<string | null>(null);
+	const [codeError, setCodeError] = useState<string | null>(null);
 
 	const handleFormSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
@@ -33,7 +37,8 @@ export default function LanguageCreateForm(props: LanguageCreateFormProps) {
 				.post(
 					`${process.env.NEXT_PUBLIC_API_URL}/api/language`,
 					{
-						title: title,
+						title: values.title,
+						code: values.code,
 						isActive: checked ? 1 : 0,
 					},
 					{
@@ -54,17 +59,29 @@ export default function LanguageCreateForm(props: LanguageCreateFormProps) {
 
 	const formValidate = (): boolean => {
 		let validateTitle = true;
-		if (title.length < 1) {
+		let validateCode = true;
+
+		if (values.title.length < 1) {
 			validateTitle = false;
 			setTitleError(errors.field.empty);
 		}
 
-		if (title.length > 0) {
+		if (values.title.length > 0) {
 			validateTitle = true;
 			setTitleError(null);
 		}
 
-		if (validateTitle) {
+		if (values.code.length < 1) {
+			validateCode = false;
+			setCodeError(errors.field.empty);
+		}
+
+		if (values.code.length > 0) {
+			validateCode = true;
+			setCodeError(null);
+		}
+
+		if (validateTitle && validateCode) {
 			return true;
 		} else {
 			return false;
@@ -84,7 +101,7 @@ export default function LanguageCreateForm(props: LanguageCreateFormProps) {
 	const onChange = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) => {
-		setTitle(e.target.value);
+		setValues({ ...values, [e.target.name]: e.target.value.trim() });
 	};
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -108,16 +125,37 @@ export default function LanguageCreateForm(props: LanguageCreateFormProps) {
 					fullWidth
 					onChange={onChange}
 					onBlur={() => {
-						if (title.length < 1) {
+						if (values.title.length < 1) {
 							setTitleError(errors.field.empty);
 						}
 
-						if (title.length > 0) {
+						if (values.title.length > 0) {
 							setTitleError(null);
 						}
 					}}
 					error={titleError ? true : false}
 					helperText={titleError ? titleError : ""}
+				/>
+
+				<TextField
+					className={styles.formGroup}
+					id="code"
+					name="code"
+					label="code"
+					multiline
+					fullWidth
+					onChange={onChange}
+					onBlur={() => {
+						if (values.code.length < 1) {
+							setCodeError(errors.field.empty);
+						}
+
+						if (values.code.length > 0) {
+							setCodeError(null);
+						}
+					}}
+					error={codeError ? true : false}
+					helperText={codeError ? codeError : ""}
 				/>
 
 				<div className={styles.activeContainer}>

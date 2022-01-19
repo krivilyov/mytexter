@@ -22,6 +22,7 @@ const LanguageUpdateForm = (props: LanguageUpdateProps) => {
 
 	const [languageData, setLanguageData] = useState(language);
 	const [titleError, setTitleError] = useState<string | null>(null);
+	const [codeError, setCodeError] = useState<string | null>(null);
 	const [checked, setChecked] = useState(language.isActive ? true : false);
 
 	//alert
@@ -50,6 +51,7 @@ const LanguageUpdateForm = (props: LanguageUpdateProps) => {
 					`${process.env.NEXT_PUBLIC_API_URL}/api/language/${language.id}`,
 					{
 						title: languageData.title,
+						code: languageData.code,
 						isActive: checked ? 1 : 0,
 					},
 					{
@@ -96,6 +98,8 @@ const LanguageUpdateForm = (props: LanguageUpdateProps) => {
 
 	const formValidate = (): boolean => {
 		let validateTitle = true;
+		let validateCode = true;
+
 		if (languageData.title.length < 1) {
 			validateTitle = false;
 			setTitleError(errors.field.empty);
@@ -106,7 +110,17 @@ const LanguageUpdateForm = (props: LanguageUpdateProps) => {
 			setTitleError(null);
 		}
 
-		if (validateTitle) {
+		if (languageData.code.length < 1) {
+			validateCode = false;
+			setCodeError(errors.field.empty);
+		}
+
+		if (languageData.code.length > 0) {
+			validateCode = true;
+			setCodeError(null);
+		}
+
+		if (validateTitle && validateCode) {
 			return true;
 		} else {
 			return false;
@@ -171,6 +185,27 @@ const LanguageUpdateForm = (props: LanguageUpdateProps) => {
 						error={titleError ? true : false}
 						helperText={titleError ? titleError : ""}
 						value={languageData.title}
+					/>
+					<TextField
+						className={styles.formGroup}
+						id="code"
+						name="code"
+						label="code"
+						multiline
+						fullWidth
+						onChange={onChange}
+						onBlur={() => {
+							if (languageData.code.length < 1) {
+								setCodeError(errors.field.empty);
+							}
+
+							if (languageData.code.length > 0) {
+								setCodeError(null);
+							}
+						}}
+						error={codeError ? true : false}
+						helperText={codeError ? codeError : ""}
+						value={languageData.code}
 					/>
 					<div className={styles.activeContainer}>
 						<div className={styles.activeLable}>Is Active</div>

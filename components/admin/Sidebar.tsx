@@ -6,6 +6,7 @@ import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import SchoolIcon from "@mui/icons-material/School";
 import TopicIcon from "@mui/icons-material/Topic";
 import LanguageIcon from "@mui/icons-material/Language";
+import ChromeReaderModeIcon from "@mui/icons-material/ChromeReaderMode";
 import { UserDocument } from "../../interfaces/interfaces";
 import React from "react";
 import { useRouter } from "next/router";
@@ -101,6 +102,18 @@ const Sidebar = (props: SidebarProps) => {
 							<a>
 								<SchoolIcon />
 								Language levels
+							</a>
+						</Link>
+					</li>
+					<li
+						className={`${styles.saidebarListItem} ${
+							router.pathname.indexOf("word") !== -1 ? styles.active : ""
+						}`}
+					>
+						<Link href="/admin/words">
+							<a>
+								<ChromeReaderModeIcon />
+								Words
 							</a>
 						</Link>
 					</li>
