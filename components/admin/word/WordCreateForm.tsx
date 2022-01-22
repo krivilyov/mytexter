@@ -30,6 +30,8 @@ import AddIcon from "@mui/icons-material/Add";
 import axios from "axios";
 import { errors } from "../../../lib/messages";
 import { useRouter } from "next/router";
+import AlertComponent from "../AlertComponent";
+import { AlertColor } from "@mui/material/Alert";
 
 import styles from "../../../styles/admin/word/WordCreateForm.module.scss";
 
@@ -38,10 +40,11 @@ interface WordCreateFormProps {
 	languages: LanguagesData[];
 	topics: TopicsData[];
 	levels: LevelsData[];
+	word?: WordsData;
 }
 
 export default function WordCreateForm(props: WordCreateFormProps) {
-	const { user, languages, topics, levels } = props;
+	const { user, languages, topics, levels, word } = props;
 	const router = useRouter();
 
 	const [image, setImage] = useState<File | null>(null);
@@ -50,21 +53,37 @@ export default function WordCreateForm(props: WordCreateFormProps) {
 	const [search, setSearch] = useState("");
 	const [searchResult, setSearchResult] = useState<WordsData[]>([]);
 	const [showSearchResult, setShowSearchResult] = useState(false);
-	const [translates, setTranslates] = useState<WordsData[]>([]);
+	const [translates, setTranslates] = useState<WordsData[]>(
+		word && word.t_words ? word.t_words : []
+	);
 
 	const searchRef = useRef<HTMLDivElement>(null);
 
 	const [values, setValues] = useState({
-		title: "",
-		transcription: "",
-		language_id: 1,
-		topic_id: 1,
-		level_id: 1,
-		description: "",
-		prem_description: "",
+		title: word ? word.title : "",
+		transcription: word ? word.transcription : "",
+		language_id: word ? word.language_id : 1,
+		topic_id: word ? word.topic_id : 1,
+		level_id: word ? word.level_id : 1,
+		description: word ? word.description : "",
+		prem_description: word ? word.prem_description : "",
 		image: image,
-		is_active: false,
-		is_phrase: false,
+		is_active: word && word.is_active ? true : false,
+		is_phrase: word && word.is_phrase ? true : false,
+	});
+
+	//alert
+	type alertValues = {
+		show: boolean;
+		type: AlertColor;
+		message: string;
+	};
+
+	//alert
+	const [alertValues, setAlertValues] = useState<alertValues>({
+		show: false,
+		type: "success",
+		message: "",
 	});
 
 	const [titleError, setTitleError] = useState<string | null>(null);
@@ -84,6 +103,9 @@ export default function WordCreateForm(props: WordCreateFormProps) {
 	const handleFormSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 
+		//close alert
+		setAlertValues({ ...alertValues, show: false });
+
 		const validate = formValidate();
 
 		if (validate) {
@@ -100,22 +122,61 @@ export default function WordCreateForm(props: WordCreateFormProps) {
 			const is_phrase = values.is_phrase ? "1" : "0";
 			data.append("is_active", is_active);
 			data.append("is_phrase", is_phrase);
-			data.append("translations", "");
+			data.append(
+				"translations",
+				translates && translates.length ? JSON.stringify(translates) : ""
+			);
 			data.append("file", file);
 
-			axios
-				.post(`${process.env.NEXT_PUBLIC_API_URL}/api/word`, data, {
-					headers: {
-						Authorization: `Bearer ${user.token}`,
-					},
-					withCredentials: true,
-				})
-				.then((res) => router.push("/admin/words"))
-				.catch((error) => {
-					if (error.response) {
-						console.log(error.response.data);
-					}
-				});
+			if (word) {
+				axios
+					.put(`${process.env.NEXT_PUBLIC_API_URL}/api/word/${word.id}`, data, {
+						headers: {
+							Authorization: `Bearer ${user.token}`,
+						},
+						withCredentials: true,
+					})
+					.then((res) => {
+						//show success alert
+						setAlertValues({
+							...alertValues,
+							show: true,
+							type: "success",
+							message: "Updated success",
+						});
+					})
+					.catch((error) => {
+						if (error.response) {
+							setAlertValues({
+								...alertValues,
+								show: true,
+								type: "error",
+								// message: `${error.response.data}`,
+								message: "Error 500. We have problem on server",
+							});
+						}
+					});
+			} else {
+				axios
+					.post(`${process.env.NEXT_PUBLIC_API_URL}/api/word`, data, {
+						headers: {
+							Authorization: `Bearer ${user.token}`,
+						},
+						withCredentials: true,
+					})
+					.then((res) => router.push("/admin/words"))
+					.catch((error) => {
+						if (error.response) {
+							setAlertValues({
+								...alertValues,
+								show: true,
+								type: "error",
+								// message: `${error.response.data}`,
+								message: "Error 500. We have problem on server",
+							});
+						}
+					});
+			}
 		}
 	};
 
@@ -220,6 +281,10 @@ export default function WordCreateForm(props: WordCreateFormProps) {
 		}
 	}, [image]);
 
+	useEffect(() => {
+		console.log(translates);
+	}, [values, translates]);
+
 	const handleTranslateItemDelete = (translate: WordsData) => {
 		//delete from translates
 		const index = translates.indexOf(translate);
@@ -234,272 +299,290 @@ export default function WordCreateForm(props: WordCreateFormProps) {
 	};
 
 	return (
-		<Box
-			component="form"
-			className={styles.form}
-			autoComplete="on"
-			onSubmit={handleFormSubmit}
-		>
-			<Box component="div" className={styles.formContainer}>
-				<div className={styles.formColumn}>
-					<TextField
-						className={styles.formGroup}
-						id="title"
-						name="title"
-						label="Title"
-						placeholder="Title"
-						multiline
-						fullWidth
-						onChange={onChange}
-						onBlur={() => {
-							if (values.title.length < 1) {
-								setTitleError(errors.field.empty);
-							}
+		<>
+			{alertValues.show && (
+				<AlertComponent
+					alertValues={alertValues}
+					setAlertValues={setAlertValues}
+				/>
+			)}
+			<Box
+				component="form"
+				className={styles.form}
+				autoComplete="on"
+				onSubmit={handleFormSubmit}
+			>
+				<Box component="div" className={styles.formContainer}>
+					<div className={styles.formColumn}>
+						<TextField
+							className={styles.formGroup}
+							id="title"
+							name="title"
+							label="Title"
+							placeholder="Title"
+							multiline
+							fullWidth
+							onChange={onChange}
+							onBlur={() => {
+								if (values.title.length < 1) {
+									setTitleError(errors.field.empty);
+								}
 
-							if (values.title.length > 0) {
-								setTitleError(null);
-							}
-						}}
-						error={titleError ? true : false}
-						helperText={titleError ? titleError : ""}
-					/>
-					<TextField
-						className={styles.formGroup}
-						id="transcription"
-						name="transcription"
-						label="Transcription"
-						placeholder="Transcription"
-						multiline
-						fullWidth
-						onChange={onChange}
-					/>
+								if (values.title.length > 0) {
+									setTitleError(null);
+								}
+							}}
+							error={titleError ? true : false}
+							helperText={titleError ? titleError : ""}
+							value={values.title}
+						/>
+						<TextField
+							className={styles.formGroup}
+							id="transcription"
+							name="transcription"
+							label="Transcription"
+							placeholder="Transcription"
+							multiline
+							fullWidth
+							onChange={onChange}
+							value={values.transcription}
+						/>
 
-					<div className={styles.translateContainer}>
-						<div className={styles.translateTitle}>Translations</div>
-						<div ref={searchRef} className={styles.translateListContainer}>
-							{translates.length > 0 && (
-								<ul className={styles.translateList}>
-									{translates.map((translate: WordsData) => (
-										<li key={translate.id}>
-											<div>
-												<span className={styles.translateSpanBadge}>
-													{translate.language.code}
-												</span>
-												{translate.title}
-											</div>
-											<div>
-												<DeleteForeverIcon
-													color="error"
-													fontSize="small"
-													onClick={() => handleTranslateItemDelete(translate)}
-												/>
-											</div>
-										</li>
-									))}
-								</ul>
-							)}
-
-							{!isSearchShow ? (
-								<Button
-									variant="contained"
-									color="success"
-									size="small"
-									startIcon={<AddIcon />}
-									onClick={() => setIsSearchShow(true)}
-								>
-									Add
-								</Button>
-							) : (
-								<div className={styles.searchBlockContainer}>
-									<div className={styles.searchBlock}>
-										<input
-											type="text"
-											name="search"
-											value={search}
-											onChange={handleSearch}
-										/>
-										<IconButton
-											color="primary"
-											aria-label="search"
-											onClick={handleSearching}
-										>
-											<SearchIcon />
-										</IconButton>
-									</div>
-									{showSearchResult &&
-										(searchResult.length ? (
-											<ul className={styles.searchResult}>
-												{searchResult.map((word: WordsData) => (
-													<li
-														key={word.id}
-														data-id={word.id}
-														onClick={handleSerchedWordClick}
-														className={
-															word.isClicked ? styles.activeSearchItem : ""
-														}
-													>
-														<span className={styles.translateSpanBadge}>
-															{word.language.code}
-														</span>
-														{word.title}
-													</li>
-												))}
-											</ul>
-										) : (
-											<div>No results</div>
+						<div className={styles.translateContainer}>
+							<div className={styles.translateTitle}>Translations</div>
+							<div ref={searchRef} className={styles.translateListContainer}>
+								{translates.length > 0 && (
+									<ul className={styles.translateList}>
+										{translates.map((translate: WordsData) => (
+											<li key={translate.id}>
+												<div>
+													<span className={styles.translateSpanBadge}>
+														{translate.language.code}
+													</span>
+													{translate.title}
+												</div>
+												<div>
+													<DeleteForeverIcon
+														color="error"
+														fontSize="small"
+														onClick={() => handleTranslateItemDelete(translate)}
+													/>
+												</div>
+											</li>
 										))}
-								</div>
-							)}
-						</div>
-					</div>
+									</ul>
+								)}
 
-					<div className={styles.chekboxContainer}>
-						<div className={styles.formGroup}>
-							<label className={styles.lable} htmlFor="is_active">
-								Is Active
-							</label>
-							<Checkbox
-								id="is_active"
-								name="is_active"
-								checked={values.is_active}
-								onChange={handleChange}
-								inputProps={{ "aria-label": "controlled" }}
-							/>
-						</div>
-						<div className={styles.formGroup}>
-							<label className={styles.lable} htmlFor="is_phrase">
-								Is Phrase
-							</label>
-							<Checkbox
-								id="is_phrase"
-								name="is_phrase"
-								checked={values.is_phrase}
-								onChange={handleChange}
-								inputProps={{ "aria-label": "controlled" }}
-							/>
-						</div>
-					</div>
-					<FormControl className={styles.formGroup} fullWidth>
-						<InputLabel id="language_id">Language</InputLabel>
-						<Select
-							labelId="language_id"
-							id="language_id"
-							name="language_id"
-							value={values.language_id.toString()}
-							label="Language"
-							onChange={onChange}
-						>
-							{languages.map((language) => (
-								<MenuItem key={language.id} value={language.id}>
-									{language.title}
-								</MenuItem>
-							))}
-						</Select>
-					</FormControl>
-
-					<FormControl className={styles.formGroup} fullWidth>
-						<InputLabel id="topic_id">Topic</InputLabel>
-						<Select
-							labelId="topic_id"
-							id="topic_id"
-							name="topic_id"
-							value={values.topic_id.toString()}
-							label="Topic"
-							onChange={onChange}
-						>
-							{topics.map((topic) => (
-								<MenuItem key={topic.id} value={topic.id}>
-									{topic.title}
-								</MenuItem>
-							))}
-						</Select>
-					</FormControl>
-					<FormControl className={styles.formGroup} fullWidth>
-						<InputLabel id="level_id">Language level</InputLabel>
-						<Select
-							labelId="level_id"
-							id="level_id"
-							name="level_id"
-							value={values.level_id.toString()}
-							label="Language level"
-							onChange={onChange}
-						>
-							{levels.map((level) => (
-								<MenuItem key={level.id} value={level.id}>
-									{level.title}
-								</MenuItem>
-							))}
-						</Select>
-					</FormControl>
-
-					<TextField
-						className={styles.formGroup}
-						id="description"
-						label="Description"
-						name="description"
-						placeholder="Description"
-						rows={6}
-						multiline
-						fullWidth
-						onChange={onChange}
-					/>
-
-					<TextField
-						className={styles.formGroup}
-						id="prem_description"
-						label="Premium Description"
-						name="prem_description"
-						placeholder="Description"
-						rows={6}
-						multiline
-						fullWidth
-						onChange={onChange}
-					/>
-				</div>
-				<div className={styles.formColumn}>
-					<div className={styles.imageContainer}>
-						<div className={styles.imageWrapper}>
-							<Image
-								className={styles.image}
-								src={preview ? preview : "/images/no_image.png"}
-								alt="Empty avatar"
-								width={300}
-								height={200}
-							/>
-							<div className={styles.imageDescription}>
-								Image 1000x800px (.jpg/.png)
+								{!isSearchShow ? (
+									<Button
+										variant="contained"
+										color="success"
+										size="small"
+										startIcon={<AddIcon />}
+										onClick={() => setIsSearchShow(true)}
+									>
+										Add
+									</Button>
+								) : (
+									<div className={styles.searchBlockContainer}>
+										<div className={styles.searchBlock}>
+											<input
+												type="text"
+												name="search"
+												value={search}
+												onChange={handleSearch}
+											/>
+											<IconButton
+												color="primary"
+												aria-label="search"
+												onClick={handleSearching}
+											>
+												<SearchIcon />
+											</IconButton>
+										</div>
+										{showSearchResult &&
+											(searchResult.length ? (
+												<ul className={styles.searchResult}>
+													{searchResult.map((word: WordsData) => (
+														<li
+															key={word.id}
+															data-id={word.id}
+															onClick={handleSerchedWordClick}
+															className={
+																word.isClicked ? styles.activeSearchItem : ""
+															}
+														>
+															<span className={styles.translateSpanBadge}>
+																{word.language.code}
+															</span>
+															{word.title}
+														</li>
+													))}
+												</ul>
+											) : (
+												<div>No results</div>
+											))}
+									</div>
+								)}
 							</div>
 						</div>
 
-						<div className={styles.imageDownloadContainer}>
-							<label htmlFor="file">
-								<DownloadIcon className={styles.imageDownloadIcon} />
-							</label>
-							<input
-								type="file"
-								id="file"
-								name="image"
-								accept="image/jpeg,image/png"
-								style={{ display: "none" }}
-								onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-									const file =
-										typeof e.target.files?.length !== "undefined"
-											? e.target.files[0]
-											: null;
+						<div className={styles.chekboxContainer}>
+							<div className={styles.formGroup}>
+								<label className={styles.lable} htmlFor="is_active">
+									Is Active
+								</label>
+								<Checkbox
+									id="is_active"
+									name="is_active"
+									checked={values.is_active}
+									onChange={handleChange}
+									inputProps={{ "aria-label": "controlled" }}
+								/>
+							</div>
+							<div className={styles.formGroup}>
+								<label className={styles.lable} htmlFor="is_phrase">
+									Is Phrase
+								</label>
+								<Checkbox
+									id="is_phrase"
+									name="is_phrase"
+									checked={values.is_phrase}
+									onChange={handleChange}
+									inputProps={{ "aria-label": "controlled" }}
+								/>
+							</div>
+						</div>
+						<FormControl className={styles.formGroup} fullWidth>
+							<InputLabel id="language_id">Language</InputLabel>
+							<Select
+								labelId="language_id"
+								id="language_id"
+								name="language_id"
+								value={values.language_id.toString()}
+								label="Language"
+								onChange={onChange}
+							>
+								{languages.map((language) => (
+									<MenuItem key={language.id} value={language.id}>
+										{language.title}
+									</MenuItem>
+								))}
+							</Select>
+						</FormControl>
 
-									if (file && file.type.substr(0, 5) === "image") {
-										setImage(file);
-										setValues({ ...values, [e.target.name]: file });
+						<FormControl className={styles.formGroup} fullWidth>
+							<InputLabel id="topic_id">Topic</InputLabel>
+							<Select
+								labelId="topic_id"
+								id="topic_id"
+								name="topic_id"
+								value={values.topic_id.toString()}
+								label="Topic"
+								onChange={onChange}
+							>
+								{topics.map((topic) => (
+									<MenuItem key={topic.id} value={topic.id}>
+										{topic.title}
+									</MenuItem>
+								))}
+							</Select>
+						</FormControl>
+						<FormControl className={styles.formGroup} fullWidth>
+							<InputLabel id="level_id">Language level</InputLabel>
+							<Select
+								labelId="level_id"
+								id="level_id"
+								name="level_id"
+								value={values.level_id.toString()}
+								label="Language level"
+								onChange={onChange}
+							>
+								{levels.map((level) => (
+									<MenuItem key={level.id} value={level.id}>
+										{level.title}
+									</MenuItem>
+								))}
+							</Select>
+						</FormControl>
+
+						<TextField
+							className={styles.formGroup}
+							id="description"
+							label="Description"
+							name="description"
+							placeholder="Description"
+							rows={6}
+							multiline
+							fullWidth
+							onChange={onChange}
+							value={values.description}
+						/>
+
+						<TextField
+							className={styles.formGroup}
+							id="prem_description"
+							label="Premium Description"
+							name="prem_description"
+							placeholder="Description"
+							rows={6}
+							multiline
+							fullWidth
+							onChange={onChange}
+							value={values.prem_description}
+						/>
+					</div>
+					<div className={styles.formColumn}>
+						<div className={styles.imageContainer}>
+							<div className={styles.imageWrapper}>
+								<Image
+									className={styles.image}
+									src={
+										preview
+											? preview
+											: word && word.image
+											? `${process.env.NEXT_PUBLIC_API_URL}/${word.image}`
+											: "/images/no_image.png"
 									}
-								}}
-							/>
+									alt="Empty avatar"
+									width={300}
+									height={200}
+								/>
+								<div className={styles.imageDescription}>
+									Image 1000x800px (.jpg/.png)
+								</div>
+							</div>
+
+							<div className={styles.imageDownloadContainer}>
+								<label htmlFor="file">
+									<DownloadIcon className={styles.imageDownloadIcon} />
+								</label>
+								<input
+									type="file"
+									id="file"
+									name="image"
+									accept="image/jpeg,image/png"
+									style={{ display: "none" }}
+									onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+										const file =
+											typeof e.target.files?.length !== "undefined"
+												? e.target.files[0]
+												: null;
+
+										if (file && file.type.substr(0, 5) === "image") {
+											setImage(file);
+											setValues({ ...values, [e.target.name]: file });
+										}
+									}}
+								/>
+							</div>
 						</div>
 					</div>
-				</div>
+				</Box>
+				<Button type="submit" variant="contained" startIcon={<SaveIcon />}>
+					Save
+				</Button>
 			</Box>
-			<Button type="submit" variant="contained" startIcon={<SaveIcon />}>
-				Save
-			</Button>
-		</Box>
+		</>
 	);
 }

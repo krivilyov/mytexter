@@ -9,6 +9,7 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import AlertDialog from "../../admin/AlertDialog";
 import Image from "next/image";
+import axios from "axios";
 
 import styles from "../../../styles/admin/MUITable.module.scss";
 
@@ -41,6 +42,30 @@ export default function WordList(props: WordListProps) {
 			id: id,
 		});
 	};
+
+	useEffect(() => {
+		if (canDeleteValues.id) {
+			axios
+				.delete(
+					`${process.env.NEXT_PUBLIC_API_URL}/api/word/${canDeleteValues.id}`,
+					{
+						headers: {
+							Authorization: `Bearer ${user.token}`,
+						},
+						withCredentials: true,
+					}
+				)
+				.then((res) => {
+					setWordsData(res.data);
+					setAlertDialogValues({ ...alertDialogValues, open: false });
+				})
+				.catch((error) => {
+					if (error.response) {
+						console.log(error.response);
+					}
+				});
+		}
+	}, [canDeleteValues.id]);
 
 	const columns: GridColDef[] = [
 		{ field: "id", type: "number", headerName: "ID", flex: 1, align: "left" },
@@ -124,7 +149,7 @@ export default function WordList(props: WordListProps) {
 			renderCell: (params) => {
 				return (
 					<div className={styles.actionContainer}>
-						<Link href={`/admin/topic/${params.row.id}`}>
+						<Link href={`/admin/word/${params.row.id}`}>
 							<a className={styles.userEditLink}>
 								<EditIcon />
 							</a>

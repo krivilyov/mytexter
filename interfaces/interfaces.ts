@@ -56,4 +56,5 @@ export interface WordsData {
 	language_id: number;
 	language: LanguagesData;
 	isClicked?: boolean;
+	t_words: any;
 }
