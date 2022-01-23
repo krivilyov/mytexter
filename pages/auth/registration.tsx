@@ -1,41 +1,36 @@
 import type { NextPage } from "next";
-import { useRouter } from "next/router";
-import React, { useState } from "react";
-import axios from "axios";
-import styles from "../styles/Login.module.scss";
-import "bootstrap/dist/css/bootstrap.min.css";
-
-import { Button } from "@mui/material";
-import Input from "../components/input";
+import { useState } from "react";
+import styles from "../../styles/auth/Registration.module.scss";
 import { GetServerSideProps } from "next";
+import Input from "../../components/input";
+import { Button } from "@mui/material";
+import axios from "axios";
+import { useRouter } from "next/router";
+import { errors } from "../../lib/messages";
 
-const Login: NextPage = () => {
+const Registration: NextPage = () => {
 	const router = useRouter();
 
 	const [values, setValues] = useState({
+		name: "",
 		email: "",
 		password: "",
 	});
-
-	const [emailError, setEmailError] = useState("");
-	const [passwordError, setPasswordError] = useState("");
 
 	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setValues({ ...values, [e.target.name]: e.target.value.trim() });
 	};
 
-	const errors = {
-		email: {
-			wrong: "It should be a valid email address",
-		},
-		password: {
-			wrong:
-				"Password should be 8-20 characters and include at least 1 letter, 1 number and 1 special character.",
-		},
-	};
-
 	const handleCheckErrors = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const inputName: string = e.target.name;
+
+		//for name
+		if (inputName === "name") {
+			const filterName = /[a-zA-Z][a-zA-Z0-9-_]{3,10}/;
+			if (!filterName.test(String(values.name).toLowerCase()))
+				setNameError(errors.name.wrong);
+			else setNameError("");
+		}
 
 		//for email
 		if (inputName === "email") {
@@ -56,14 +51,21 @@ const Login: NextPage = () => {
 		}
 	};
 
+	const [nameError, setNameError] = useState("");
+	const [emailError, setEmailError] = useState("");
+	const [passwordError, setPasswordError] = useState("");
+
 	const handleFormSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 
-		if (!emailError && !passwordError) {
+		const validate = formValidate();
+
+		if (validate) {
 			axios
 				.post(
-					`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`,
+					`${process.env.NEXT_PUBLIC_API_URL}/api/auth/registration`,
 					{
+						name: values.name,
 						email: values.email,
 						password: values.password,
 					},
@@ -78,12 +80,52 @@ const Login: NextPage = () => {
 		}
 	};
 
+	const formValidate = (): boolean => {
+		let validateName = true;
+		let validateEmail = true;
+		let validatePassword = true;
+
+		//name
+		const filterName = /[a-zA-Z][a-zA-Z0-9-_]{3,10}/;
+		if (!filterName.test(String(values.name).toLowerCase())) {
+			validateName = false;
+			setNameError(errors.name.wrong);
+		} else setNameError("");
+
+		//email
+		const filterEmail =
+			/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+		if (!filterEmail.test(String(values.email).toLowerCase())) {
+			validateEmail = false;
+			setEmailError(errors.email.wrong);
+		} else setEmailError("");
+
+		//password
+		const filterPassword =
+			/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,12}$/;
+		if (!filterPassword.test(String(values.password).toLowerCase())) {
+			validatePassword = false;
+			setPasswordError(errors.password.wrong);
+		} else setPasswordError("");
+
+		if (validateName && validateEmail && validatePassword) {
+			return true;
+		} else {
+			return false;
+		}
+	};
+
 	interface Errors {
+		name: string;
 		email: string;
 		password: string;
 	}
 
 	const handleErrorForm = (errors: Errors) => {
+		if (errors.name) {
+			setNameError(errors.name);
+		}
+
 		if (errors.email) {
 			setEmailError(errors.email);
 		}
@@ -97,7 +139,21 @@ const Login: NextPage = () => {
 		<div className={styles.container}>
 			<div className={styles.wrapper}>
 				<form onSubmit={handleFormSubmit}>
-					<h1>Sign in</h1>
+					<h1>Sign up</h1>
+					<div className={styles.formGroup}>
+						<label className="form-label" htmlFor="email">
+							Name
+						</label>
+						<Input
+							type="text"
+							id="name"
+							name="name"
+							value={values.name}
+							onChange={onChange}
+							onBlur={handleCheckErrors}
+						/>
+						{nameError && <span className={styles.formError}>{nameError}</span>}
+					</div>
 					<div className={styles.formGroup}>
 						<label className="form-label" htmlFor="email">
 							E-mail
@@ -131,7 +187,7 @@ const Login: NextPage = () => {
 						)}
 					</div>
 					<Button variant="contained" type="submit">
-						Login
+						Registration
 					</Button>
 				</form>
 			</div>
@@ -139,16 +195,19 @@ const Login: NextPage = () => {
 	);
 };
 
-export default Login;
+export default Registration;
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 	const token = req.cookies.token || "";
 	let user = null;
 
 	if (token) {
-		const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/profile`, {
-			headers: { Authorization: `Bearer ${token}` },
-		});
+		const res = await fetch(
+			`${process.env.NEXT_PUBLIC_API_URL}/api/auth/profile`,
+			{
+				headers: { Authorization: `Bearer ${token}` },
+			}
+		);
 
 		if (res.ok) {
 			user = await res.json();
