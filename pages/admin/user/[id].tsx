@@ -3,8 +3,9 @@ import Head from "next/head";
 import Sidebar from "../../../components/admin/Sidebar";
 import { UserDocument } from "../../../interfaces/interfaces";
 import { GetServerSideProps } from "next";
+import UserCreateForm from "../../../components/admin/user/UserCreateForm";
+
 import styles from "../../../styles/admin/UpdateForm.module.scss";
-import UserUpdateForm from "../../../components/admin/UserUpdateForm";
 
 interface UserUpdateProps {
 	user: UserDocument;
@@ -25,7 +26,7 @@ const UserUpdate: NextPage<UserUpdateProps> = (props) => {
 				<div className={styles.rightColumn}>
 					<div className={styles.wrapper}>
 						<h1>New User</h1>
-						<UserUpdateForm user={user} currentUser={currentUser} />
+						<UserCreateForm user={user} currentUser={currentUser} />
 					</div>
 				</div>
 			</div>

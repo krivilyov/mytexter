@@ -1,4 +1,3 @@
-import styles from "../../styles/admin/UserCreateForm.module.scss";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
@@ -10,49 +9,36 @@ import Image from "next/image";
 import Button from "@mui/material/Button";
 import DownloadIcon from "@mui/icons-material/Download";
 import SaveIcon from "@mui/icons-material/Save";
-import { UserDocument } from "../../interfaces/interfaces";
-import { errors } from "../../lib/messages";
+import { UserDocument } from "../../../interfaces/interfaces";
+import { errors } from "../../../lib/messages";
 import axios from "axios";
 import { useRouter } from "next/router";
-import AlertComponent from "./AlertComponent";
+import AlertComponent from "../AlertComponent";
 import { AlertColor } from "@mui/material/Alert";
+import Checkbox from "@mui/material/Checkbox";
 
-interface UserUpdateFormProps {
+import styles from "../../../styles/admin/user/UserCreateForm.module.scss";
+
+interface UserCreateFormProps {
 	user: UserDocument;
-	currentUser: UserDocument;
+	currentUser?: UserDocument;
 }
 
-const UserUpdateForm = (props: UserUpdateFormProps) => {
+const UserCreateForm = (props: UserCreateFormProps) => {
 	const { user, currentUser } = props;
+	const router = useRouter();
 
 	const [image, setImage] = useState<File | null>(null);
 	const [preview, setPreview] = useState<string>();
 
 	const [values, setValues] = useState({
-		name: currentUser.name,
-		email: currentUser.email,
+		name: currentUser ? currentUser.name : "",
+		email: currentUser ? currentUser.email : "",
 		password: "",
-		confirmPassword: "",
-		role: currentUser.role,
+		role: currentUser ? currentUser.role : "customer",
 		avatar: image,
+		isActive: currentUser && currentUser.isActive ? true : false,
 	});
-
-	//alert
-	type alertValues = {
-		show: boolean;
-		type: AlertColor;
-		message: string;
-	};
-
-	//alert
-	const [alertValues, setAlertValues] = useState<alertValues>({
-		show: false,
-		type: "success",
-		message: "",
-	});
-
-	//for change email
-	const oldEmail = currentUser.email;
 
 	const onChange = (
 		e:
@@ -65,9 +51,6 @@ const UserUpdateForm = (props: UserUpdateFormProps) => {
 	const [nameError, setNameError] = useState<string | null>(null);
 	const [emailError, setEmailError] = useState<string | null>(null);
 	const [passwordError, setPasswordError] = useState<string | null>(null);
-	const [confirmPasswordError, setConfirmPasswordError] = useState<
-		string | null
-	>(null);
 
 	useEffect(() => {
 		if (image) {
@@ -85,7 +68,6 @@ const UserUpdateForm = (props: UserUpdateFormProps) => {
 		let validateName = true;
 		let validateEmail = true;
 		let validatePassword = true;
-		let validateConfirmPassword = true;
 
 		//validate name
 		const filterName = /[a-zA-Z][a-zA-Z0-9-_]{3,10}/;
@@ -102,48 +84,17 @@ const UserUpdateForm = (props: UserUpdateFormProps) => {
 			setEmailError(errors.email.wrong);
 		} else setEmailError(null);
 
-		//validate password
-		if (values.password.length > 0) {
+		if (!currentUser) {
+			//validate password
 			const filterPassword =
 				/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,12}$/;
 			if (!filterPassword.test(String(values.password).toLowerCase())) {
 				validatePassword = false;
 				setPasswordError(errors.password.wrong);
 			} else setPasswordError(null);
-
-			//validate confirm password
-			if (values.password !== values.confirmPassword) {
-				validateConfirmPassword = false;
-				setConfirmPasswordError(errors.confirmPassword.wrong);
-			}
 		}
 
-		//validate confirm password
-		if (values.confirmPassword.length > 0) {
-			if (values.password !== values.confirmPassword) {
-				validateConfirmPassword = false;
-				setConfirmPasswordError(errors.confirmPassword.wrong);
-			} else {
-				setPasswordError(null);
-				setConfirmPasswordError(null);
-			}
-			if (values.confirmPassword.length > 0 && values.password.length < 1) {
-				validateConfirmPassword = false;
-				setPasswordError(errors.password.empty);
-			}
-		}
-
-		if (values.confirmPassword.length < 1 && values.password.length < 1) {
-			setPasswordError(null);
-			setConfirmPasswordError(null);
-		}
-
-		if (
-			validateName &&
-			validateEmail &&
-			validatePassword &&
-			validateConfirmPassword
-		) {
+		if (validateName && validateEmail && validatePassword) {
 			return true;
 		} else {
 			return false;
@@ -152,8 +103,6 @@ const UserUpdateForm = (props: UserUpdateFormProps) => {
 
 	const handleFormSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-		//close alert
-		setAlertValues({ ...alertValues, show: false });
 
 		const validate = formValidate();
 
@@ -162,38 +111,69 @@ const UserUpdateForm = (props: UserUpdateFormProps) => {
 			const file = image ? image : "";
 			data.append("name", values.name);
 			data.append("email", values.email);
-			//for change email
-			data.append("oldEmail", oldEmail);
 			data.append("password", values.password);
 			data.append("role", values.role);
+			const isActive = values.isActive ? "1" : "0";
+			data.append("isActive", isActive);
 			data.append("file", file);
-			axios
-				.put(
-					`${process.env.NEXT_PUBLIC_API_URL}/api/user/${currentUser.id}`,
-					data,
-					{
+
+			if (currentUser) {
+				axios
+					.put(
+						`${process.env.NEXT_PUBLIC_API_URL}/api/user/${currentUser.id}`,
+						data,
+						{
+							headers: {
+								Authorization: `Bearer ${user.token}`,
+							},
+							withCredentials: true,
+						}
+					)
+					.then((res) => {
+						//show success alert
+						setAlertValues({
+							...alertValues,
+							show: true,
+							type: "success",
+							message: "Updated success",
+						});
+					})
+					.catch((error) => {
+						if (error.response) {
+							handleErrorForm(error.response.data);
+						}
+					});
+			} else {
+				axios
+					.post(`${process.env.NEXT_PUBLIC_API_URL}/api/user`, data, {
 						headers: {
 							Authorization: `Bearer ${user.token}`,
 						},
 						withCredentials: true,
-					}
-				)
-				.then((res) => {
-					//show success alert
-					setAlertValues({
-						...alertValues,
-						show: true,
-						type: "success",
-						message: "Updated success",
+					})
+					.then((res) => router.push("/admin/users"))
+					.catch((error) => {
+						if (error.response) {
+							handleErrorForm(error.response.data);
+						}
 					});
-				})
-				.catch((error) => {
-					if (error.response) {
-						handleErrorForm(error.response.data);
-					}
-				});
+			}
 		}
 	};
+
+	//alert
+	type alertValues = {
+		show: boolean;
+		type: AlertColor;
+		message: string;
+	};
+
+	//alert
+	const [alertValues, setAlertValues] = useState<alertValues>({
+		show: false,
+		type: "success",
+		message: "",
+	});
 
 	interface Errors {
 		email: string;
@@ -201,16 +181,13 @@ const UserUpdateForm = (props: UserUpdateFormProps) => {
 	}
 
 	const handleErrorForm = (errors: Errors) => {
-		setAlertValues({
-			...alertValues,
-			show: true,
-			type: "error",
-			message: `${errors.email}`,
-		});
-
 		if (errors.email) {
 			setEmailError(errors.email);
 		}
+	};
+
+	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setValues({ ...values, [event.target.name]: event.target.checked });
 	};
 
 	return (
@@ -241,6 +218,7 @@ const UserUpdateForm = (props: UserUpdateFormProps) => {
 							onBlur={() => {
 								const filterName = /[a-zA-Z][a-zA-Z0-9-_]{3,10}/;
 								if (!filterName.test(String(values.name).toLowerCase())) {
+									console.log(nameError);
 									setNameError(errors.name.wrong);
 								} else setNameError(null);
 							}}
@@ -281,40 +259,12 @@ const UserUpdateForm = (props: UserUpdateFormProps) => {
 							onBlur={() => {
 								const filterPassword =
 									/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,12}$/;
-								if (
-									values.password.length > 0 &&
-									!filterPassword.test(String(values.password).toLowerCase())
-								)
+								if (!filterPassword.test(String(values.password).toLowerCase()))
 									setPasswordError(errors.password.wrong);
 								else setPasswordError(null);
 							}}
 							error={passwordError ? true : false}
 							helperText={passwordError ? passwordError : ""}
-						/>
-
-						<TextField
-							className={styles.formGroup}
-							id="confirm-password-input"
-							name="confirmPassword"
-							label="Confirm Password"
-							placeholder="Confirm Password"
-							type="password"
-							fullWidth
-							onChange={onChange}
-							onBlur={(e) => {
-								if (values.password !== e.target.value) {
-									setConfirmPasswordError(errors.confirmPassword.wrong);
-								}
-								if (e.target.value.length > 0 && values.password.length < 1) {
-									setPasswordError(errors.password.empty);
-								}
-								if (e.target.value.length < 1 && values.password.length < 1) {
-									setPasswordError(null);
-									setConfirmPasswordError(null);
-								}
-							}}
-							error={confirmPasswordError ? true : false}
-							helperText={confirmPasswordError ? confirmPasswordError : ""}
 						/>
 
 						<FormControl fullWidth>
@@ -332,6 +282,20 @@ const UserUpdateForm = (props: UserUpdateFormProps) => {
 								<MenuItem value="teacher">Teacher</MenuItem>
 							</Select>
 						</FormControl>
+						<div className={styles.chekboxContainer}>
+							<div className={styles.formGroup}>
+								<label className={styles.lable} htmlFor="is_active">
+									Is Active
+								</label>
+								<Checkbox
+									id="is_active"
+									name="isActive"
+									checked={values.isActive}
+									onChange={handleChange}
+									inputProps={{ "aria-label": "controlled" }}
+								/>
+							</div>
+						</div>
 					</div>
 					<div className={styles.formColumn}>
 						<div className={styles.userAvatarContainer}>
@@ -341,7 +305,7 @@ const UserUpdateForm = (props: UserUpdateFormProps) => {
 									src={
 										preview
 											? preview
-											: currentUser.avatar
+											: currentUser && currentUser.avatar
 											? `${process.env.NEXT_PUBLIC_API_URL}/${currentUser.avatar}`
 											: "/images/empty_avatar.jpg"
 									}
@@ -389,4 +353,4 @@ const UserUpdateForm = (props: UserUpdateFormProps) => {
 	);
 };
 
-export default UserUpdateForm;
+export default UserCreateForm;

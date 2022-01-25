@@ -7,6 +7,7 @@ export interface UserDocument {
 	exp: number;
 	avatar: string;
 	token?: string;
+	isActive: number;
 }
 
 export interface UsersData {

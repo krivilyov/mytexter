@@ -55,7 +55,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 	if (!user || user.role !== "admin") {
 		return {
 			redirect: {
-				destination: "/login",
+				destination: "/auth/login",
 				statusCode: 302,
 			},
 		};

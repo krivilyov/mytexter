@@ -4,7 +4,7 @@ import Sidebar from "../../components/admin/Sidebar";
 import { UserDocument } from "../../interfaces/interfaces";
 import { GetServerSideProps } from "next";
 import styles from "../../styles/admin/CreateItemPage.module.scss";
-import UserCreateForm from "../../components/admin/UserCreateForm";
+import UserCreateForm from "../../components/admin/user/UserCreateForm";
 
 interface UserCreateProps {
 	user: UserDocument;
@@ -56,7 +56,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 	if (!user || user.role !== "admin") {
 		return {
 			redirect: {
-				destination: "/login",
+				destination: "/auth/login",
 				statusCode: 302,
 			},
 		};

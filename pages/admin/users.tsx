@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Sidebar from "../../components/admin/Sidebar";
-import UserList from "../../components/admin/UserList";
+import UserList from "../../components/admin/user/UserList";
 import { GetServerSideProps } from "next";
 import { UserDocument } from "../../interfaces/interfaces";
 import { UsersData } from "../../interfaces/interfaces";
@@ -56,7 +56,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 	if (!user || user.role !== "admin") {
 		return {
 			redirect: {
-				destination: "/login",
+				destination: "/auth/login",
 				statusCode: 302,
 			},
 		};

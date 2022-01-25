@@ -226,3 +226,20 @@ $screen-large: "(min-width: 1800px)";
 	@media #{$screen-small} {
 	}
 }
+
+.chekboxContainer {
+	@media #{$screen-large} {
+		margin: large(20) 0;
+	}
+
+	@media #{$screen-medium-up} {
+		margin: 20px 0;
+	}
+
+	@media #{$screen-medium-down} {
+		margin: medium-down(20) 0;
+	}
+
+	@media #{$screen-small} {
+	}
+}

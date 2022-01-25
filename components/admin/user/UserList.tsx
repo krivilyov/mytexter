@@ -1,15 +1,16 @@
-import styles from "../../styles/admin/MUITable.module.scss";
-import { UsersData } from "../../interfaces/interfaces";
+import { UsersData } from "../../../interfaces/interfaces";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Image from "next/image";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import AlertDialog from "../admin/AlertDialog";
+import AlertDialog from "../AlertDialog";
 import axios from "axios";
-import { UserDocument } from "../../interfaces/interfaces";
-import CreateItemContainer from "./CreateItemContainer";
+import { UserDocument } from "../../../interfaces/interfaces";
+import CreateItemContainer from "../CreateItemContainer";
+
+import styles from "../../../styles/admin/MUITable.module.scss";
 
 interface UserListProps {
 	users: UsersData[];
