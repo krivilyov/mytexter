@@ -7,6 +7,8 @@ import { Button } from "@mui/material";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { errors } from "../../lib/messages";
+import Image from "next/image";
+import Link from "next/link";
 
 const Registration: NextPage = () => {
 	const router = useRouter();
@@ -138,58 +140,92 @@ const Registration: NextPage = () => {
 	return (
 		<div className={styles.container}>
 			<div className={styles.wrapper}>
-				<form onSubmit={handleFormSubmit}>
-					<h1>Sign up</h1>
-					<div className={styles.formGroup}>
-						<label className="form-label" htmlFor="email">
-							Name
-						</label>
-						<Input
-							type="text"
-							id="name"
-							name="name"
-							value={values.name}
-							onChange={onChange}
-							onBlur={handleCheckErrors}
+				<div className={styles.heroContainer}>
+					<div className={styles.logoContainer}>
+						<Image
+							src="/images/logo.svg"
+							alt="My Texter logo"
+							width={195}
+							height={65}
 						/>
-						{nameError && <span className={styles.formError}>{nameError}</span>}
 					</div>
-					<div className={styles.formGroup}>
-						<label className="form-label" htmlFor="email">
-							E-mail
-						</label>
-						<Input
-							type="text"
-							id="email"
-							name="email"
-							value={values.email}
-							onChange={onChange}
-							onBlur={handleCheckErrors}
-						/>
-						{emailError && (
-							<span className={styles.formError}>{emailError}</span>
-						)}
+					<div className={styles.heroText}>
+						С возвращением, введите свои данные для входа
 					</div>
-					<div className={styles.formGroup}>
-						<label className="form-label" htmlFor="password">
-							Password
-						</label>
-						<Input
-							type="password"
-							id="password"
-							name="password"
-							value={values.password}
-							onChange={onChange}
-							onBlur={handleCheckErrors}
-						/>
-						{passwordError && (
-							<span className={styles.formError}>{passwordError}</span>
-						)}
-					</div>
-					<Button variant="contained" type="submit">
-						Registration
-					</Button>
-				</form>
+				</div>
+				<div className={styles.formWrap}>
+					{nameError || emailError || passwordError ? (
+						<div className={styles.errorContainer}>
+							{nameError && <div className={styles.errorItem}>{nameError}</div>}
+							{emailError && (
+								<div className={styles.errorItem}>{emailError}</div>
+							)}
+							{passwordError && (
+								<div className={styles.errorItem}>{passwordError}</div>
+							)}
+						</div>
+					) : (
+						""
+					)}
+
+					<form className={styles.form} onSubmit={handleFormSubmit}>
+						<div className={styles.formGroup}>
+							<label className={styles.formLabel} htmlFor="email">
+								Ваше имя
+							</label>
+							<Input
+								type="text"
+								id="name"
+								name="name"
+								value={values.name}
+								onChange={onChange}
+								onBlur={handleCheckErrors}
+							/>
+						</div>
+						<div className={styles.formGroup}>
+							<label className={styles.formLabel} htmlFor="email">
+								Ваш адрес эл. почты
+							</label>
+							<Input
+								type="text"
+								id="email"
+								name="email"
+								value={values.email}
+								onChange={onChange}
+								onBlur={handleCheckErrors}
+							/>
+						</div>
+						<div className={styles.formGroup}>
+							<label className={styles.formLabel} htmlFor="password">
+								Пароль
+							</label>
+							<Input
+								type="password"
+								id="password"
+								name="password"
+								value={values.password}
+								onChange={onChange}
+								onBlur={handleCheckErrors}
+							/>
+						</div>
+
+						<div className={styles.serviceLinksContainer}>
+							<Link href="/auth/login">
+								<a className={styles.recover}>Забыли пароль?</a>
+							</Link>
+						</div>
+
+						<button className={styles.formButton} type="submit">
+							Registration
+						</button>
+					</form>
+				</div>
+				<div className={styles.loginLinkContainer}>
+					У меня есть аккаунт!
+					<Link href="/auth/login">
+						<a className={styles.recover}>Войти</a>
+					</Link>
+				</div>
 			</div>
 		</div>
 	);
