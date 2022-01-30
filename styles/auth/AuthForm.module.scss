@@ -259,6 +259,7 @@ $screen-large: "(min-width: 1800px)";
 }
 
 .formButton {
+	position: relative;
 	text-align: center;
 	display: block;
 	cursor: pointer;
@@ -337,5 +338,29 @@ $screen-large: "(min-width: 1800px)";
 			line-height: small(22);
 			margin-left: small(8);
 		}
+	}
+}
+
+.loaderContainer {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+
+	@media #{$screen-large} {
+		width: large(35);
+		height: large(35);
+	}
+
+	@media #{$screen-medium} {
+		width: 35px;
+		height: 35px;
+	}
+
+	@media #{$screen-small} {
+		width: small(35);
+		height: small(35);
 	}
 }

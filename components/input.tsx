@@ -5,10 +5,11 @@ interface Input {
 	value?: string;
 	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 	onBlur?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	loader?: boolean;
 }
 
 const Input = (props: Input) => {
-	const { id, name, type, value, onChange, onBlur } = props;
+	const { id, name, type, value, onChange, onBlur, loader } = props;
 
 	return (
 		<>
@@ -19,6 +20,7 @@ const Input = (props: Input) => {
 				value={value}
 				onChange={onChange}
 				onBlur={onBlur}
+				disabled={loader ? true : false}
 			/>
 		</>
 	);

@@ -1,14 +1,15 @@
 import type { NextPage } from "next";
 import { useState } from "react";
-import styles from "../../styles/auth/Registration.module.scss";
 import { GetServerSideProps } from "next";
 import Input from "../../components/input";
-import { Button } from "@mui/material";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { errors } from "../../lib/messages";
 import Image from "next/image";
 import Link from "next/link";
+import Loader from "../../components/loader";
+
+import styles from "../../styles/auth/AuthForm.module.scss";
 
 const Registration: NextPage = () => {
 	const router = useRouter();
@@ -28,7 +29,8 @@ const Registration: NextPage = () => {
 
 		//for name
 		if (inputName === "name") {
-			const filterName = /[a-zA-Z][a-zA-Z0-9-_]{3,10}/;
+			const filterName = /[a-zA-Zа-яА-ЯёЁ0-9-_\.]{3,20}$/;
+
 			if (!filterName.test(String(values.name).toLowerCase()))
 				setNameError(errors.name.wrong);
 			else setNameError("");
@@ -56,6 +58,7 @@ const Registration: NextPage = () => {
 	const [nameError, setNameError] = useState("");
 	const [emailError, setEmailError] = useState("");
 	const [passwordError, setPasswordError] = useState("");
+	const [loader, isLoader] = useState(false);
 
 	const handleFormSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
@@ -63,6 +66,9 @@ const Registration: NextPage = () => {
 		const validate = formValidate();
 
 		if (validate) {
+			//loader
+			isLoader(true);
+
 			axios
 				.post(
 					`${process.env.NEXT_PUBLIC_API_URL}/api/auth/registration`,
@@ -73,7 +79,10 @@ const Registration: NextPage = () => {
 					},
 					{ withCredentials: true }
 				)
-				.then((res) => router.push("/"))
+				.then((res) => {
+					isLoader(false);
+					router.push("/auth/registration-successful");
+				})
 				.catch((error) => {
 					if (error.response) {
 						handleErrorForm(error.response.data);
@@ -88,7 +97,7 @@ const Registration: NextPage = () => {
 		let validatePassword = true;
 
 		//name
-		const filterName = /[a-zA-Z][a-zA-Z0-9-_]{3,10}/;
+		const filterName = /[a-zA-Zа-яА-ЯёЁ0-9-_\.]{3,20}$/;
 		if (!filterName.test(String(values.name).toLowerCase())) {
 			validateName = false;
 			setNameError(errors.name.wrong);
@@ -124,6 +133,8 @@ const Registration: NextPage = () => {
 	}
 
 	const handleErrorForm = (errors: Errors) => {
+		isLoader(false);
+
 		if (errors.name) {
 			setNameError(errors.name);
 		}
@@ -150,7 +161,7 @@ const Registration: NextPage = () => {
 						/>
 					</div>
 					<div className={styles.heroText}>
-						С возвращением, введите свои данные для входа
+						Добро пожаловать, введите свои данные для регистрации
 					</div>
 				</div>
 				<div className={styles.formWrap}>
@@ -180,6 +191,7 @@ const Registration: NextPage = () => {
 								value={values.name}
 								onChange={onChange}
 								onBlur={handleCheckErrors}
+								loader={loader}
 							/>
 						</div>
 						<div className={styles.formGroup}>
@@ -193,6 +205,7 @@ const Registration: NextPage = () => {
 								value={values.email}
 								onChange={onChange}
 								onBlur={handleCheckErrors}
+								loader={loader}
 							/>
 						</div>
 						<div className={styles.formGroup}>
@@ -206,6 +219,7 @@ const Registration: NextPage = () => {
 								value={values.password}
 								onChange={onChange}
 								onBlur={handleCheckErrors}
+								loader={loader}
 							/>
 						</div>
 
@@ -215,8 +229,18 @@ const Registration: NextPage = () => {
 							</Link>
 						</div>
 
-						<button className={styles.formButton} type="submit">
-							Registration
+						<button
+							className={styles.formButton}
+							type="submit"
+							disabled={loader ? true : false}
+						>
+							{!loader ? (
+								"Зарегистрироваться"
+							) : (
+								<div className={styles.loaderContainer}>
+									<Loader image="/images/loader.svg" />
+								</div>
+							)}
 						</button>
 					</form>
 				</div>

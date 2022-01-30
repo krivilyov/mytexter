@@ -1,20 +1,19 @@
 export const errors = {
 	name: {
-		wrong:
-			"The name must be no shorter than 3 characters and no longer than 10",
+		wrong: "Имя должно быть не короче 3 символов и не длиннее 10",
 	},
 	email: {
-		wrong: "It should be a valid email address",
+		wrong: "Это должен быть действительный адрес электронной почты",
 	},
 	password: {
 		wrong:
-			"Password should be 8-20 characters and include at least 1 letter, 1 number and 1 special character.",
-		empty: "Password shouldn't be empty",
+			"Пароль должен состоять из 6-12 символов и содержать не менее 1 буквы, 1 цифры и 1 специального символа.",
+		empty: "Пароль не должен быть пустым",
 	},
 	confirmPassword: {
-		wrong: "Field 'Confirm Password' does not match the password",
+		wrong: "Поле 'Подтвердить пароль' не соответствует паролю",
 	},
 	field: {
-		empty: "Field shouldn't be empty",
+		empty: "Поле не должно быть пустым",
 	},
 };
