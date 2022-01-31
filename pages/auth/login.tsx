@@ -182,7 +182,7 @@ const Login: NextPage = () => {
 						</div>
 
 						<div className={styles.serviceLinksContainer}>
-							<Link href="/auth/login">
+							<Link href="/auth/restore">
 								<a className={styles.recover}>Забыли пароль?</a>
 							</Link>
 						</div>
