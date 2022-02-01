@@ -281,10 +281,6 @@ export default function WordCreateForm(props: WordCreateFormProps) {
 		}
 	}, [image]);
 
-	useEffect(() => {
-		console.log(translates);
-	}, [values, translates]);
-
 	const handleTranslateItemDelete = (translate: WordsData) => {
 		//delete from translates
 		const index = translates.indexOf(translate);

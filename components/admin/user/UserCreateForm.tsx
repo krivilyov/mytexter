@@ -218,7 +218,6 @@ const UserCreateForm = (props: UserCreateFormProps) => {
 							onBlur={() => {
 								const filterName = /[a-zA-Z][a-zA-Z0-9-_]{3,10}/;
 								if (!filterName.test(String(values.name).toLowerCase())) {
-									console.log(nameError);
 									setNameError(errors.name.wrong);
 								} else setNameError(null);
 							}}

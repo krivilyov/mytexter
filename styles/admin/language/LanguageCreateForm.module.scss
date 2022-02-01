@@ -108,15 +108,15 @@ $screen-large: "(min-width: 1800px)";
 
 .formGroup {
 	@media #{$screen-large} {
-		margin-bottom: large(20);
+		margin-bottom: large(20) !important;
 	}
 
 	@media #{$screen-medium-up} {
-		margin-bottom: 20px;
+		margin-bottom: 20px !important;
 	}
 
 	@media #{$screen-medium-down} {
-		margin-bottom: medium-down(20);
+		margin-bottom: medium-down(20) !important;
 	}
 
 	@media #{$screen-small} {

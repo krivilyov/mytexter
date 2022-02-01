@@ -116,15 +116,15 @@ $screen-large: "(min-width: 1800px)";
 	flex-direction: column;
 
 	@media #{$screen-large} {
-		margin-bottom: large(5);
+		margin-bottom: large(5) !important;
 	}
 
 	@media #{$screen-medium} {
-		margin-bottom: 5px;
+		margin-bottom: 5px !important;
 	}
 
 	@media #{$screen-small} {
-		margin-bottom: small(5);
+		margin-bottom: small(5) !important;
 	}
 
 	input {
