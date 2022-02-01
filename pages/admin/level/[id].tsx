@@ -3,7 +3,7 @@ import Head from "next/head";
 import Sidebar from "../../../components/admin/Sidebar";
 import { UserDocument, LevelsData } from "../../../interfaces/interfaces";
 import styles from "../../../styles/admin/UpdateForm.module.scss";
-import LevelUpdateForm from "../../../components/admin/level/LevelUpdateForm";
+import LevelCreateForm from "../../../components/admin/level/LevelCreateForm";
 import { GetServerSideProps } from "next";
 
 interface LevelUpdateProps {
@@ -25,7 +25,7 @@ const LevelUpdate: NextPage<LevelUpdateProps> = (props) => {
 				<div className={styles.rightColumn}>
 					<div className={styles.wrapper}>
 						<h1>Topic - "{level.title}"</h1>
-						<LevelUpdateForm user={user} level={level} />
+						<LevelCreateForm user={user} level={level} />
 					</div>
 				</div>
 			</div>

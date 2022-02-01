@@ -3,7 +3,7 @@ import Head from "next/head";
 import Sidebar from "../../../components/admin/Sidebar";
 import { UserDocument, TopicsData } from "../../../interfaces/interfaces";
 import styles from "../../../styles/admin/UpdateForm.module.scss";
-import TopicUpdateForm from "../../../components/admin/topic/TopicUpdateForm";
+import TopicCreateForm from "../../../components/admin/topic/TopicCreateForm";
 import { GetServerSideProps } from "next";
 
 interface TopicUpdateProps {
@@ -25,7 +25,7 @@ const TopicUpdate: NextPage<TopicUpdateProps> = (props) => {
 				<div className={styles.rightColumn}>
 					<div className={styles.wrapper}>
 						<h1>Topic - "{topic.title}"</h1>
-						<TopicUpdateForm user={user} topic={topic} />
+						<TopicCreateForm user={user} topic={topic} />
 					</div>
 				</div>
 			</div>

@@ -1,10 +1,9 @@
-import type { NextPage } from "next";
 import Head from "next/head";
 import Sidebar from "../../../components/admin/Sidebar";
 import { UserDocument, LanguagesData } from "../../../interfaces/interfaces";
 import styles from "../../../styles/admin/UpdateForm.module.scss";
 import { GetServerSideProps } from "next";
-import LanguageUpdateForm from "../../../components/admin/language/LanguageUpdateForm";
+import LanguageCreateForm from "../../../components/admin/language/LanguageCreateForm";
 
 interface LanguageUpdateProps {
 	user: UserDocument;
@@ -25,7 +24,7 @@ export default function LanguageUpdate(props: LanguageUpdateProps) {
 				<div className={styles.rightColumn}>
 					<div className={styles.wrapper}>
 						<h1>Language - "{language.title}"</h1>
-						<LanguageUpdateForm user={user} language={language} />
+						<LanguageCreateForm user={user} language={language} />
 					</div>
 				</div>
 			</div>
