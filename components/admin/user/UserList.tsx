@@ -98,7 +98,7 @@ const UserList = (props: UserListProps) => {
 								className={styles.userAvatarImage}
 								src={
 									params.row.avatar
-										? `http://localhost:8000/${params.row.avatar}`
+										? `${process.env.NEXT_PUBLIC_API_URL}/${params.row.avatar}`
 										: "/images/empty_avatar.jpg"
 								}
 								alt="user avatar"

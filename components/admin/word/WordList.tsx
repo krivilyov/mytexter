@@ -86,7 +86,7 @@ export default function WordList(props: WordListProps) {
 						{params.row.image ? (
 							<Image
 								className={styles.image}
-								src={`http://localhost:8000/${params.row.image}`}
+								src={`${process.env.NEXT_PUBLIC_API_URL}/${params.row.image}`}
 								alt="user avatar"
 								width={100}
 								height={80}
