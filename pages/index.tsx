@@ -3,6 +3,8 @@ import Head from "next/head";
 import { GetServerSideProps } from "next";
 import { UserDocument } from "../interfaces/interfaces";
 
+import styles from "../styles/MainPage.module.scss";
+
 interface HomeProps {
 	user?: UserDocument;
 }
@@ -11,8 +13,11 @@ const Home: NextPage<HomeProps> = (props) => {
 	const { user } = props;
 
 	return (
-		<div>
-			<h1>Index UserToken {user?.email}</h1>
+		<div className={styles.container}>
+			<div className={styles.wrapper}>
+				<h1>My texter</h1>
+				<div className={styles.content}>will be soon</div>
+			</div>
 		</div>
 	);
 };

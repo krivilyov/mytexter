@@ -1,0 +1,21 @@
+version: "3.5"
+
+services:
+  client:
+    container_name: mytexter_client_dev
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    env_file: ./.env
+    volumes:
+      - .:/client
+      - /client/node_modules
+    ports:
+      - 3000:3000
+    networks:
+      - mytexter-api_net
+    command: npm run dev
+
+networks:
+  mytexter-api_net:
+    external: true
