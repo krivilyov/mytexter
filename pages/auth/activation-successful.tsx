@@ -16,12 +16,16 @@ export default function ActivationSuccessful() {
 				<div className={styles.wrapper}>
 					<div className={styles.infoBg}>
 						<div className={styles.logoContainer}>
-							<Image
-								src="/images/logo.svg"
-								alt="My Texter logo"
-								width={195}
-								height={65}
-							/>
+							<Link href="/">
+								<a className={styles.logoLink}>
+									<Image
+										src="/images/logo.svg"
+										alt="My Texter logo"
+										width={195}
+										height={65}
+									/>
+								</a>
+							</Link>
 						</div>
 						<div className={styles.description}>
 							Вы успешно активировали Ваш аккаунт на сайте{" "}

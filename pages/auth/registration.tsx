@@ -153,12 +153,16 @@ const Registration: NextPage = () => {
 			<div className={styles.wrapper}>
 				<div className={styles.heroContainer}>
 					<div className={styles.logoContainer}>
-						<Image
-							src="/images/logo.svg"
-							alt="My Texter logo"
-							width={195}
-							height={65}
-						/>
+						<Link href="/">
+							<a className={styles.logoLink}>
+								<Image
+									src="/images/logo.svg"
+									alt="My Texter logo"
+									width={195}
+									height={65}
+								/>
+							</a>
+						</Link>
 					</div>
 					<div className={styles.heroText}>
 						Добро пожаловать, введите свои данные для регистрации
@@ -223,11 +227,7 @@ const Registration: NextPage = () => {
 							/>
 						</div>
 
-						<div className={styles.serviceLinksContainer}>
-							<Link href="/auth/login">
-								<a className={styles.recover}>Забыли пароль?</a>
-							</Link>
-						</div>
+						<div className={styles.separator}></div>
 
 						<button
 							className={styles.formButton}

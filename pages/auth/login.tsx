@@ -127,12 +127,16 @@ const Login: NextPage = () => {
 			<div className={styles.wrapper}>
 				<div className={styles.heroContainer}>
 					<div className={styles.logoContainer}>
-						<Image
-							src="/images/logo.svg"
-							alt="My Texter logo"
-							width={195}
-							height={65}
-						/>
+						<Link href="/">
+							<a className={styles.logoLink}>
+								<Image
+									src="/images/logo.svg"
+									alt="My Texter logo"
+									width={195}
+									height={65}
+								/>
+							</a>
+						</Link>
 					</div>
 					<div className={styles.heroText}>
 						С возвращением, введите свои данные для входа

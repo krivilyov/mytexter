@@ -7,6 +7,7 @@ import Loader from "../../../components/loader";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { GetServerSideProps } from "next";
+import Link from "next/link";
 
 import styles from "../../../styles/auth/Restore.module.scss";
 
@@ -108,12 +109,16 @@ export default function Repassword(props: RepasswordProps) {
 				<div className={styles.wrapper}>
 					<div className={styles.heroContainer}>
 						<div className={styles.logoContainer}>
-							<Image
-								src="/images/logo.svg"
-								alt="My Texter logo"
-								width={195}
-								height={65}
-							/>
+							<Link href="/">
+								<a className={styles.logoLink}>
+									<Image
+										src="/images/logo.svg"
+										alt="My Texter logo"
+										width={195}
+										height={65}
+									/>
+								</a>
+							</Link>
 						</div>
 						<div className={styles.heroText}>Укажите новый пароль</div>
 					</div>

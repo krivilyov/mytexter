@@ -364,3 +364,22 @@ $screen-large: "(min-width: 1800px)";
 		height: small(35);
 	}
 }
+
+.separator {
+	@media #{$screen-large} {
+		height: large(18);
+	}
+
+	@media #{$screen-medium} {
+		height: 18px;
+	}
+
+	@media #{$screen-small} {
+		height: small(18);
+	}
+}
+
+.logoLink {
+	display: block;
+	outline: none;
+}
