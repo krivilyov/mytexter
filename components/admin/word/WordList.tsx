@@ -106,6 +106,7 @@ export default function WordList(props: WordListProps) {
 			renderCell: (params) => {
 				return <>{params.row.topic.title}</>;
 			},
+			valueGetter: (params) => params.row.topic.title,
 		},
 		{
 			field: "language",
@@ -115,6 +116,7 @@ export default function WordList(props: WordListProps) {
 			renderCell: (params) => {
 				return <>{params.row.language.title}</>;
 			},
+			valueGetter: (params) => params.row.language.title,
 		},
 		{
 			field: "level",
@@ -124,6 +126,7 @@ export default function WordList(props: WordListProps) {
 			renderCell: (params) => {
 				return <>{params.row.level.title}</>;
 			},
+			valueGetter: (params) => params.row.level.title,
 		},
 		{
 			field: "isActive",
