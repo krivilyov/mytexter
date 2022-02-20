@@ -20,6 +20,7 @@ interface WordListProps {
 
 export default function WordList(props: WordListProps) {
 	const { user, words } = props;
+	const [pageSize, setPageSize] = useState(15);
 
 	const [wordsData, setWordsData] = useState(words);
 
@@ -176,8 +177,10 @@ export default function WordList(props: WordListProps) {
 			<DataGrid
 				rows={wordsData}
 				columns={columns}
-				pageSize={15}
-				rowsPerPageOptions={[15, 25, 50]}
+				pageSize={pageSize}
+				onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+				rowsPerPageOptions={[15, 25, 50, 100]}
+				pagination
 				className={styles.root}
 				rowHeight={80}
 			/>
