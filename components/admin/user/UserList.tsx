@@ -20,6 +20,8 @@ interface UserListProps {
 const UserList = (props: UserListProps) => {
 	const { users, user } = props;
 
+	const [pageSize, setPageSize] = useState(15);
+
 	const [usersData, setUsersData] = useState(users);
 	const [alertDialogValues, setAlertDialogValues] = useState({
 		open: false,
@@ -144,8 +146,10 @@ const UserList = (props: UserListProps) => {
 			<DataGrid
 				rows={usersData}
 				columns={columns}
-				pageSize={15}
+				pageSize={pageSize}
+				onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
 				rowsPerPageOptions={[15, 25, 50]}
+				pagination
 				className={styles.root}
 			/>
 			<AlertDialog

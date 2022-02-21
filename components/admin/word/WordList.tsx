@@ -20,6 +20,7 @@ interface WordListProps {
 
 export default function WordList(props: WordListProps) {
 	const { user, words } = props;
+	const [pageSize, setPageSize] = useState(15);
 
 	const [wordsData, setWordsData] = useState(words);
 
@@ -106,6 +107,7 @@ export default function WordList(props: WordListProps) {
 			renderCell: (params) => {
 				return <>{params.row.topic.title}</>;
 			},
+			valueGetter: (params) => params.row.topic.title,
 		},
 		{
 			field: "language",
@@ -115,6 +117,7 @@ export default function WordList(props: WordListProps) {
 			renderCell: (params) => {
 				return <>{params.row.language.title}</>;
 			},
+			valueGetter: (params) => params.row.language.title,
 		},
 		{
 			field: "level",
@@ -124,6 +127,7 @@ export default function WordList(props: WordListProps) {
 			renderCell: (params) => {
 				return <>{params.row.level.title}</>;
 			},
+			valueGetter: (params) => params.row.level.title,
 		},
 		{
 			field: "isActive",
@@ -173,8 +177,10 @@ export default function WordList(props: WordListProps) {
 			<DataGrid
 				rows={wordsData}
 				columns={columns}
-				pageSize={15}
-				rowsPerPageOptions={[15, 25, 50]}
+				pageSize={pageSize}
+				onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+				rowsPerPageOptions={[15, 25, 50, 100]}
+				pagination
 				className={styles.root}
 				rowHeight={80}
 			/>

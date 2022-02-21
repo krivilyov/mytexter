@@ -18,6 +18,7 @@ const LanguagesList = (props: LanguagesListProps) => {
 	const { user, languages } = props;
 
 	const [languagesData, setLanguagesData] = useState(languages);
+	const [pageSize, setPageSize] = useState(15);
 
 	const [alertDialogValues, setAlertDialogValues] = useState({
 		open: false,
@@ -126,8 +127,10 @@ const LanguagesList = (props: LanguagesListProps) => {
 			<DataGrid
 				rows={languagesData}
 				columns={columns}
-				pageSize={15}
+				pageSize={pageSize}
+				onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
 				rowsPerPageOptions={[15, 25, 50]}
+				pagination
 				className={styles.root}
 			/>
 			<AlertDialog
