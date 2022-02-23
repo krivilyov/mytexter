@@ -5,11 +5,92 @@ import Input from "../components/input";
 import Loader from "../components/loader";
 import { useState } from "react";
 import { errors } from "../lib/messages";
+import CloseIcon from "@mui/icons-material/Close";
+import axios from "axios";
 
 import styles from "../styles/MainPage.module.scss";
 
 export default function Home() {
 	const [loader, isLoader] = useState(false);
+	const [error, setError] = useState("");
+	const [email, setEmail] = useState("");
+	const [sent, setSent] = useState(false);
+
+	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setEmail(e.target.value.trim());
+	};
+
+	const handleCheckErrors = (e: React.ChangeEvent<HTMLInputElement>) => {
+		if (email.length) {
+			const filterEmail =
+				/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+			if (!filterEmail.test(String(email).toLowerCase()))
+				setError(errors.email.wrong);
+			else setError("");
+		} else {
+			setError("");
+		}
+	};
+
+	const handleFormSubmit = (e: React.FormEvent) => {
+		e.preventDefault();
+
+		if (formValidate()) {
+			isLoader(true);
+
+			axios
+				.post(
+					`${process.env.NEXT_PUBLIC_API_URL}/api/subscription`,
+					{
+						email: email,
+					},
+					{ withCredentials: true }
+				)
+				.then((res) => {
+					isLoader(false);
+					setSent(true);
+				})
+				.catch((error) => {
+					if (error.response) {
+						handleErrorForm(error.response.data);
+					}
+				});
+		}
+	};
+
+	const formValidate = (): boolean => {
+		let validateEmail = true;
+
+		if (email.length) {
+			const filterEmail =
+				/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+			if (!filterEmail.test(String(email).toLowerCase())) {
+				validateEmail = false;
+				setError(errors.email.wrong);
+			} else setError("");
+		} else {
+			validateEmail = false;
+			setError(errors.field.empty);
+		}
+
+		return validateEmail;
+	};
+
+	type Errors = {
+		email: string;
+	};
+
+	const handleErrorForm = (errors: Errors) => {
+		isLoader(false);
+		if (errors.email) {
+			setError(errors.email);
+		}
+	};
+
+	const handleClose = () => {
+		setEmail("");
+		setSent(false);
+	};
 
 	return (
 		<>
@@ -24,31 +105,43 @@ export default function Home() {
 			</Head>
 			<div className={styles.container}>
 				<div className={styles.wrapper}>
-					<div className={styles.bannerDesktop}>
+					<div className={styles.backgroundBanner}>
 						<Image
-							src="/images/index_banner.png"
+							src="/images/index_bg_desktop.png"
 							alt="My Texter"
-							width={1526}
-							height={1050}
+							width={919}
+							height={824}
 						/>
 					</div>
+					<div className={styles.backgroundBannerMobile}>
+						<Image
+							src="/images/index_bg_mobile.png"
+							alt="My Texter"
+							width={487}
+							height={355}
+						/>
+					</div>
+					<div className={styles.shadowBlock}></div>
 					<div className={styles.header}>
 						<Link href="/">
 							<a className={styles.logoLink}>
 								<Image
 									src="/images/logo.svg"
 									alt="My Texter logo"
-									width={195}
-									height={65}
+									width={190}
+									height={68}
 								/>
 							</a>
+						</Link>
+						<Link href="/auth/login">
+							<a className={styles.loginButton}>Войти</a>
 						</Link>
 					</div>
 					<div className={styles.content}>
 						<h1>
-							<span>My Texter</span>
-							<br /> сервис обучения
-							<br /> английскому языку
+							<span>My Texter</span> <br />
+							сервис обучения <br />
+							английскому языку
 						</h1>
 						<div className={styles.subtitle}>Описывай картинки и учи язык!</div>
 						<div className={styles.formContainer}>
@@ -56,36 +149,51 @@ export default function Home() {
 								Подпишись на обновления,
 								<br /> и мы сообщим о дате запуска сервиса.
 							</div>
-							<form className={styles.subscrybeForm}>
-								<div className={styles.inputContainer}>
+							{sent ? (
+								<div className={styles.successSendingForm}>
+									Поздравляем! Вы успешно подписались и сможете быть вкурсе всех
+									обновлений My Texter.
+									<span onClick={handleClose}>
+										<CloseIcon />
+									</span>
+								</div>
+							) : (
+								<form
+									noValidate
+									className={styles.subscrybeForm}
+									onSubmit={handleFormSubmit}
+								>
 									<Input
 										type="email"
 										id="email"
 										name="email"
 										placeholder="example@gmail.com"
-										value=""
+										value={email}
+										onChange={onChange}
+										onBlur={handleCheckErrors}
+										error={!!error}
 									/>
-									<div className={styles.formError}>{errors.email.wrong}</div>
-								</div>
-								<button
-									className={styles.formButton}
-									type="submit"
-									disabled={loader ? true : false}
-								>
-									{!loader ? (
-										"Подписаться"
-									) : (
-										<div className={styles.loaderContainer}>
-											<Loader image="/images/loader.svg" />
-										</div>
-									)}
-								</button>
-							</form>
-							<div className={styles.info}>
-								Обучения с использованием картинок является одним из эффективных
-								способов обучения, который активизирует память, мышление и
-								воображение учащихся
-							</div>
+									{error && <div className={styles.formError}>{error}</div>}
+									<button
+										className={styles.formButton}
+										type="submit"
+										disabled={loader ? true : false}
+									>
+										{!loader ? (
+											"Подписаться"
+										) : (
+											<div className={styles.loaderContainer}>
+												<Loader image="/images/loader.svg" />
+											</div>
+										)}
+									</button>
+								</form>
+							)}
+						</div>
+						<div className={styles.info}>
+							Обучения с использованием картинок является одним из эффективных
+							способов обучения, который активизирует память, мышление и
+							воображение учащихся
 						</div>
 					</div>
 				</div>

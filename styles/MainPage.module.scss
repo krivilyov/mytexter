@@ -1,23 +1,30 @@
 $screen-small: "(max-width: 414px)";
-$screen-medium-down: "(min-width: 415px) and (max-width: 1199px)";
-$screen-medium-up: "(min-width: 1200px) and (max-width: 1799px)";
-$screen-medium: "(min-width: 415px) and (max-width: 1799px)";
+$screen-medium-tab: "(min-width: 415px) and (max-width: 768px)";
+$screen-medium: "(min-width: 769px) and (max-width: 1279px)";
+$screen-medium-up: "(min-width: 1280px) and (max-width: 1799px)";
+//$screen-medium: "(min-width: 415px) and (max-width: 1799px)";
 $screen-large: "(min-width: 1800px)";
 
 @function large($value) {
 	@return calc($value * 1.25px);
 }
 
-@function medium($value, $size: 1200) {
+@function medium($value, $size: 1280) {
 	@return calc($value / $size * 100vw);
 }
 
-@function small($value, $size: 375) {
+@function medium-tab($value, $size: 768) {
+	@return calc($value / $size * 100vw);
+}
+
+@function small($value, $size: 360) {
 	@return calc($value / $size * 100vw);
 }
 
 .container {
-	background: #fff;
+	background: #f7fcff;
+	height: 100vh;
+	overflow-x: hidden;
 }
 
 .wrapper {
@@ -25,114 +32,322 @@ $screen-large: "(min-width: 1800px)";
 
 	@media #{$screen-large} {
 		max-width: large(1200);
-		padding: 0 large(40);
+		padding: 0 large(40) large(40);
 		margin: 0 auto;
 	}
 
 	@media #{$screen-medium-up} {
-		max-width: 1200px;
-		padding: 0 40px;
+		max-width: 1280px;
+		padding: 0 15px 40px;
 		margin: 0 auto;
 	}
 
-	@media #{$screen-medium-down} {
-		max-width: medium(1200);
-		padding: 0 medium(40);
+	@media #{$screen-medium} {
+		max-width: medium(1280);
+		padding: 0 medium(15) medium(40);
 		margin: 0 auto;
+	}
+
+	@media #{$screen-medium-tab} {
+		padding: 0 medium-tab(15) medium-tab(160);
 	}
 
 	@media #{$screen-small} {
+		padding: 0 small(14) small(20);
 	}
 }
 
-.bannerDesktop {
+.backgroundBanner {
+	position: absolute;
+	height: auto;
+	z-index: 1;
+
 	@media #{$screen-large} {
-		position: absolute;
-		top: large(-2);
-		right: large(-61);
-		width: large(1017);
+		width: 612px;
+		right: large(16);
+		top: large(140);
 	}
 
 	@media #{$screen-medium-up} {
-		position: absolute;
-		top: -2px;
-		right: -61px;
-		width: 1017px;
+		width: 612px;
+		right: 16px;
+		top: 140px;
 	}
 
-	@media #{$screen-medium-down} {
-		position: absolute;
-		top: medium(-2);
-		right: medium(-61);
-		width: medium(1017);
+	@media #{$screen-medium} {
+		width: medium(612);
+		right: medium(16);
+		top: medium(140);
+	}
+
+	@media #{$screen-medium-tab} {
+		width: medium-tab(483);
+		right: medium-tab(16);
+		top: medium-tab(80);
 	}
 
 	@media #{$screen-small} {
+		display: none;
+	}
+}
+
+.backgroundBannerMobile {
+	position: absolute;
+	height: auto;
+	z-index: 1;
+
+	@media #{$screen-large} {
+		display: none;
+	}
+
+	@media #{$screen-medium-up} {
+		display: none;
+	}
+
+	@media #{$screen-medium} {
+		display: none;
+	}
+
+	@media #{$screen-medium-tab} {
+		display: none;
+	}
+
+	@media #{$screen-small} {
+		width: small(324);
+		right: small(-145);
+		top: small(103);
+		transform: rotate(12deg);
+	}
+}
+
+.shadowBlock {
+	position: absolute;
+	backface-visibility: hidden;
+	z-index: 0;
+	border-radius: 50%;
+
+	@media #{$screen-large} {
+		background: rgba(255, 170, 72, 0.7);
+		width: 734px;
+		height: 169px;
+		right: large(16);
+		top: large(488);
+		filter: blur(85px);
+	}
+
+	@media #{$screen-medium-up} {
+		background: rgba(255, 170, 72, 0.7);
+		width: 734px;
+		height: 169px;
+		right: 16px;
+		top: 488px;
+		filter: blur(85px);
+	}
+
+	@media #{$screen-medium} {
+		background: rgba(255, 170, 72, 0.7);
+		width: medium(734);
+		height: medium(169);
+		right: medium(16);
+		top: medium(488);
+		filter: blur(85px);
+	}
+
+	@media #{$screen-medium-tab} {
+		background: rgba(255, 170, 72, 0.7);
+		width: medium-tab(734);
+		height: medium-tab(300);
+		right: medium-tab(16);
+		bottom: medium-tab(105);
+		filter: blur(105px);
+	}
+
+	@media #{$screen-small} {
+		background: rgba(255, 170, 72, 0.4);
+		width: small(734);
+		height: small(300);
+		bottom: small(-60);
+		left: -50%;
+		filter: blur(85px);
 	}
 }
 
 .header {
+	display: flex;
+	justify-content: space-between;
+
 	@media #{$screen-large} {
+		align-items: center;
 		padding: large(15) 0;
-		margin-bottom: large(28);
+		margin-bottom: large(80);
 	}
 
 	@media #{$screen-medium-up} {
+		align-items: center;
 		padding: 15px 0;
-		margin-bottom: 28px;
+		margin-bottom: 80px;
 	}
 
-	@media #{$screen-medium-down} {
+	@media #{$screen-medium} {
+		align-items: center;
 		padding: medium(15) 0;
-		margin-bottom: medium(28);
+		margin-bottom: medium(80);
+	}
+
+	@media #{$screen-medium-tab} {
+		padding: medium-tab(15) 0;
+		margin-bottom: medium-tab(90);
 	}
 
 	@media #{$screen-small} {
+		padding: small(15) 0;
+		margin-bottom: small(20);
+	}
+}
+
+.logoLink {
+	display: block;
+
+	@media #{$screen-large} {
+		width: large(190);
+		height: large(68);
+	}
+
+	@media #{$screen-medium-up} {
+		width: 190px;
+		height: 68px;
+	}
+
+	@media #{$screen-medium} {
+		width: medium(190);
+		height: medium(68);
+	}
+
+	@media #{$screen-medium-tab} {
+		width: medium-tab(190);
+		height: medium-tab(68);
+	}
+
+	@media #{$screen-small} {
+		width: small(190);
+	}
+}
+
+.loginButton {
+	display: none;
+	// display: flex;
+	align-items: center;
+	cursor: pointer;
+	color: #fff;
+	border: none;
+	outline: none;
+	// background: linear-gradient(
+	// 		0deg,
+	// 		rgba(249, 134, 0, 0.5),
+	// 		rgba(249, 134, 0, 0.5)
+	// 	),
+	// 	#ffffff;
+	background: #f98600;
+	border: 1px solid rgba(0, 0, 0, 0.05);
+
+	@media #{$screen-large} {
+		font-size: large(18);
+		line-height: large(22);
+		height: large(50);
+		border-radius: large(5);
+		padding: 0 large(67);
+	}
+
+	@media #{$screen-medium-up} {
+		font-size: 18px;
+		line-height: 22px;
+		height: 50px;
+		border-radius: 5px;
+		padding: 0 67px;
+	}
+
+	@media #{$screen-medium} {
+		font-size: medium(18);
+		line-height: medium(22);
+		height: medium(50);
+		border-radius: medium(5);
+		padding: 0 medium(67);
+	}
+
+	@media #{$screen-medium-tab} {
+		font-size: medium-tab(16);
+		line-height: medium-tab(18);
+		height: medium-tab(36);
+		border-radius: medium-tab(5);
+		padding: 0 medium-tab(27);
+	}
+
+	@media #{$screen-small} {
+		font-size: small(15);
+		line-height: small(18);
+		height: small(35);
+		border-radius: small(5);
+		padding: 0 small(28);
+	}
+
+	&:hover {
+		background: #f08912;
 	}
 }
 
 .content {
-	@media #{$screen-large} {
-		width: large(575);
-		padding: large(10) large(23);
-	}
-
-	@media #{$screen-medium-up} {
-		width: 575px;
-		padding: 10px 23px;
-	}
-
-	@media #{$screen-medium-down} {
-		width: medium(575);
-		padding: medium(10) medium(23);
-	}
-
-	@media #{$screen-small} {
-	}
+	position: relative;
+	z-index: 2;
 
 	h1 {
 		color: #585757;
-		font-weight: 700;
 
 		@media #{$screen-large} {
-			font-size: large(36);
-			line-height: large(42);
-			margin-bottom: large(6);
+			background: rgba(247, 252, 255, 1);
+			width: large(612);
+			font-size: large(55);
+			line-height: large(66);
+			padding: large(15) 0 large(15) 0;
+			border-radius: large(10);
+			margin-bottom: large(20);
 		}
 
 		@media #{$screen-medium-up} {
-			font-size: 36px;
-			line-height: 42px;
-			margin-bottom: 6px;
+			background: rgba(247, 252, 255, 1);
+			width: 612px;
+			font-size: 55px;
+			line-height: 66px;
+			padding: 15px 0 15px 0;
+			border-radius: 10px;
+			margin-bottom: 20px;
 		}
 
-		@media #{$screen-medium-down} {
-			font-size: medium(36);
-			line-height: medium(42);
-			margin-bottom: medium(6);
+		@media #{$screen-medium} {
+			background: rgba(247, 252, 255, 1);
+			width: medium(612);
+			font-size: medium(55);
+			line-height: medium(66);
+			padding: medium(15) 0 medium(15) 0;
+			border-radius: medium(10);
+			margin-bottom: medium(20);
+		}
+
+		@media #{$screen-medium-tab} {
+			background: rgba(247, 252, 255, 0.8);
+			width: medium-tab(490);
+			font-size: medium-tab(48);
+			line-height: medium-tab(59);
+			padding: medium-tab(15) medium-tab(15) medium-tab(15) 0;
+			border-radius: medium-tab(10);
+			margin-bottom: medium-tab(25);
 		}
 
 		@media #{$screen-small} {
+			background: rgba(247, 252, 255, 0.4);
+			font-size: small(36);
+			line-height: small(44);
+			padding: small(15) 0 small(15) 0;
+			border-radius: small(10);
 		}
 
 		span {
@@ -143,28 +358,67 @@ $screen-large: "(min-width: 1800px)";
 }
 
 .subtitle {
+	font-weight: 400;
 	color: #f98600;
-	font-weight: 500;
 
 	@media #{$screen-large} {
-		font-size: large(16);
-		line-height: large(22);
-		margin-bottom: large(18);
+		font-size: large(24);
+		line-height: large(32);
+		margin-bottom: large(35);
 	}
 
 	@media #{$screen-medium-up} {
-		font-size: 16px;
-		line-height: 22px;
-		margin-bottom: 18px;
+		font-size: 24px;
+		line-height: 32px;
+		margin-bottom: 35px;
 	}
 
-	@media #{$screen-medium-down} {
-		font-size: medium(16);
-		line-height: medium(22);
-		margin-bottom: medium(18);
+	@media #{$screen-medium} {
+		font-size: medium(24);
+		line-height: medium(32);
+		margin-bottom: medium(35);
+	}
+
+	@media #{$screen-medium-tab} {
+		font-size: medium-tab(24);
+		line-height: medium-tab(25);
+		margin-bottom: medium-tab(84);
+		width: medium-tab(279);
 	}
 
 	@media #{$screen-small} {
+		font-size: small(18);
+		line-height: small(24);
+		margin-bottom: small(21);
+	}
+}
+
+.formContainer {
+	position: relative;
+
+	@media #{$screen-large} {
+		width: large(612);
+		margin-bottom: large(80);
+	}
+
+	@media #{$screen-medium-up} {
+		width: 612px;
+		margin-bottom: 80px;
+	}
+
+	@media #{$screen-medium} {
+		width: medium(612);
+		margin-bottom: medium(80);
+	}
+
+	@media #{$screen-medium-tab} {
+		width: 100%;
+		margin-bottom: medium-tab(50);
+	}
+
+	@media #{$screen-small} {
+		width: 100%;
+		margin-bottom: small(30);
 	}
 }
 
@@ -173,27 +427,34 @@ $screen-large: "(min-width: 1800px)";
 	font-weight: 700;
 
 	@media #{$screen-large} {
-		font-size: large(18);
-		line-height: large(22);
-		letter-spacing: large(-0.1);
-		margin-bottom: large(20);
+		font-size: large(24);
+		line-height: large(24);
+		margin-bottom: large(25);
 	}
 
 	@media #{$screen-medium-up} {
-		font-size: 18px;
-		line-height: 22px;
-		letter-spacing: -0.1px;
-		margin-bottom: 20px;
+		font-size: 24px;
+		line-height: 24px;
+		margin-bottom: 25px;
 	}
 
-	@media #{$screen-medium-down} {
-		font-size: medium(18);
-		line-height: medium(22);
-		letter-spacing: medium(-0.1);
-		margin-bottom: medium(20);
+	@media #{$screen-medium} {
+		font-size: medium(24);
+		line-height: medium(24);
+		margin-bottom: medium(25);
+	}
+
+	@media #{$screen-medium-tab} {
+		text-align: center;
+		font-size: medium-tab(24);
+		line-height: medium-tab(24);
+		margin-bottom: medium-tab(29);
 	}
 
 	@media #{$screen-small} {
+		font-size: small(16);
+		line-height: small(16);
+		margin-bottom: small(17);
 	}
 }
 
@@ -201,191 +462,305 @@ $screen-large: "(min-width: 1800px)";
 	display: flex;
 	justify-content: space-between;
 
-	@media #{$screen-large} {
-		margin: 0 large(-5);
-		width: large(384);
-	}
-
-	@media #{$screen-medium-up} {
-		margin: 0 -5px;
-		width: 384px;
-	}
-
-	@media #{$screen-medium-down} {
-		margin: 0 medium(-5);
-		width: medium(384);
-	}
-
 	@media #{$screen-small} {
+		flex-direction: column;
 	}
 
 	input {
 		outline: none;
-		border: 1px solid #f5c99c;
 		font-weight: 200;
 		color: #585757;
+		border: 1px solid #f5c99c;
+		background: #fff;
 
 		@media #{$screen-large} {
+			width: large(400);
+			height: large(50);
 			font-size: large(12);
-			line-height: large(15);
-			height: large(36);
-			padding: large(2) large(12) 0;
+			line-height: large(12);
+			padding-left: large(10);
 			border-radius: large(7);
-			width: large(241);
-			margin-bottom: large(30);
 		}
 
 		@media #{$screen-medium-up} {
+			width: 400px;
+			height: 50px;
 			font-size: 12px;
-			line-height: 15px;
-			height: 36px;
-			padding: 2px 12px 0;
+			line-height: 12px;
+			padding-left: 10px;
 			border-radius: 7px;
-			width: 241px;
-			margin-bottom: 30px;
 		}
 
-		@media #{$screen-medium-down} {
+		@media #{$screen-medium} {
+			width: medium(400);
+			height: medium(50);
 			font-size: medium(12);
-			line-height: medium(15);
-			height: medium(36);
-			padding: medium(2) medium(12) 0;
+			line-height: medium(12);
+			padding-left: medium(10);
 			border-radius: medium(7);
-			width: medium(241);
-			margin-bottom: medium(30);
+		}
+
+		@media #{$screen-medium-tab} {
+			width: medium-tab(483);
+			height: medium-tab(50);
+			font-size: medium-tab(12);
+			line-height: medium-tab(12);
+			padding-left: medium-tab(10);
+			border-radius: medium-tab(5);
 		}
 
 		@media #{$screen-small} {
+			width: 100%;
+			height: small(40);
+			font-size: small(12);
+			line-height: small(12);
+			padding-left: small(10);
+			border-radius: small(5);
+			margin-bottom: small(12);
+		}
+	}
+
+	button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		color: #fff;
+		border: none;
+		outline: none;
+		// background: linear-gradient(
+		// 		0deg,
+		// 		rgba(249, 134, 0, 0.5),
+		// 		rgba(249, 134, 0, 0.5)
+		// 	),
+		// 	#ffffff;
+		background: #f98600;
+		border: 1px solid rgba(0, 0, 0, 0.05);
+
+		@media #{$screen-large} {
+			font-size: large(18);
+			line-height: large(22);
+			height: large(50);
+			border-radius: large(5);
+			padding: 0 large(38);
+			min-width: large(188);
 		}
 
-		&::-webkit-input-placeholder {
-			/* Chrome/Opera/Safari */
-			font-weight: 300;
-			color: #585757;
+		@media #{$screen-medium-up} {
+			font-size: 18px;
+			line-height: 22px;
+			height: 50px;
+			border-radius: 5px;
+			padding: 0 38px;
+			min-width: 188px;
 		}
-		&::-moz-placeholder {
-			/* Firefox 19+ */
-			font-weight: 300;
-			color: #585757;
+
+		@media #{$screen-medium} {
+			font-size: medium(18);
+			line-height: medium(22);
+			height: medium(50);
+			border-radius: medium(5);
+			padding: 0 medium(38);
+			min-width: medium(188);
 		}
-		&:-ms-input-placeholder {
-			/* IE 10+ */
-			font-weight: 300;
-			color: #585757;
+
+		@media #{$screen-medium-tab} {
+			font-size: medium-tab(14);
+			line-height: medium-tab(22);
+			height: medium-tab(50);
+			border-radius: medium-tab(5);
+			padding: 0 medium-tab(72);
+			min-width: medium-tab(230);
 		}
-		&:-moz-placeholder {
-			/* Firefox 18- */
-			font-weight: 300;
-			color: #585757;
+
+		@media #{$screen-small} {
+			justify-content: center;
+			width: 100%;
+			font-size: small(14);
+			line-height: small(18);
+			height: small(40);
+			border-radius: small(5);
+		}
+
+		&:hover {
+			background: #f08912;
 		}
 	}
 }
 
-.formButton {
-	position: relative;
-	text-align: center;
-	display: block;
-	cursor: pointer;
-	width: 100%;
-	color: #fff;
-	border: none;
-	outline: none;
-	background: linear-gradient(
-			0deg,
-			rgba(249, 134, 0, 0.5),
-			rgba(249, 134, 0, 0.5)
-		),
-		#ffffff;
+.formError {
+	color: #f45b39;
+	font-weight: 400;
 
-	border: 1px solid rgba(0, 0, 0, 0.05);
+	@media #{$screen-large} {
+		position: absolute;
+		font-size: large(14);
+		line-height: large(18);
+		bottom: large(-27);
+		left: large(8);
+	}
+
+	@media #{$screen-medium-up} {
+		position: absolute;
+		font-size: 14px;
+		line-height: 18px;
+		bottom: -27px;
+		left: 8px;
+	}
+
+	@media #{$screen-medium} {
+		position: absolute;
+		font-size: medium(14);
+		line-height: medium(18);
+		bottom: medium(-27);
+		left: medium(8);
+	}
+
+	@media #{$screen-medium-tab} {
+		position: absolute;
+		font-size: medium-tab(14);
+		line-height: medium-tab(18);
+		bottom: medium-tab(-27);
+		left: medium-tab(8);
+	}
+
+	@media #{$screen-small} {
+		font-size: small(12);
+		line-height: small(18);
+		margin: small(-5) 0 small(10) small(8);
+	}
+}
+
+.successSendingForm {
+	position: relative;
+	display: flex;
+	align-items: center;
+	background: #e5f8eb;
+	color: #1dc14b;
 
 	@media #{$screen-large} {
 		font-size: large(16);
-		line-height: large(22);
-		height: large(36);
-		width: large(127);
+		line-height: large(21);
+		padding: large(4) large(25) large(4) large(9);
 		border-radius: large(7);
 	}
 
 	@media #{$screen-medium-up} {
 		font-size: 16px;
-		line-height: 22px;
-		height: 36px;
-		width: 127px;
+		line-height: 21px;
+		padding: 4px 25px 4px 9px;
 		border-radius: 7px;
 	}
 
-	@media #{$screen-medium-down} {
+	@media #{$screen-medium} {
 		font-size: medium(16);
-		line-height: medium(22);
-		height: medium(36);
-		width: medium(127);
+		line-height: medium(21);
+		padding: medium(4) medium(25) medium(4) medium(9);
 		border-radius: medium(7);
 	}
 
-	@media #{$screen-small} {
-	}
-}
-
-.inputContainer {
-	position: relative;
-}
-
-.formError {
-	position: absolute;
-	bottom: 0;
-	color: #f44343;
-
-	@media #{$screen-large} {
-		font-size: large(9);
-		line-height: large(12);
-		left: large(5);
-	}
-
-	@media #{$screen-medium-up} {
-		font-size: 9px;
-		line-height: 12px;
-		left: 5px;
-	}
-
-	@media #{$screen-medium-down} {
-		font-size: medium(9);
-		line-height: medium(12);
-		left: medium(5);
+	@media #{$screen-medium-tab} {
+		font-size: medium-tab(16);
+		line-height: medium-tab(21);
+		padding: medium-tab(4) medium-tab(25) medium-tab(4) medium-tab(9);
+		border-radius: medium-tab(7);
 	}
 
 	@media #{$screen-small} {
+		font-size: small(16);
+		line-height: small(21);
+		padding: small(14) small(25) small(15) small(9);
+		border-radius: small(7);
+	}
+
+	span {
+		display: block;
+		position: absolute;
+		cursor: pointer;
+
+		@media #{$screen-large} {
+			width: large(18);
+			height: large(18);
+			right: large(3);
+			top: large(3);
+		}
+
+		@media #{$screen-medium-up} {
+			width: 18px;
+			height: 18px;
+			right: 3px;
+			top: 3px;
+		}
+
+		@media #{$screen-medium} {
+			width: medium(18);
+			height: medium(18);
+			right: medium(3);
+			top: medium(3);
+		}
+
+		@media #{$screen-medium-tab} {
+			width: medium-tab(18);
+			height: medium-tab(18);
+			right: medium-tab(3);
+			top: medium-tab(3);
+		}
+
+		@media #{$screen-small} {
+			width: small(18);
+			height: small(18);
+			right: small(3);
+			top: small(3);
+		}
+
+		svg {
+			width: 100%;
+			height: 100%;
+		}
 	}
 }
 
 .info {
 	background: #fff;
-	position: relative;
+	font-weight: 400;
+	border: 1px solid #f5c99c;
 
 	@media #{$screen-large} {
-		font-size: large(13);
+		font-size: large(16);
 		line-height: large(21);
-		padding: large(28) large(15);
-		margin: 0 large(-20);
+		width: large(717);
+		padding: large(20) large(40);
 		border-radius: large(7);
 	}
 
 	@media #{$screen-medium-up} {
-		font-size: 13px;
+		font-size: 16px;
 		line-height: 21px;
-		padding: 28px 15px;
-		margin: 0 -20px;
+		width: 717px;
+		padding: 20px 40px;
 		border-radius: 7px;
 	}
 
-	@media #{$screen-medium-down} {
-		font-size: medium(13);
+	@media #{$screen-medium} {
+		font-size: medium(16);
 		line-height: medium(21);
-		padding: medium(28) medium(15);
-		margin: 0 medium(-20);
+		width: medium(717);
+		padding: medium(20) medium(40);
 		border-radius: medium(7);
 	}
 
+	@media #{$screen-medium-tab} {
+		font-size: medium-tab(16);
+		line-height: medium-tab(21);
+		padding: medium-tab(29) medium-tab(40);
+		border-radius: medium-tab(7);
+	}
+
 	@media #{$screen-small} {
+		color: #969696;
+		font-size: small(13);
+		line-height: small(16);
+		padding: small(10) small(20);
+		border-radius: small(5);
 	}
 }

@@ -8,6 +8,7 @@ interface Input {
 	loader?: boolean;
 	placeholder?: string;
 	autocomplete?: string;
+	error?: boolean;
 }
 
 const Input = (props: Input) => {
@@ -21,11 +22,13 @@ const Input = (props: Input) => {
 		loader,
 		placeholder,
 		autocomplete,
+		error,
 	} = props;
 
 	return (
 		<>
 			<input
+				className={error ? "input-error" : ""}
 				id={id}
 				name={name}
 				type={type}
