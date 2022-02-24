@@ -24,7 +24,7 @@ const LevelUpdate: NextPage<LevelUpdateProps> = (props) => {
 				<Sidebar user={user} />
 				<div className={styles.rightColumn}>
 					<div className={styles.wrapper}>
-						<h1>Topic - "{level.title}"</h1>
+						<h1>Topic - {level.title}</h1>
 						<LevelCreateForm user={user} level={level} />
 					</div>
 				</div>

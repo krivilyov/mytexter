@@ -24,7 +24,7 @@ const TopicUpdate: NextPage<TopicUpdateProps> = (props) => {
 				<Sidebar user={user} />
 				<div className={styles.rightColumn}>
 					<div className={styles.wrapper}>
-						<h1>Topic - "{topic.title}"</h1>
+						<h1>Topic - {topic.title}</h1>
 						<TopicCreateForm user={user} topic={topic} />
 					</div>
 				</div>

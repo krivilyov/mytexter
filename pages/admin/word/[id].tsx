@@ -33,7 +33,7 @@ export default function WordUpdate(props: WordUpdateProps) {
 				<Sidebar user={user} />
 				<div className={styles.rightColumn}>
 					<div className={styles.wrapper}>
-						<h1>Word - "{word.title}"</h1>
+						<h1>Word - {word.title}</h1>
 						<WordCreateForm
 							user={user}
 							languages={languages}

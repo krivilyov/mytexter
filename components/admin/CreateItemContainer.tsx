@@ -13,7 +13,7 @@ const CreateItemContainer = (props: CreateItemContainerProps) => {
 
 	return (
 		<div className={styles.createItemContainer}>
-			<Link href={link}>
+			<Link href={link} passHref>
 				<Button variant="contained" color="success" startIcon={<AddIcon />}>
 					{btnName}
 				</Button>

@@ -23,7 +23,7 @@ export default function LanguageUpdate(props: LanguageUpdateProps) {
 				<Sidebar user={user} />
 				<div className={styles.rightColumn}>
 					<div className={styles.wrapper}>
-						<h1>Language - "{language.title}"</h1>
+						<h1>Language - {language.title}</h1>
 						<LanguageCreateForm user={user} language={language} />
 					</div>
 				</div>
