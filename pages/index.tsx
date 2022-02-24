@@ -98,7 +98,7 @@ export default function Home() {
 				<title>My Texter</title>
 				<meta
 					name="description"
-					content="My Texter сервис обучения английскому языку"
+					content="Учись  сам  или с учителем. Получай готовые задания или собирай свои. Описывай сюжетные картинки  и учи языки эффективно с My Texter."
 				></meta>
 				<meta name="keywords" content="My Texter, обучение, языки"></meta>
 				<meta name="viewport" content="initial-scale=1.0, width=device-width" />
