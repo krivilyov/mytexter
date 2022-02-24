@@ -102,6 +102,30 @@ export default function Home() {
 				></meta>
 				<meta name="keywords" content="My Texter, обучение, языки"></meta>
 				<meta name="viewport" content="initial-scale=1.0, width=device-width" />
+				<meta name="twitter:card" content="summary_large_image" />
+				<meta name="twitter:url" content="https://my-texter.com/" />
+				<meta name="twitter:title" content="My Texter" />
+				<meta
+					name="twitter:description"
+					content="Учись  сам  или с учителем. Получай готовые задания или собирай свои. Описывай сюжетные картинки  и учи языки эффективно с My Texter."
+				/>
+				<meta
+					name="twitter:image"
+					content="https://api.my-texter.com/image/my_texter.png"
+				/>
+
+				<meta property="og:site_name" content="https://my-texter.com/" />
+				<meta property="og:type" content="website" />
+				<meta property="og:determiner" content="a" />
+				<meta property="og:title" content="My Texter" />
+				<meta
+					property="og:description"
+					content="Учись  сам  или с учителем. Получай готовые задания или собирай свои. Описывай сюжетные картинки  и учи языки эффективно с My Texter."
+				/>
+				<meta
+					property="og:image"
+					content="https://api.my-texter.com/image/my_texter.png"
+				/>
 			</Head>
 			<div className={styles.container}>
 				<div className={styles.wrapper}>
