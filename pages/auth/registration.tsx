@@ -12,278 +12,240 @@ import Loader from "../../components/loader";
 import styles from "../../styles/auth/AuthForm.module.scss";
 
 const Registration: NextPage = () => {
-	const router = useRouter();
+  const router = useRouter();
 
-	const [values, setValues] = useState({
-		name: "",
-		email: "",
-		password: "",
-	});
+  const [values, setValues] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
 
-	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setValues({ ...values, [e.target.name]: e.target.value.trim() });
-	};
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValues({ ...values, [e.target.name]: e.target.value.trim() });
+  };
 
-	const handleCheckErrors = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const inputName: string = e.target.name;
+  const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [loader, isLoader] = useState(false);
 
-		//for name
-		if (inputName === "name") {
-			const filterName = /[a-zA-Zа-яА-ЯёЁ0-9-_\.]{3,20}$/;
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
 
-			if (!filterName.test(String(values.name).toLowerCase()))
-				setNameError(errors.name.wrong);
-			else setNameError("");
-		}
+    const validate = formValidate();
 
-		//for email
-		if (inputName === "email") {
-			const filterEmail =
-				/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-			if (!filterEmail.test(String(values.email).toLowerCase()))
-				setEmailError(errors.email.wrong);
-			else setEmailError("");
-		}
+    if (validate) {
+      //loader
+      isLoader(true);
 
-		//for password
-		if (inputName === "password") {
-			const filterPassword =
-				/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,12}$/;
-			if (!filterPassword.test(String(values.password).toLowerCase()))
-				setPasswordError(errors.password.wrong);
-			else setPasswordError("");
-		}
-	};
+      axios
+        .post(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/auth/registration`,
+          {
+            name: values.name,
+            email: values.email,
+            password: values.password,
+          },
+          { withCredentials: true }
+        )
+        .then((res) => {
+          isLoader(false);
+          router.push("/auth/registration-successful");
+        })
+        .catch((error) => {
+          if (error.response) {
+            handleErrorForm(error.response.data);
+          }
+        });
+    }
+  };
 
-	const [nameError, setNameError] = useState("");
-	const [emailError, setEmailError] = useState("");
-	const [passwordError, setPasswordError] = useState("");
-	const [loader, isLoader] = useState(false);
+  const formValidate = (): boolean => {
+    let validateName = true;
+    let validateEmail = true;
+    let validatePassword = true;
 
-	const handleFormSubmit = (e: React.FormEvent) => {
-		e.preventDefault();
+    //name
+    const filterName = /[a-zA-Zа-яА-ЯёЁ0-9-_\.]{3,20}$/;
+    if (!filterName.test(String(values.name).toLowerCase())) {
+      validateName = false;
+      setNameError(errors.name.wrong);
+    } else setNameError("");
 
-		const validate = formValidate();
+    //email
+    const filterEmail =
+      /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if (!filterEmail.test(String(values.email).toLowerCase())) {
+      validateEmail = false;
+      setEmailError(errors.email.wrong);
+    } else setEmailError("");
 
-		if (validate) {
-			//loader
-			isLoader(true);
+    //password
+    const filterPassword =
+      /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,12}$/;
+    if (!filterPassword.test(String(values.password).toLowerCase())) {
+      validatePassword = false;
+      setPasswordError(errors.password.wrong);
+    } else setPasswordError("");
 
-			axios
-				.post(
-					`${process.env.NEXT_PUBLIC_API_URL}/api/auth/registration`,
-					{
-						name: values.name,
-						email: values.email,
-						password: values.password,
-					},
-					{ withCredentials: true }
-				)
-				.then((res) => {
-					isLoader(false);
-					router.push("/auth/registration-successful");
-				})
-				.catch((error) => {
-					if (error.response) {
-						handleErrorForm(error.response.data);
-					}
-				});
-		}
-	};
+    if (validateName && validateEmail && validatePassword) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
-	const formValidate = (): boolean => {
-		let validateName = true;
-		let validateEmail = true;
-		let validatePassword = true;
+  interface Errors {
+    name: string;
+    email: string;
+    password: string;
+  }
 
-		//name
-		const filterName = /[a-zA-Zа-яА-ЯёЁ0-9-_\.]{3,20}$/;
-		if (!filterName.test(String(values.name).toLowerCase())) {
-			validateName = false;
-			setNameError(errors.name.wrong);
-		} else setNameError("");
+  const handleErrorForm = (errors: Errors) => {
+    isLoader(false);
 
-		//email
-		const filterEmail =
-			/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-		if (!filterEmail.test(String(values.email).toLowerCase())) {
-			validateEmail = false;
-			setEmailError(errors.email.wrong);
-		} else setEmailError("");
+    if (errors.name) {
+      setNameError(errors.name);
+    }
 
-		//password
-		const filterPassword =
-			/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,12}$/;
-		if (!filterPassword.test(String(values.password).toLowerCase())) {
-			validatePassword = false;
-			setPasswordError(errors.password.wrong);
-		} else setPasswordError("");
+    if (errors.email) {
+      setEmailError(errors.email);
+    }
 
-		if (validateName && validateEmail && validatePassword) {
-			return true;
-		} else {
-			return false;
-		}
-	};
+    if (errors.password) {
+      setPasswordError(errors.password);
+    }
+  };
 
-	interface Errors {
-		name: string;
-		email: string;
-		password: string;
-	}
+  return (
+    <div className={styles.container}>
+      <div className={styles.wrapper}>
+        <div className={styles.heroContainer}>
+          <div className={styles.logoContainer}>
+            <Link href="/">
+              <a className={styles.logoLink}>
+                <Image
+                  src="/images/logo.svg"
+                  alt="My Texter logo"
+                  width={300}
+                  height={107}
+                />
+              </a>
+            </Link>
+          </div>
+          <div className={styles.heroText}>
+            Добро пожаловать, введите свои данные для регистрации
+          </div>
+        </div>
+        <div className={styles.formWrap}>
+          <form className={styles.form} onSubmit={handleFormSubmit}>
+            <div className={styles.formGroup}>
+              <label className={styles.formLabel} htmlFor="email">
+                Ваше имя
+              </label>
+              <Input
+                type="text"
+                id="name"
+                name="name"
+                value={values.name}
+                onChange={onChange}
+                loader={loader}
+                error={!!nameError}
+              />
+              {nameError && <div className={styles.errorItem}>{nameError}</div>}
+            </div>
+            <div className={styles.formGroup}>
+              <label className={styles.formLabel} htmlFor="email">
+                Ваш адрес эл. почты
+              </label>
+              <Input
+                type="text"
+                id="email"
+                name="email"
+                value={values.email}
+                onChange={onChange}
+                loader={loader}
+                error={!!emailError}
+              />
+              {emailError && (
+                <div className={styles.errorItem}>{emailError}</div>
+              )}
+            </div>
+            <div className={styles.formGroup}>
+              <label className={styles.formLabel} htmlFor="password">
+                Пароль
+              </label>
+              <Input
+                type="password"
+                id="password"
+                name="password"
+                value={values.password}
+                onChange={onChange}
+                loader={loader}
+                error={!!passwordError}
+              />
+              {passwordError && (
+                <div className={styles.errorItem}>{passwordError}</div>
+              )}
+            </div>
 
-	const handleErrorForm = (errors: Errors) => {
-		isLoader(false);
+            <div className={styles.separator}></div>
 
-		if (errors.name) {
-			setNameError(errors.name);
-		}
-
-		if (errors.email) {
-			setEmailError(errors.email);
-		}
-
-		if (errors.password) {
-			setPasswordError(errors.password);
-		}
-	};
-
-	return (
-		<div className={styles.container}>
-			<div className={styles.wrapper}>
-				<div className={styles.heroContainer}>
-					<div className={styles.logoContainer}>
-						<Link href="/">
-							<a className={styles.logoLink}>
-								<Image
-									src="/images/logo.svg"
-									alt="My Texter logo"
-									width={195}
-									height={65}
-								/>
-							</a>
-						</Link>
-					</div>
-					<div className={styles.heroText}>
-						Добро пожаловать, введите свои данные для регистрации
-					</div>
-				</div>
-				<div className={styles.formWrap}>
-					{nameError || emailError || passwordError ? (
-						<div className={styles.errorContainer}>
-							{nameError && <div className={styles.errorItem}>{nameError}</div>}
-							{emailError && (
-								<div className={styles.errorItem}>{emailError}</div>
-							)}
-							{passwordError && (
-								<div className={styles.errorItem}>{passwordError}</div>
-							)}
-						</div>
-					) : (
-						""
-					)}
-
-					<form className={styles.form} onSubmit={handleFormSubmit}>
-						<div className={styles.formGroup}>
-							<label className={styles.formLabel} htmlFor="email">
-								Ваше имя
-							</label>
-							<Input
-								type="text"
-								id="name"
-								name="name"
-								value={values.name}
-								onChange={onChange}
-								onBlur={handleCheckErrors}
-								loader={loader}
-							/>
-						</div>
-						<div className={styles.formGroup}>
-							<label className={styles.formLabel} htmlFor="email">
-								Ваш адрес эл. почты
-							</label>
-							<Input
-								type="text"
-								id="email"
-								name="email"
-								value={values.email}
-								onChange={onChange}
-								onBlur={handleCheckErrors}
-								loader={loader}
-							/>
-						</div>
-						<div className={styles.formGroup}>
-							<label className={styles.formLabel} htmlFor="password">
-								Пароль
-							</label>
-							<Input
-								type="password"
-								id="password"
-								name="password"
-								value={values.password}
-								onChange={onChange}
-								onBlur={handleCheckErrors}
-								loader={loader}
-							/>
-						</div>
-
-						<div className={styles.separator}></div>
-
-						<button
-							className={styles.formButton}
-							type="submit"
-							disabled={loader ? true : false}
-						>
-							{!loader ? (
-								"Зарегистрироваться"
-							) : (
-								<div className={styles.loaderContainer}>
-									<Loader image="/images/loader.svg" />
-								</div>
-							)}
-						</button>
-					</form>
-				</div>
-				<div className={styles.loginLinkContainer}>
-					У меня есть аккаунт!
-					<Link href="/auth/login">
-						<a className={styles.recover}>Войти</a>
-					</Link>
-				</div>
-			</div>
-		</div>
-	);
+            <button
+              className={styles.formButton}
+              type="submit"
+              disabled={loader ? true : false}
+            >
+              {!loader ? (
+                "Зарегистрироваться"
+              ) : (
+                <div className={styles.loaderContainer}>
+                  <Loader image="/images/loader.svg" />
+                </div>
+              )}
+            </button>
+          </form>
+        </div>
+        <div className={styles.loginLinkContainer}>
+          У меня есть аккаунт!
+          <Link href="/auth/login">
+            <a className={styles.recover}>Войти</a>
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Registration;
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-	const token = req.cookies.token || "";
-	let user = null;
+  const token = req.cookies.token || "";
+  let user = null;
 
-	if (token) {
-		const res = await fetch(
-			`${process.env.NEXT_PUBLIC_API_URL}/api/auth/profile`,
-			{
-				headers: { Authorization: `Bearer ${token}` },
-			}
-		);
+  if (token) {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/auth/profile`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
 
-		if (res.ok) {
-			user = await res.json();
-		}
-	}
+    if (res.ok) {
+      user = await res.json();
+    }
+  }
 
-	if (user) {
-		return {
-			redirect: {
-				destination: "/",
-				statusCode: 302,
-			},
-		};
-	}
+  if (user) {
+    return {
+      redirect: {
+        destination: "/",
+        statusCode: 302,
+      },
+    };
+  }
 
-	return {
-		props: {},
-	};
+  return {
+    props: {},
+  };
 };

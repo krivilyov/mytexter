@@ -11,153 +11,131 @@ import Link from "next/link";
 import styles from "../../styles/auth/Restore.module.scss";
 
 export default function Restore() {
-	const router = useRouter();
+  const router = useRouter();
 
-	const [email, setEmail] = useState("");
-	const [emailError, setEmailError] = useState("");
-	const [loader, isLoader] = useState(false);
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [loader, isLoader] = useState(false);
 
-	const handleCheckErrors = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const inputName: string = e.target.name;
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
 
-		//for email
-		if (inputName === "email") {
-			const filterEmail =
-				/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-			if (!filterEmail.test(String(email).toLowerCase()))
-				setEmailError(errors.email.wrong);
-			else setEmailError("");
-		}
-	};
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
 
-	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setEmail(e.target.value);
-	};
+    const validate = formValidate();
 
-	const handleFormSubmit = (e: React.FormEvent) => {
-		e.preventDefault();
+    if (validate) {
+      //loader
+      isLoader(true);
 
-		const validate = formValidate();
+      axios
+        .post(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/auth/restore`,
+          {
+            email: email,
+          },
+          { withCredentials: true }
+        )
+        .then((res) => {
+          isLoader(false);
+          router.push("/auth/restore-success");
+        })
+        .catch((error) => {
+          if (error.response) {
+            handleErrorForm(error.response.data);
+          }
+        });
+    }
+  };
 
-		if (validate) {
-			//loader
-			isLoader(true);
+  interface Errors {
+    email: string;
+  }
 
-			axios
-				.post(
-					`${process.env.NEXT_PUBLIC_API_URL}/api/auth/restore`,
-					{
-						email: email,
-					},
-					{ withCredentials: true }
-				)
-				.then((res) => {
-					isLoader(false);
-					router.push("/auth/restore-success");
-				})
-				.catch((error) => {
-					if (error.response) {
-						handleErrorForm(error.response.data);
-					}
-				});
-		}
-	};
+  const handleErrorForm = (errors: Errors) => {
+    isLoader(false);
+    if (errors.email) {
+      setEmailError(errors.email);
+    }
+  };
 
-	interface Errors {
-		email: string;
-	}
+  const formValidate = (): boolean => {
+    let validateEmail = true;
 
-	const handleErrorForm = (errors: Errors) => {
-		isLoader(false);
-		if (errors.email) {
-			setEmailError(errors.email);
-		}
-	};
+    //for email
+    const filterEmail =
+      /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if (!filterEmail.test(String(email).toLowerCase())) {
+      validateEmail = false;
+      setEmailError(errors.email.wrong);
+    } else setEmailError("");
 
-	const formValidate = (): boolean => {
-		let validateEmail = true;
+    if (validateEmail) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
-		//for email
-		const filterEmail =
-			/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-		if (!filterEmail.test(String(email).toLowerCase())) {
-			validateEmail = false;
-			setEmailError(errors.email.wrong);
-		} else setEmailError("");
+  return (
+    <>
+      <Head>
+        <title>Restore password page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
+      <div className={styles.container}>
+        <div className={styles.wrapper}>
+          <Link href="/">
+            <a className={styles.logoLink}>
+              <Image
+                src="/images/logo.svg"
+                alt="My Texter logo"
+                width={250}
+                height={90}
+              />
+            </a>
+          </Link>
+          <div className={styles.heroText}>
+            Для восстановления пароля введите адрес электронной почты
+          </div>
+          <div className={styles.formWrap}>
+            <form onSubmit={handleFormSubmit}>
+              <div className={styles.formGroup}>
+                <Input
+                  type="text"
+                  id="email"
+                  name="email"
+                  value={email}
+                  onChange={onChange}
+                  loader={loader}
+                  placeholder="Email"
+                  autocomplete="off"
+                />
 
-		if (validateEmail) {
-			return true;
-		} else {
-			return false;
-		}
-	};
-
-	return (
-		<>
-			<Head>
-				<title>Restore password page</title>
-				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-				<meta name="robots" content="noindex, nofollow" />
-			</Head>
-			<div className={styles.container}>
-				<div className={styles.wrapper}>
-					<div className={styles.heroContainer}>
-						<div className={styles.logoContainer}>
-							<Link href="/">
-								<a className={styles.logoLink}>
-									<Image
-										src="/images/logo.svg"
-										alt="My Texter logo"
-										width={195}
-										height={65}
-									/>
-								</a>
-							</Link>
-						</div>
-						<div className={styles.heroText}>
-							Для восстановления пароля введите адрес электронной почты
-						</div>
-					</div>
-					<div className={styles.formWrap}>
-						{emailError ? (
-							<div className={styles.errorContainer}>
-								{emailError && (
-									<div className={styles.errorItem}>{emailError}</div>
-								)}
-							</div>
-						) : (
-							""
-						)}
-						<form onSubmit={handleFormSubmit}>
-							<Input
-								type="text"
-								id="email"
-								name="email"
-								value={email}
-								onChange={onChange}
-								onBlur={handleCheckErrors}
-								loader={loader}
-								placeholder="Email"
-								autocomplete="off"
-							/>
-
-							<button
-								className={styles.formButton}
-								type="submit"
-								disabled={loader ? true : false}
-							>
-								{!loader ? (
-									"Ок"
-								) : (
-									<div className={styles.loaderContainer}>
-										<Loader image="/images/loader.svg" />
-									</div>
-								)}
-							</button>
-						</form>
-					</div>
-				</div>
-			</div>
-		</>
-	);
+                <button
+                  className={styles.formButton}
+                  type="submit"
+                  disabled={loader ? true : false}
+                >
+                  {!loader ? (
+                    "Ок"
+                  ) : (
+                    <div className={styles.loaderContainer}>
+                      <Loader image="/images/loader.svg" />
+                    </div>
+                  )}
+                </button>
+              </div>
+              {emailError && (
+                <div className={styles.errorItem}>{emailError}</div>
+              )}
+            </form>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }

@@ -1,234 +1,350 @@
 $screen-small: "(max-width: 414px)";
-$screen-medium-down: "(min-width: 415px) and (max-width: 1199px)";
-$screen-medium-up: "(min-width: 1200px) and (max-width: 1799px)";
-$screen-medium: "(min-width: 415px) and (max-width: 1799px)";
+$screen-medium-tab: "(min-width: 415px) and (max-width: 768px)";
+$screen-medium: "(min-width: 769px) and (max-width: 1279px)";
+$screen-medium-up: "(min-width: 1280px) and (max-width: 1799px)";
 $screen-large: "(min-width: 1800px)";
 
 @function large($value) {
-	@return calc($value * 1.25px);
+  @return calc($value * 1.25px);
 }
 
-@function small($value, $size: 375) {
-	@return calc($value / $size * 100vw);
+@function medium($value, $size: 1280) {
+  @return calc($value / $size * 100vw);
+}
+
+@function medium-tab($value, $size: 768) {
+  @return calc($value / $size * 100vw);
+}
+
+@function small($value, $size: 360) {
+  @return calc($value / $size * 100vw);
 }
 
 .container {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background: #f3f5ff;
-	height: 100vh;
-	padding-bottom: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3f5ff;
+  height: 100vh;
+  padding-bottom: 5%;
 }
 
 .wrapper {
-	@media #{$screen-large} {
-		max-width: large(380);
-		padding: 0 large(40);
-	}
+  @media #{$screen-large} {
+    width: large(480);
+    padding: 0 large(30);
+  }
 
-	@media #{$screen-medium} {
-		max-width: 380px;
-		padding: 0 40px;
-	}
+  @media #{$screen-medium-up} {
+    width: 480px;
+    padding: 0 30px;
+  }
 
-	@media #{$screen-small} {
-		width: 100%;
-		padding: 0 small(20);
-	}
+  @media #{$screen-medium} {
+    width: medium(480);
+    padding: 0 medium(30);
+  }
+
+  @media #{$screen-medium-tab} {
+    width: medium-tab(480);
+  }
+
+  @media #{$screen-small} {
+    width: 100%;
+    padding: 0 small(16);
+  }
 }
 
-.logoContainer {
-	@media #{$screen-large} {
-		width: large(195);
-		height: large(65);
-		margin-bottom: large(12);
-	}
+.logoLink {
+  display: inline-block;
+  @media #{$screen-large} {
+    width: large(250);
+    height: large(94);
+    margin-bottom: large(8);
+  }
 
-	@media #{$screen-medium} {
-		width: 195px;
-		height: 65px;
-		margin-bottom: 12px;
-	}
+  @media #{$screen-medium-up} {
+    width: 250px;
+    height: 94px;
+    margin-bottom: 8px;
+  }
 
-	@media #{$screen-small} {
-		width: small(195);
-		height: small(65);
-		margin-bottom: small(12);
-	}
+  @media #{$screen-medium} {
+    width: medium(250);
+    height: medium(94);
+    margin-bottom: medium(8);
+  }
+
+  @media #{$screen-medium-tab} {
+    width: medium-tab(250);
+    height: medium-tab(94);
+    margin-bottom: medium-tab(8);
+  }
+
+  @media #{$screen-small} {
+    width: small(205);
+    height: small(74);
+    margin-bottom: small(8);
+  }
 }
 
 .heroText {
-	text-align: center;
-	font-weight: 300;
-	color: #879191;
+  text-align: center;
+  font-weight: 300;
+  color: #879191;
 
-	@media #{$screen-large} {
-		font-size: large(11);
-		line-height: large(22);
-		margin-bottom: large(10);
-	}
+  @media #{$screen-large} {
+    font-size: large(18);
+    line-height: large(29);
+    margin-bottom: large(20);
+  }
 
-	@media #{$screen-medium} {
-		font-size: 11px;
-		line-height: 22px;
-		margin-bottom: 10px;
-	}
+  @media #{$screen-medium-up} {
+    font-size: 18px;
+    line-height: 29px;
+    margin-bottom: 20px;
+  }
 
-	@media #{$screen-small} {
-		font-size: small(11);
-		line-height: small(22);
-		margin-bottom: small(10);
-	}
+  @media #{$screen-medium} {
+    font-size: medium(18);
+    line-height: medium(29);
+    margin-bottom: medium(20);
+  }
+
+  @media #{$screen-medium-tab} {
+    font-size: medium-tab(21);
+    line-height: medium-tab(35);
+    margin-bottom: medium-tab(20);
+  }
+
+  @media #{$screen-small} {
+    font-size: small(14);
+    line-height: small(24);
+    margin-bottom: small(10);
+  }
 }
 
 .form {
-	display: flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .formWrap {
-	background: #fff;
+  background: #fff;
 
-	@media #{$screen-large} {
-		width: large(300);
-		padding: large(25) large(30);
-		border-radius: large(7);
-		margin-bottom: large(12);
-	}
+  @media #{$screen-large} {
+    padding: large(30) large(40) large(20);
+    border-radius: large(5);
+    margin-bottom: large(12);
+  }
 
-	@media #{$screen-medium} {
-		width: 300px;
-		padding: 25px 30px;
-		border-radius: 7px;
-		margin-bottom: 12px;
-	}
+  @media #{$screen-medium-up} {
+    padding: 30px 40px 20px;
+    border-radius: 5px;
+    margin-bottom: 12px;
+  }
 
-	@media #{$screen-small} {
-		padding: small(25) small(30);
-		border-radius: small(7);
-		margin-bottom: small(12);
-	}
+  @media #{$screen-medium} {
+    padding: medium(30) medium(40) medium(20);
+    border-radius: medium(5);
+    margin-bottom: medium(12);
+  }
 
-	form {
-		display: flex;
+  @media #{$screen-medium-tab} {
+    padding: medium-tab(35) medium-tab(48);
+    border-radius: medium-tab(11);
+    margin-bottom: medium-tab(12);
+  }
 
-		input {
-			display: flex;
-			outline: none;
-			border: 1px solid #f5c99c;
-			font-weight: 200;
-			color: #585757;
-			width: 100%;
-
-			@media #{$screen-large} {
-				height: large(40);
-				font-size: large(9);
-				line-height: large(22);
-				padding: large(2) large(12) 0;
-				border-radius: large(7);
-				margin-right: large(5);
-			}
-
-			@media #{$screen-medium} {
-				height: 40px;
-				font-size: 9px;
-				line-height: 22px;
-				padding: 2px 12px 0;
-				border-radius: 7px;
-				margin-right: 5px;
-			}
-
-			@media #{$screen-small} {
-				height: small(40);
-				font-size: small(9);
-				line-height: small(22);
-				padding: small(2) small(12) 0;
-				border-radius: small(7);
-				margin-right: small(5);
-			}
-		}
-	}
+  @media #{$screen-small} {
+    padding: small(15);
+    border-radius: small(5);
+    margin-bottom: small(12);
+  }
 }
 
-.errorContainer {
-	color: #6a6a6a;
-	background: #f8d8a8;
-	border: 1px solid #f98600;
+.formGroup {
+  display: flex;
+  position: relative;
 
-	@media #{$screen-large} {
-		font-size: large(9);
-		line-height: large(12);
-		padding: large(9) large(12) large(1);
-		margin-bottom: large(25);
-	}
+  input {
+    outline: none;
+    border: 1px solid #f5c99c;
+    font-weight: 200;
+    color: #585757;
+    width: 100%;
 
-	@media #{$screen-medium} {
-		font-size: 9px;
-		line-height: 12px;
-		padding: 9px 12px 1px;
-		margin-bottom: 25px;
-	}
+    @media #{$screen-large} {
+      height: large(50);
+      font-size: large(16);
+      line-height: large(22);
+      padding: large(2) large(16) 0;
+      border-radius: large(5) 0 0 large(5);
+    }
 
-	@media #{$screen-small} {
-		font-size: small(9);
-		line-height: small(12);
-		padding: small(9) small(12) small(1);
-		margin-bottom: small(25);
-	}
+    @media #{$screen-medium-up} {
+      height: 50px;
+      font-size: 16px;
+      line-height: 22px;
+      padding: 2px 16px 0;
+      border-radius: 5px 0 0 5px;
+    }
+
+    @media #{$screen-medium} {
+      height: medium(50);
+      font-size: medium(16);
+      line-height: medium(22);
+      padding: medium(2) medium(16) 0;
+      border-radius: medium(5) 0 0 medium(5);
+    }
+
+    @media #{$screen-medium-tab} {
+      height: medium-tab(60);
+      font-size: medium-tab(16);
+      line-height: medium-tab(22);
+      padding: medium-tab(2) medium-tab(19) 0;
+      border-radius: medium-tab(5) 0 0 medium-tab(5);
+    }
+
+    @media #{$screen-small} {
+      height: small(40);
+      font-size: small(14);
+      line-height: small(24);
+      padding: small(2) small(12) 0;
+      border-radius: small(5) 0 0 small(5);
+    }
+
+    &::placeholder {
+      color: #879191;
+    }
+  }
 }
 
 .errorItem {
-	@media #{$screen-large} {
-		margin-bottom: large(8);
-	}
+  color: #f45b39;
+  font-weight: 400;
 
-	@media #{$screen-medium} {
-		margin-bottom: 8px;
-	}
+  @media #{$screen-large} {
+    font-size: large(14);
+    line-height: large(18);
+    margin-top: large(5);
+  }
 
-	@media #{$screen-small} {
-		margin-bottom: small(8);
-	}
+  @media #{$screen-medium-up} {
+    font-size: 14px;
+    line-height: 18px;
+    margin-top: 5px;
+  }
+
+  @media #{$screen-medium} {
+    font-size: medium(14);
+    line-height: medium(18);
+    margin-top: medium(5);
+  }
+
+  @media #{$screen-medium-tab} {
+    font-size: medium-tab(14);
+    line-height: medium-tab(18);
+    margin-top: medium-tab(5);
+  }
+
+  @media #{$screen-small} {
+    font-size: small(12);
+    line-height: small(18);
+    margin-top: small(5);
+  }
 }
 
 .formButton {
-	position: relative;
-	text-align: center;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	cursor: pointer;
-	color: #fff;
-	border: none;
-	outline: none;
-	background: linear-gradient(
-			0deg,
-			rgba(249, 134, 0, 0.5),
-			rgba(249, 134, 0, 0.5)
-		),
-		#ffffff;
+  position: relative;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #fff;
+  border: none;
+  outline: none;
+  background: linear-gradient(
+      0deg,
+      rgba(249, 134, 0, 0.5),
+      rgba(249, 134, 0, 0.5)
+    ),
+    #ffffff;
 
-	border: 1px solid rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
 
-	@media #{$screen-large} {
-		font-size: large(16);
-		line-height: large(22);
-		height: large(40);
-		border-radius: large(7);
-	}
+  @media #{$screen-large} {
+    width: large(80);
+    font-size: large(18);
+    line-height: large(22);
+    height: large(50);
+    border-radius: 0 large(5) large(5) 0;
+  }
 
-	@media #{$screen-medium} {
-		font-size: 16px;
-		line-height: 22px;
-		height: 40px;
-		border-radius: 7px;
-	}
+  @media #{$screen-medium-up} {
+    width: 80px;
+    font-size: 18px;
+    line-height: 22px;
+    height: 50px;
+    border-radius: 0 5px 5px 0;
+  }
 
-	@media #{$screen-small} {
-		font-size: small(16);
-		line-height: small(22);
-		height: small(40);
-		border-radius: small(7);
-	}
+  @media #{$screen-medium} {
+    width: medium(80);
+    font-size: medium(18);
+    line-height: medium(22);
+    height: medium(50);
+    border-radius: 0 medium(5) medium(5) 0;
+  }
+
+  @media #{$screen-medium-tab} {
+    width: medium-tab(80);
+    font-size: medium-tab(21);
+    line-height: medium-tab(35);
+    height: medium-tab(60);
+    border-radius: 0 medium-tab(5) medium-tab(5) 0;
+  }
+
+  @media #{$screen-small} {
+    width: small(60);
+    font-size: small(14);
+    line-height: small(22);
+    height: small(40);
+    border-radius: 0 small(5) small(5) 0;
+  }
+}
+
+.loaderContainer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+
+  @media #{$screen-large} {
+    width: large(40);
+    height: large(40);
+  }
+
+  @media #{$screen-medium-up} {
+    width: 40px;
+    height: 40px;
+  }
+
+  @media #{$screen-medium} {
+    width: medium(40);
+    height: medium(40);
+  }
+
+  @media #{$screen-medium-tab} {
+    width: medium-tab(50);
+    height: medium-tab(50);
+  }
+
+  @media #{$screen-small} {
+    width: small(40);
+    height: small(40);
+  }
 }
