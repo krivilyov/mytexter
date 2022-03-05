@@ -133,19 +133,19 @@ $screen-large: "(min-width: 1800px)";
   background: #fff;
 
   @media #{$screen-large} {
-    padding: large(30) large(40) large(20);
+    padding: large(30) large(40);
     border-radius: large(5);
     margin-bottom: large(12);
   }
 
   @media #{$screen-medium-up} {
-    padding: 30px 40px 20px;
+    padding: 30px 40px;
     border-radius: 5px;
     margin-bottom: 12px;
   }
 
   @media #{$screen-medium} {
-    padding: medium(30) medium(40) medium(20);
+    padding: medium(30) medium(40);
     border-radius: medium(5);
     margin-bottom: medium(12);
   }
