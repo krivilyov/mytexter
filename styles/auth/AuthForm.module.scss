@@ -21,36 +21,39 @@ $screen-large: "(min-width: 1800px)";
 }
 
 .container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background: #f3f5ff;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .wrapper {
   @media #{$screen-large} {
     width: large(480);
-    padding: 0 large(30);
+    padding: large(50) large(30);
+    margin: 0 auto;
   }
 
   @media #{$screen-medium-up} {
     width: 480px;
-    padding: 0 30px;
+    padding: 50px 30px;
+    margin: 0 auto;
   }
 
   @media #{$screen-medium} {
     width: medium(480);
-    padding: 0 medium(30);
+    padding: medium(50) medium(30);
+    margin: 0 auto;
   }
 
   @media #{$screen-medium-tab} {
     width: medium-tab(480);
+    padding-top: medium-tab(50);
+    padding-bottom: medium-tab(50);
+    margin: 0 auto;
   }
 
   @media #{$screen-small} {
     width: 100%;
-    padding: 0 small(16);
+    padding: small(30) small(16);
   }
 }
 
