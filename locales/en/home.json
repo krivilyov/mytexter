@@ -6,5 +6,8 @@
   "subtitle": "Learn English by describing plot pictures!",
   "form-title-with-html": "Sign up. We will inform you <0></0> about the launch date of the service.",
   "subscribe-button": "Subscribe",
-  "info": "We are here to improve your English vocabulary. Whether you are  starting with the basics or want to understand complex vocabulary, we have everything covered. We provide you with lists of words and plot pictures. Describe them and check yourself!"
+  "info": "We are here to improve your English vocabulary. Whether you are  starting with the basics or want to understand complex vocabulary, we have everything covered. We provide you with lists of words and plot pictures. Describe them and check yourself!",
+  "success-sending-form": "Congratulations! You have successfully subscribed and will be able to keep up with all My Texter updates.",
+  "error-email-wrong": "This must be a valid email address",
+  "empty-field": "The field should not be empty"
 }

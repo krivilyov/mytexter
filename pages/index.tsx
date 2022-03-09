@@ -4,7 +4,6 @@ import Link from "next/link";
 import Input from "../components/input";
 import Loader from "../components/loader";
 import { useState } from "react";
-import { errors } from "../lib/messages";
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
 import useTranslation from "next-translate/useTranslation";
@@ -30,7 +29,7 @@ export default function Home() {
       const filterEmail =
         /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
       if (!filterEmail.test(String(email).toLowerCase()))
-        setError(errors.email.wrong);
+        setError(t("home:error-email-wrong"));
       else setError("");
     } else {
       setError("");
@@ -71,11 +70,11 @@ export default function Home() {
         /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
       if (!filterEmail.test(String(email).toLowerCase())) {
         validateEmail = false;
-        setError(errors.email.wrong);
+        setError(t("home:error-email-wrong"));
       } else setError("");
     } else {
       validateEmail = false;
-      setError(errors.field.empty);
+      setError(t("home:empty-field"));
     }
 
     return validateEmail;
@@ -175,8 +174,7 @@ export default function Home() {
               </div>
               {sent ? (
                 <div className={styles.successSendingForm}>
-                  Поздравляем! Вы успешно подписались и сможете быть вкурсе всех
-                  обновлений My Texter.
+                  {t("home:success-sending-form")}
                   <span onClick={handleClose}>
                     <CloseIcon />
                   </span>

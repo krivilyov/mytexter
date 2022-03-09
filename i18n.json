@@ -4,6 +4,8 @@
   "localeDetection": false,
   "pages": {
     "*": ["common"],
-    "/": ["home"]
+    "/": ["home"],
+    "/auth/login": ["auth"],
+    "/auth/registration": ["auth"]
   }
 }

@@ -6,12 +6,13 @@ import Input from "../../components/input";
 import Image from "next/image";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
-import { errors } from "../../lib/messages";
 import Loader from "../../components/loader";
+import useTranslation from "next-translate/useTranslation";
 
 import styles from "../../styles/auth/AuthForm.module.scss";
 
 const Login: NextPage = () => {
+  const { t } = useTranslation();
   const router = useRouter();
 
   const [values, setValues] = useState({
@@ -66,7 +67,7 @@ const Login: NextPage = () => {
       /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     if (!filterEmail.test(String(values.email).toLowerCase())) {
       validateEmail = false;
-      setEmailError(errors.email.wrong);
+      setEmailError(t("auth:wrong-email"));
     } else setEmailError("");
 
     //for password
@@ -74,7 +75,7 @@ const Login: NextPage = () => {
       /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,12}$/;
     if (!filterPassword.test(String(values.password).toLowerCase())) {
       validatePassword = false;
-      setPasswordError(errors.password.wrong);
+      setPasswordError(t("auth:wrong-password"));
     } else setPasswordError("");
 
     if (validateEmail && validatePassword) {
@@ -116,15 +117,13 @@ const Login: NextPage = () => {
               </a>
             </Link>
           </div>
-          <div className={styles.heroText}>
-            С возвращением, введите свои данные для входа
-          </div>
+          <div className={styles.heroText}>{t("auth:hero-text-login")}</div>
         </div>
         <div className={styles.formWrap}>
           <form onSubmit={handleFormSubmit}>
             <div className={styles.formGroup}>
               <label className={styles.formLabel} htmlFor="email">
-                Ваш адрес эл. почты
+                {t("auth:label-email")}
               </label>
               <Input
                 type="text"
@@ -141,7 +140,7 @@ const Login: NextPage = () => {
             </div>
             <div className={styles.formGroup}>
               <label className={styles.formLabel} htmlFor="password">
-                Пароль
+                {t("auth:label-password")}
               </label>
               <Input
                 type="password"
@@ -159,7 +158,7 @@ const Login: NextPage = () => {
 
             <div className={styles.serviceLinksContainer}>
               <Link href="/auth/restore">
-                <a className={styles.recover}>Забыли пароль?</a>
+                <a className={styles.recover}>{t("auth:recover")}</a>
               </Link>
             </div>
 
@@ -169,7 +168,7 @@ const Login: NextPage = () => {
               disabled={loader ? true : false}
             >
               {!loader ? (
-                "Войти"
+                t("auth:form-button")
               ) : (
                 <div className={styles.loaderContainer}>
                   <Loader image="/images/loader.svg" />
@@ -179,9 +178,9 @@ const Login: NextPage = () => {
           </form>
         </div>
         <div className={styles.loginLinkContainer}>
-          У меня нет аккаунта!
+          {t("auth:login-link-container")}
           <Link href="/auth/registration">
-            <a className={styles.recover}>Создать</a>
+            <a className={styles.recover}>{t("auth:create-account")}</a>
           </Link>
         </div>
       </div>
