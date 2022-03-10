@@ -96,38 +96,38 @@ $screen-large: "(min-width: 1800px)";
 }
 
 .logoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
   @media #{$screen-large} {
-    width: large(250);
-    height: large(90);
-    margin-bottom: large(12);
+    padding-right: large(15);
+    margin-bottom: large(35);
   }
 
   @media #{$screen-medium-up} {
-    width: 250px;
-    height: 90px;
-    margin-bottom: 12px;
+    padding-right: 15px;
+    margin-bottom: 35px;
   }
 
   @media #{$screen-medium} {
-    width: medium(250);
-    height: medium(90);
-    margin-bottom: medium(12);
+    padding-right: medium(15);
+    margin-bottom: medium(35);
   }
 
   @media #{$screen-medium-tab} {
-    width: medium-tab(300);
-    height: medium-tab(107);
-    margin-bottom: medium-tab(12);
+    padding-right: medium-tab(15);
+    margin-bottom: medium-tab(35);
   }
 
   @media #{$screen-small} {
-    width: small(300);
-    height: small(107);
-    margin-bottom: small(12);
+    padding-right: small(15);
+    margin-bottom: small(35);
   }
 }
 
 .heroText {
+  text-align: center;
   font-weight: 300;
   color: #879191;
 
@@ -555,4 +555,29 @@ $screen-large: "(min-width: 1800px)";
 .logoLink {
   display: block;
   outline: none;
+
+  @media #{$screen-large} {
+    width: large(220);
+    height: large(78);
+  }
+
+  @media #{$screen-medium-up} {
+    width: 220px;
+    height: 78px;
+  }
+
+  @media #{$screen-medium} {
+    width: medium(220);
+    height: medium(78);
+  }
+
+  @media #{$screen-medium-tab} {
+    width: medium-tab(250);
+    height: medium-tab(90);
+  }
+
+  @media #{$screen-small} {
+    width: small(220);
+    height: small(78);
+  }
 }

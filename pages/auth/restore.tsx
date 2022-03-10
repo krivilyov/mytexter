@@ -2,15 +2,16 @@ import Head from "next/head";
 import Image from "next/image";
 import { useState } from "react";
 import Input from "../../components/input";
-import { errors } from "../../lib/messages";
 import Loader from "../../components/loader";
 import { useRouter } from "next/router";
 import axios from "axios";
 import Link from "next/link";
+import useTranslation from "next-translate/useTranslation";
 
 import styles from "../../styles/auth/Restore.module.scss";
 
 export default function Restore() {
+  const { t } = useTranslation();
   const router = useRouter();
 
   const [email, setEmail] = useState("");
@@ -69,7 +70,7 @@ export default function Restore() {
       /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     if (!filterEmail.test(String(email).toLowerCase())) {
       validateEmail = false;
-      setEmailError(errors.email.wrong);
+      setEmailError(t("auth:wrong-email"));
     } else setEmailError("");
 
     if (validateEmail) {
@@ -98,9 +99,7 @@ export default function Restore() {
               />
             </a>
           </Link>
-          <div className={styles.heroText}>
-            Для восстановления пароля введите адрес электронной почты
-          </div>
+          <div className={styles.heroText}>{t("auth:hero-text-restore")}</div>
           <div className={styles.formWrap}>
             <form onSubmit={handleFormSubmit}>
               <div className={styles.formGroup}>

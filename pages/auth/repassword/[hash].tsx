@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
+import useTranslation from "next-translate/useTranslation";
 
 import styles from "../../../styles/auth/Restore.module.scss";
 
@@ -18,6 +19,7 @@ type RepasswordProps = {
 export default function Repassword(props: RepasswordProps) {
   const { restoreHash } = props;
 
+  const { t } = useTranslation();
   const router = useRouter();
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -88,7 +90,7 @@ export default function Repassword(props: RepasswordProps) {
       /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,12}$/;
     if (!filterPassword.test(String(password).toLowerCase())) {
       validatePassword = false;
-      setPasswordError(errors.password.wrong);
+      setPasswordError(t("auth:wrong-password"));
     } else setPasswordError("");
 
     if (validatePassword) {
@@ -120,7 +122,7 @@ export default function Repassword(props: RepasswordProps) {
                 </a>
               </Link>
             </div>
-            <div className={styles.heroText}>Укажите новый пароль</div>
+            <div className={styles.heroText}>{t("auth:repassword-text")}</div>
           </div>
           <div className={styles.formWrap}>
             <form onSubmit={handleFormSubmit}>

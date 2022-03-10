@@ -6,6 +6,11 @@
     "*": ["common"],
     "/": ["home"],
     "/auth/login": ["auth"],
-    "/auth/registration": ["auth"]
+    "/auth/registration": ["auth"],
+    "/auth/restore": ["auth"],
+    "/auth/restore-success": ["auth"],
+    "/auth/registration-successful": ["auth"],
+    "/auth/activation-successful": ["auth"],
+    "/auth/repassword/[hash]": ["auth"]
   }
 }

@@ -1,10 +1,13 @@
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import useTranslation from "next-translate/useTranslation";
 
 import styles from "../../styles/auth/RegSuccessPage.module.scss";
 
 export default function RestoreSuccessful() {
+  const { t } = useTranslation();
+
   return (
     <>
       <Head>
@@ -28,12 +31,11 @@ export default function RestoreSuccessful() {
               </Link>
             </div>
             <div className={styles.description}>
-              На указанную почту выслана дальнейшая инструкция восстановления
-              пароля
+              {t("auth:text-restore-success")}
             </div>
             <div className={styles.linkContainer}>
               <Link href="/">
-                <a>На главную</a>
+                <a>{t("auth:to-index-btn")}</a>
               </Link>
             </div>
           </div>

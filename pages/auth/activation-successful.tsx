@@ -1,10 +1,14 @@
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import useTranslation from "next-translate/useTranslation";
+import Trans from "next-translate/Trans";
 
 import styles from "../../styles/auth/RegSuccessPage.module.scss";
 
 export default function ActivationSuccessful() {
+  const { t } = useTranslation();
+
   return (
     <>
       <Head>
@@ -28,12 +32,14 @@ export default function ActivationSuccessful() {
               </Link>
             </div>
             <div className={styles.description}>
-              Вы успешно активировали Ваш аккаунт на сайте{" "}
-              <span className={styles.bold}>My Texter</span>.
+              <Trans
+                i18nKey="auth:activation-success-description-with-html"
+                components={[<span className={styles.bold}></span>]}
+              />
             </div>
             <div className={styles.linkContainer}>
               <Link href="/">
-                <a>На главную</a>
+                <a>{t("auth:to-index-btn")}</a>
               </Link>
             </div>
           </div>

@@ -3,6 +3,8 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { UserDocument } from "../../interfaces/interfaces";
+import useTranslation from "next-translate/useTranslation";
+import Trans from "next-translate/Trans";
 
 import styles from "../../styles/auth/RegSuccessPage.module.scss";
 
@@ -13,6 +15,7 @@ type RegistrationSuccessfulProps = {
 export default function RegistrationSuccessful(
   props: RegistrationSuccessfulProps
 ) {
+  const { t } = useTranslation();
   const { user } = props;
 
   return (
@@ -38,16 +41,17 @@ export default function RegistrationSuccessful(
               </Link>
             </div>
             <div className={styles.description}>
-              Вы успешно зарегистрировались на сайте{" "}
-              <span className={styles.bold}>My Texter</span>. Далее необходимо
-              активировать Ваш аккаунт, перейдя по ссылке в письме на Вашей
-              электронной почте{" "}
-              <span className={styles.bold}>{user.email}</span> Если Вы не
-              увидите письмо во входящей почте, проверте пожалуйста папку спам.
+              <Trans
+                i18nKey="auth:registration-success-description-with-html"
+                components={[
+                  <span className={styles.bold}></span>,
+                  <span className={styles.bold}>{user.email}</span>,
+                ]}
+              />
             </div>
             <div className={styles.linkContainer}>
               <Link href="/">
-                <a>На главную</a>
+                <a>{t("auth:to-index-btn")}</a>
               </Link>
             </div>
           </div>

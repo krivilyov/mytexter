@@ -7,6 +7,7 @@ import Image from "next/image";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
 import Loader from "../../components/loader";
+import LanguageSwitcher from "../../components/language-switcher";
 import useTranslation from "next-translate/useTranslation";
 
 import styles from "../../styles/auth/AuthForm.module.scss";
@@ -116,6 +117,7 @@ const Login: NextPage = () => {
                 />
               </a>
             </Link>
+            <LanguageSwitcher />
           </div>
           <div className={styles.heroText}>{t("auth:hero-text-login")}</div>
         </div>
