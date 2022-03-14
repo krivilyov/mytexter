@@ -5,7 +5,6 @@ import styles from "../styles/LanguageSwitcher.module.scss";
 
 export default function LanguageSwitcher() {
   const router = useRouter();
-  console.log(router);
 
   return (
     <ul className={styles.switcher}>
