@@ -21,7 +21,7 @@ export default function Cabinet(props: CabinetProps) {
       <div className={styles.container}>
         <Sidebar />
         <div className={styles.mainContainer}>
-          <Header />
+          <Header user={user} />
         </div>
       </div>
     </>
@@ -31,6 +31,7 @@ export default function Cabinet(props: CabinetProps) {
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const token = req.cookies.token || "";
   let user = null;
+  let userInfo = null;
 
   if (token) {
     const res = await fetch(
@@ -54,9 +55,21 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
+  //get user info
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/user/${user.id}`,
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
+
+  if (res.ok) {
+    userInfo = await res.json();
+  }
+
   return {
     props: {
-      user: user,
+      user: userInfo,
     },
   };
 };

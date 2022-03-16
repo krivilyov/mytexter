@@ -37,6 +37,7 @@ $screen-large: "(min-width: 1800px)";
   color: #969696;
 
   @media #{$screen-large} {
+    width: 0;
   }
 
   @media #{$screen-medium-up} {
@@ -44,9 +45,11 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium} {
+    width: 0;
   }
 
   @media #{$screen-medium-tab} {
+    width: 0;
   }
 
   @media #{$screen-small} {
@@ -54,6 +57,7 @@ $screen-large: "(min-width: 1800px)";
 
   &.activeSidebar {
     @media #{$screen-large} {
+      width: large(310);
     }
 
     @media #{$screen-medium-up} {
@@ -61,9 +65,11 @@ $screen-large: "(min-width: 1800px)";
     }
 
     @media #{$screen-medium} {
+      width: medium(310);
     }
 
     @media #{$screen-medium-tab} {
+      width: medium-tab(310);
     }
 
     @media #{$screen-small} {
@@ -73,6 +79,7 @@ $screen-large: "(min-width: 1800px)";
       transform: rotate(0deg);
 
       @media #{$screen-large} {
+        right: large(-15);
       }
 
       @media #{$screen-medium-up} {
@@ -80,9 +87,11 @@ $screen-large: "(min-width: 1800px)";
       }
 
       @media #{$screen-medium} {
+        right: medium(-15);
       }
 
       @media #{$screen-medium-tab} {
+        right: medium-tab(-15);
       }
 
       @media #{$screen-small} {
@@ -102,6 +111,10 @@ $screen-large: "(min-width: 1800px)";
   transform: rotate(180deg);
 
   @media #{$screen-large} {
+    width: large(30);
+    height: large(30);
+    right: large(-20);
+    top: large(55);
   }
 
   @media #{$screen-medium-up} {
@@ -112,9 +125,17 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium} {
+    width: medium(30);
+    height: medium(30);
+    right: medium(-20);
+    top: medium(55);
   }
 
   @media #{$screen-medium-tab} {
+    width: medium-tab(30);
+    height: medium-tab(30);
+    right: medium-tab(-20);
+    top: medium-tab(55);
   }
 
   @media #{$screen-small} {
@@ -122,6 +143,8 @@ $screen-large: "(min-width: 1800px)";
 
   svg {
     @media #{$screen-large} {
+      width: large(8);
+      height: large(12);
     }
 
     @media #{$screen-medium-up} {
@@ -130,9 +153,13 @@ $screen-large: "(min-width: 1800px)";
     }
 
     @media #{$screen-medium} {
+      width: medium(8);
+      height: medium(12);
     }
 
     @media #{$screen-medium-tab} {
+      width: medium-tab(8);
+      height: medium-tab(12);
     }
 
     @media #{$screen-small} {
@@ -144,6 +171,7 @@ $screen-large: "(min-width: 1800px)";
   height: 100%;
 
   @media #{$screen-large} {
+    padding: large(30) large(12);
   }
 
   @media #{$screen-medium-up} {
@@ -151,9 +179,11 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium} {
+    padding: medium(30) medium(12);
   }
 
   @media #{$screen-medium-tab} {
+    padding: medium-tab(30) medium-tab(12);
   }
 
   @media #{$screen-small} {
@@ -162,6 +192,9 @@ $screen-large: "(min-width: 1800px)";
 
 .logoContainer {
   @media #{$screen-large} {
+    width: large(200);
+    height: large(70);
+    margin: 0 0 large(30) large(16);
   }
 
   @media #{$screen-medium-up} {
@@ -171,9 +204,15 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium} {
+    width: medium(200);
+    height: medium(70);
+    margin: 0 0 medium(30) medium(16);
   }
 
   @media #{$screen-medium-tab} {
+    width: medium-tab(200);
+    height: medium-tab(70);
+    margin: 0 0 medium-tab(30) medium-tab(16);
   }
 
   @media #{$screen-small} {
@@ -182,6 +221,7 @@ $screen-large: "(min-width: 1800px)";
 
 .menuContainer {
   @media #{$screen-large} {
+    width: large(286);
   }
 
   @media #{$screen-medium-up} {
@@ -189,9 +229,11 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium} {
+    width: medium(286);
   }
 
   @media #{$screen-medium-tab} {
+    width: medium-tab(286);
   }
 
   @media #{$screen-small} {
@@ -203,6 +245,9 @@ $screen-large: "(min-width: 1800px)";
   font-weight: 400;
 
   @media #{$screen-large} {
+    font-size: large(12);
+    line-height: large(16);
+    margin: large(12) large(15);
   }
 
   @media #{$screen-medium-up} {
@@ -212,9 +257,15 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium} {
+    font-size: medium(12);
+    line-height: medium(16);
+    margin: medium(12) medium(15);
   }
 
   @media #{$screen-medium-tab} {
+    font-size: medium-tab(12);
+    line-height: medium-tab(16);
+    margin: medium-tab(12) medium-tab(15);
   }
 
   @media #{$screen-small} {
@@ -222,6 +273,7 @@ $screen-large: "(min-width: 1800px)";
 
   &:last-of-type {
     @media #{$screen-large} {
+      margin-top: large(150);
     }
 
     @media #{$screen-medium-up} {
@@ -229,9 +281,11 @@ $screen-large: "(min-width: 1800px)";
     }
 
     @media #{$screen-medium} {
+      margin-top: medium(150);
     }
 
     @media #{$screen-medium-tab} {
+      margin-top: medium-tab(150);
     }
 
     @media #{$screen-small} {
@@ -243,10 +297,30 @@ $screen-large: "(min-width: 1800px)";
   list-style-type: none;
 
   li {
+    @media #{$screen-large} {
+      margin: large(3) 0;
+    }
+
+    @media #{$screen-medium-up} {
+      margin: 3px 0;
+    }
+
+    @media #{$screen-medium} {
+      margin: medium(3) 0;
+    }
+
+    @media #{$screen-medium-tab} {
+      margin: medium-tab(3) 0;
+    }
+
+    @media #{$screen-small} {
+    }
+
     &:hover {
       background: linear-gradient(0deg, #fef3e5, #fef3e5), #ffffff;
 
       @media #{$screen-large} {
+        border-radius: large(8);
       }
 
       @media #{$screen-medium-up} {
@@ -254,9 +328,11 @@ $screen-large: "(min-width: 1800px)";
       }
 
       @media #{$screen-medium} {
+        border-radius: medium(8);
       }
 
       @media #{$screen-medium-tab} {
+        border-radius: medium-tab(8);
       }
 
       @media #{$screen-small} {
@@ -281,6 +357,9 @@ $screen-large: "(min-width: 1800px)";
   color: #969696;
 
   @media #{$screen-large} {
+    font-size: large(16);
+    line-height: large(24);
+    padding: large(12) large(15);
   }
 
   @media #{$screen-medium-up} {
@@ -290,9 +369,15 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium} {
+    font-size: medium(16);
+    line-height: medium(24);
+    padding: medium(12) medium(15);
   }
 
   @media #{$screen-medium-tab} {
+    font-size: medium-tab(16);
+    line-height: medium-tab(24);
+    padding: medium-tab(12) medium-tab(15);
   }
 
   @media #{$screen-small} {
@@ -300,6 +385,7 @@ $screen-large: "(min-width: 1800px)";
 
   svg {
     @media #{$screen-large} {
+      margin-right: large(15);
     }
 
     @media #{$screen-medium-up} {
@@ -307,9 +393,11 @@ $screen-large: "(min-width: 1800px)";
     }
 
     @media #{$screen-medium} {
+      margin-right: medium(15);
     }
 
     @media #{$screen-medium-tab} {
+      margin-right: medium-tab(15);
     }
 
     @media #{$screen-small} {
@@ -321,6 +409,7 @@ $screen-large: "(min-width: 1800px)";
   background: linear-gradient(0deg, #fef3e5, #fef3e5), #ffffff;
 
   @media #{$screen-large} {
+    border-radius: large(8);
   }
 
   @media #{$screen-medium-up} {
@@ -328,9 +417,11 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium} {
+    border-radius: medium(8);
   }
 
   @media #{$screen-medium-tab} {
+    border-radius: medium-tab(8);
   }
 
   @media #{$screen-small} {

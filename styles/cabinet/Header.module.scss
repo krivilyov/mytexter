@@ -1,0 +1,124 @@
+$screen-small: "(max-width: 414px)";
+$screen-medium-tab: "(min-width: 415px) and (max-width: 768px)";
+$screen-medium: "(min-width: 769px) and (max-width: 1279px)";
+$screen-medium-up: "(min-width: 1280px) and (max-width: 1799px)";
+$screen-large: "(min-width: 1800px)";
+
+@function large($value) {
+  @return calc($value * 1.25px);
+}
+
+@function medium($value, $size: 1280) {
+  @return calc($value / $size * 100vw);
+}
+
+@function medium-tab($value, $size: 768) {
+  @return calc($value / $size * 100vw);
+}
+
+@function small($value, $size: 360) {
+  @return calc($value / $size * 100vw);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  background: #f7fcff;
+
+  @media #{$screen-large} {
+    height: large(70);
+    padding: 0 large(25);
+  }
+
+  @media #{$screen-medium-up} {
+    height: 70px;
+    padding: 0 25px;
+  }
+
+  @media #{$screen-medium} {
+    height: medium(70);
+    padding: 0 medium(25);
+  }
+
+  @media #{$screen-medium-tab} {
+    height: medium-tab(70);
+    padding: 0 medium-tab(25);
+  }
+
+  @media #{$screen-small} {
+  }
+}
+
+.userInfo {
+  display: flex;
+}
+
+.avatar {
+  border: 2px solid #f5c99c;
+  border-radius: 50%;
+
+  @media #{$screen-large} {
+    width: large(35);
+    height: large(35);
+    margin-right: large(8);
+  }
+
+  @media #{$screen-medium-up} {
+    width: 35px;
+    height: 35px;
+    margin-right: 8px;
+  }
+
+  @media #{$screen-medium} {
+    width: medium(35);
+    height: medium(35);
+    margin-right: medium(8);
+  }
+
+  @media #{$screen-medium-tab} {
+    width: medium-tab(35);
+    height: medium-tab(35);
+    margin-right: medium-tab(8);
+  }
+
+  @media #{$screen-small} {
+  }
+
+  span {
+    border-radius: 50%;
+  }
+}
+
+.userDescription {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.userName {
+  color: #5f6c6c;
+  font-weight: 600;
+
+  @media #{$screen-large} {
+    font-size: large(18);
+    line-height: large(20);
+  }
+
+  @media #{$screen-medium-up} {
+    font-size: 18px;
+    line-height: 20px;
+  }
+
+  @media #{$screen-medium} {
+    font-size: medium(18);
+    line-height: medium(20);
+  }
+
+  @media #{$screen-medium-tab} {
+    font-size: medium-tab(18);
+    line-height: medium-tab(20);
+  }
+
+  @media #{$screen-small} {
+  }
+}
