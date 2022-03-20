@@ -6,10 +6,12 @@ import AssessmentIcon from "@mui/icons-material/Assessment";
 import SettingsIcon from "@mui/icons-material/Settings";
 import HelpCenterIcon from "@mui/icons-material/HelpCenter";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { useRouter } from "next/router";
 
 import styles from "../../styles/cabinet/Sidebar.module.scss";
 
 export default function Sidebar() {
+  const router = useRouter();
   const [show, isShow] = useState(true);
 
   return (
@@ -43,11 +45,17 @@ export default function Sidebar() {
           <div className={styles.menuContainer}>
             <div className={styles.menuTitle}>Main Menu</div>
             <ul className={styles.nav}>
-              <li className={styles.menuLinkActive}>
-                <Link href="/">
+              <li
+                className={
+                  router.pathname.indexOf("task-builder") !== -1
+                    ? styles.menuLinkActive
+                    : ""
+                }
+              >
+                <Link href="/cabinet/task-builder">
                   <a className={styles.menuLink}>
                     <AssignmentIcon />
-                    Learning programs
+                    Task Builder
                   </a>
                 </Link>
               </li>
