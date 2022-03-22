@@ -1,19 +1,72 @@
 import Input from "../input";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
-import { TopicsData } from "../../interfaces/interfaces";
+import { TopicsData, LevelsData } from "../../interfaces/interfaces";
 
 import styles from "../../styles/cabinet/FilterBuilder.module.scss";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+
+interface FilterValuesProps {
+  quantity: string;
+  phrase: string;
+  level_id: string;
+  topic_id: number;
+  save: string;
+}
 
 interface FilterBuilderProps {
   topics: TopicsData[];
+  levels: LevelsData[];
+  btnSubmitFormClick: (type: FilterValuesProps) => void;
 }
 
 export default function FilterBuilder(props: FilterBuilderProps) {
-  const { topics } = props;
+  const { topics, levels, btnSubmitFormClick } = props;
+  const refTopicMenu = useRef<HTMLDivElement>(null);
 
   const [selectTopic, setSelectTopic] = useState(topics[0]);
   const [selectOpen, setSelectOpen] = useState(false);
+
+  const [values, setValues] = useState({
+    quantity: "6",
+    phrase: "0",
+    level_id: `${levels[0] ? levels[0].id : 0}`,
+    topic_id: selectTopic.id,
+    save: "0",
+  });
+
+  const handleClick = (e: CustomEvent) => {
+    if (
+      refTopicMenu.current &&
+      !refTopicMenu.current.contains(e.target as Node)
+    ) {
+      setSelectOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (selectOpen) {
+      document.addEventListener("click", handleClick as EventListener, true);
+      return () => {
+        document.removeEventListener(
+          "click",
+          handleClick as EventListener,
+          true
+        );
+      };
+    }
+  }, [selectOpen]);
+
+  useEffect(() => {
+    setValues({ ...values, topic_id: selectTopic.id });
+  }, [selectTopic]);
+
+  useEffect(() => {
+    console.log(values);
+  }, [values]);
+
+  const onChangeFilterHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
 
   return (
     <div className={styles.filterContainer}>
@@ -24,10 +77,11 @@ export default function FilterBuilder(props: FilterBuilderProps) {
             <div className={styles.filterItem}>
               <Input
                 id="quantity_6"
-                name="quantity-radio-group"
+                name="quantity"
                 type="radio"
                 value="6"
                 checked={true}
+                onChange={onChangeFilterHandler}
               />
               <label className={styles.filterLabel} htmlFor="quantity_6">
                 6
@@ -36,9 +90,10 @@ export default function FilterBuilder(props: FilterBuilderProps) {
             <div className={styles.filterItem}>
               <Input
                 id="quantity_8"
-                name="quantity-radio-group"
+                name="quantity"
                 type="radio"
                 value="8"
+                onChange={onChangeFilterHandler}
               />
               <label className={styles.filterLabel} htmlFor="quantity_8">
                 8
@@ -47,9 +102,10 @@ export default function FilterBuilder(props: FilterBuilderProps) {
             <div className={styles.filterItem}>
               <Input
                 id="quantity_10"
-                name="quantity-radio-group"
+                name="quantity"
                 type="radio"
                 value="10"
+                onChange={onChangeFilterHandler}
               />
               <label className={styles.filterLabel} htmlFor="quantity_10">
                 10
@@ -58,9 +114,10 @@ export default function FilterBuilder(props: FilterBuilderProps) {
             <div className={styles.filterItem}>
               <Input
                 id="quantity_12"
-                name="quantity-radio-group"
+                name="quantity"
                 type="radio"
                 value="12"
+                onChange={onChangeFilterHandler}
               />
               <label className={styles.filterLabel} htmlFor="quantity_12">
                 12
@@ -74,9 +131,10 @@ export default function FilterBuilder(props: FilterBuilderProps) {
             <div className={styles.filterItem}>
               <Input
                 id="phrase_yes"
-                name="phrase-radio-group"
+                name="phrase"
                 type="radio"
                 value="1"
+                onChange={onChangeFilterHandler}
               />
               <label className={styles.filterBoolLabel} htmlFor="phrase_yes">
                 Yes
@@ -85,10 +143,11 @@ export default function FilterBuilder(props: FilterBuilderProps) {
             <div className={styles.filterItem}>
               <Input
                 id="phrase_no"
-                name="phrase-radio-group"
+                name="phrase"
                 type="radio"
                 value="0"
                 checked={true}
+                onChange={onChangeFilterHandler}
               />
               <label className={styles.filterBoolLabel} htmlFor="phrase_no">
                 No
@@ -96,84 +155,44 @@ export default function FilterBuilder(props: FilterBuilderProps) {
             </div>
           </div>
         </div>
-        <div className={styles.filterGroupItems}>
-          <div className={styles.filterGroupTitle}>Level of difficulty</div>
-          <div className={styles.filterGroupItemsContainer}>
-            <div className={styles.filterItem}>
-              <Input
-                id="level_a1"
-                name="level-radio-group"
-                type="radio"
-                value="A1"
-                checked={true}
-              />
-              <label className={styles.filterLabel} htmlFor="level_a1">
-                a1
-              </label>
-            </div>
-            <div className={styles.filterItem}>
-              <Input
-                id="level_a2"
-                name="level-radio-group"
-                type="radio"
-                value="A2"
-              />
-              <label className={styles.filterLabel} htmlFor="level_a2">
-                a2
-              </label>
-            </div>
-            <div className={styles.filterItem}>
-              <Input
-                id="level_b1"
-                name="level-radio-group"
-                type="radio"
-                value="B1"
-              />
-              <label className={styles.filterLabel} htmlFor="level_b1">
-                b1
-              </label>
-            </div>
-            <div className={styles.filterItem}>
-              <Input
-                id="level_rand"
-                name="level-radio-group"
-                type="radio"
-                value="rand"
-              />
-              <label className={styles.filterLabel} htmlFor="level_rand">
-                <ShuffleIcon />
-              </label>
+        {levels.length && (
+          <div className={styles.filterGroupItems}>
+            <div className={styles.filterGroupTitle}>Level of difficulty</div>
+            <div className={styles.filterGroupItemsContainer}>
+              {levels.map((level, index) => (
+                <div className={styles.filterItem} key={level.id}>
+                  <Input
+                    id={`level_${level.id}`}
+                    name="level_id"
+                    type="radio"
+                    value={`${level.id}`}
+                    checked={index === 0 ? true : false}
+                    onChange={onChangeFilterHandler}
+                  />
+                  <label
+                    className={styles.filterLabel}
+                    htmlFor={`level_${level.id}`}
+                  >
+                    {level.title}
+                  </label>
+                </div>
+              ))}
+              <div className={styles.filterItem}>
+                <Input
+                  id="level_rand"
+                  name="level_id"
+                  type="radio"
+                  value="-1"
+                  onChange={onChangeFilterHandler}
+                />
+                <label className={styles.filterLabel} htmlFor="level_rand">
+                  <ShuffleIcon />
+                </label>
+              </div>
             </div>
           </div>
-        </div>
-        <div className={styles.filterGroupItems}>
-          <div className={styles.filterGroupTitle}>Save lesson?</div>
-          <div className={styles.filterGroupItemsContainer}>
-            <div className={styles.filterItem}>
-              <Input
-                id="save_yes"
-                name="save-radio-group"
-                type="radio"
-                value="1"
-              />
-              <label className={styles.filterBoolLabel} htmlFor="save_yes">
-                Yes
-              </label>
-            </div>
-            <div className={styles.filterItem}>
-              <Input
-                id="save_no"
-                name="save-radio-group"
-                type="radio"
-                value="0"
-                checked={true}
-              />
-              <label className={styles.filterBoolLabel} htmlFor="save_no">
-                No
-              </label>
-            </div>
-          </div>
-        </div>
+        )}
+
         {topics.length && (
           <div className={styles.filterGroupItems}>
             <div className={styles.filterGroupTitle}>Chose a topic</div>
@@ -181,10 +200,13 @@ export default function FilterBuilder(props: FilterBuilderProps) {
               className={`${styles.selectContainer} ${
                 selectOpen ? styles.selectContainerOpen : ""
               }`}
+              ref={refTopicMenu}
             >
               <div
                 className={styles.selectValue}
-                onClick={() => setSelectOpen(!selectOpen)}
+                onClick={() => {
+                  setSelectOpen(!selectOpen);
+                }}
               >
                 {selectTopic.title}
                 <svg
@@ -200,12 +222,58 @@ export default function FilterBuilder(props: FilterBuilderProps) {
               </div>
               <ul className={styles.selectDropdown}>
                 {topics.map((topic) => (
-                  <li key={topic.id}>{topic.title}</li>
+                  <li
+                    key={topic.id}
+                    onClick={() => {
+                      setSelectTopic(topic);
+                      setSelectOpen(false);
+                    }}
+                  >
+                    {topic.title}
+                  </li>
                 ))}
               </ul>
             </div>
           </div>
         )}
+
+        <div className={styles.filterGroupItems}>
+          <div className={styles.filterGroupTitle}>Save lesson?</div>
+          <div className={styles.filterGroupItemsContainer}>
+            <div className={styles.filterItem}>
+              <Input
+                id="save_yes"
+                name="save"
+                type="radio"
+                value="1"
+                onChange={onChangeFilterHandler}
+              />
+              <label className={styles.filterBoolLabel} htmlFor="save_yes">
+                Yes
+              </label>
+            </div>
+            <div className={styles.filterItem}>
+              <Input
+                id="save_no"
+                name="save"
+                type="radio"
+                value="0"
+                checked={true}
+                onChange={onChangeFilterHandler}
+              />
+              <label className={styles.filterBoolLabel} htmlFor="save_no">
+                No
+              </label>
+            </div>
+          </div>
+        </div>
+        <div
+          onClick={() => {
+            btnSubmitFormClick(values);
+          }}
+        >
+          Кнопка
+        </div>
       </form>
     </div>
   );
