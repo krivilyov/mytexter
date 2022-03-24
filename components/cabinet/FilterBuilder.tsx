@@ -30,7 +30,7 @@ export default function FilterBuilder(props: FilterBuilderProps) {
     quantity: "6",
     phrase: "0",
     level_id: `${levels[0] ? levels[0].id : 0}`,
-    topic_id: selectTopic.id,
+    topic_id: topics[0] ? topics[0].id : 0,
     save: "0",
   });
 
@@ -59,10 +59,6 @@ export default function FilterBuilder(props: FilterBuilderProps) {
   useEffect(() => {
     setValues({ ...values, topic_id: selectTopic.id });
   }, [selectTopic]);
-
-  useEffect(() => {
-    console.log(values);
-  }, [values]);
 
   const onChangeFilterHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [e.target.name]: e.target.value });
@@ -267,14 +263,17 @@ export default function FilterBuilder(props: FilterBuilderProps) {
             </div>
           </div>
         </div>
+      </form>
+      <div className={styles.filterBtnCreateContainer}>
         <div
+          className={styles.filterBtnCreate}
           onClick={() => {
             btnSubmitFormClick(values);
           }}
         >
-          Кнопка
+          Create
         </div>
-      </form>
+      </div>
     </div>
   );
 }

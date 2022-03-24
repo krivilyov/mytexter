@@ -23,6 +23,7 @@ $screen-large: "(min-width: 1800px)";
 .filterContainer {
   background: #f3f5ff;
   display: flex;
+  flex-direction: column;
 
   @media #{$screen-large} {
   }
@@ -43,6 +44,22 @@ $screen-large: "(min-width: 1800px)";
   form {
     display: flex;
     flex-wrap: wrap;
+
+    @media #{$screen-large} {
+    }
+
+    @media #{$screen-medium-up} {
+      margin-bottom: 40px;
+    }
+
+    @media #{$screen-medium} {
+    }
+
+    @media #{$screen-medium-tab} {
+    }
+
+    @media #{$screen-small} {
+    }
   }
 }
 
@@ -507,5 +524,37 @@ $screen-large: "(min-width: 1800px)";
 
     @media #{$screen-small} {
     }
+  }
+}
+
+.filterBtnCreateContainer {
+  text-align: right;
+}
+
+.filterBtnCreate {
+  display: inline-block;
+  cursor: pointer;
+  color: #fff;
+  outline: none;
+  background: #f98600;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+
+  @media #{$screen-large} {
+  }
+
+  @media #{$screen-medium-up} {
+    font-size: 18px;
+    line-height: 22px;
+    border-radius: 5px;
+    padding: 8px 20px;
+  }
+
+  @media #{$screen-medium} {
+  }
+
+  @media #{$screen-medium-tab} {
+  }
+
+  @media #{$screen-small} {
   }
 }

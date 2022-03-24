@@ -28,3 +28,22 @@ $screen-large: "(min-width: 1800px)";
 .mainContainer {
   flex: 1 1 auto;
 }
+
+.wordsContainer {
+  display: flex;
+
+  @media #{$screen-large} {
+  }
+
+  @media #{$screen-medium-up} {
+  }
+
+  @media #{$screen-medium} {
+  }
+
+  @media #{$screen-medium-tab} {
+  }
+
+  @media #{$screen-small} {
+  }
+}
