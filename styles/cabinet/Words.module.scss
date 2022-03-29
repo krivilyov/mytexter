@@ -22,6 +22,7 @@ $screen-large: "(min-width: 1800px)";
 
 .wordsContainer {
   @media #{$screen-large} {
+    padding: large(34) large(20) large(34) large(34);
   }
 
   @media #{$screen-medium-up} {
@@ -29,6 +30,7 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium} {
+    padding: medium(34) medium(20) medium(34) medium(34);
   }
 
   @media #{$screen-medium-tab} {
@@ -43,6 +45,7 @@ $screen-large: "(min-width: 1800px)";
   flex-wrap: wrap;
 
   @media #{$screen-large} {
+    margin: 0 large(-13);
   }
 
   @media #{$screen-medium-up} {
@@ -50,47 +53,7 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium} {
-  }
-
-  @media #{$screen-medium-tab} {
-  }
-
-  @media #{$screen-small} {
-  }
-}
-
-.wordCardWrap {
-  box-sizing: border-box;
-
-  @media #{$screen-large} {
-  }
-
-  @media #{$screen-medium-up} {
-    width: 312px;
-    padding: 11px 13px;
-  }
-
-  @media #{$screen-medium} {
-  }
-
-  @media #{$screen-medium-tab} {
-  }
-
-  @media #{$screen-small} {
-  }
-}
-
-.wordCard {
-  background: #fff;
-
-  @media #{$screen-large} {
-  }
-
-  @media #{$screen-medium-up} {
-    padding: 18px 22px;
-  }
-
-  @media #{$screen-medium} {
+    margin: 0 medium(-13);
   }
 
   @media #{$screen-medium-tab} {

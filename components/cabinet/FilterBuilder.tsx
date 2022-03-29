@@ -1,9 +1,10 @@
 import Input from "../input";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
 import { TopicsData, LevelsData } from "../../interfaces/interfaces";
+import { useState, useRef, useEffect } from "react";
+import Loader from "../../components/loader";
 
 import styles from "../../styles/cabinet/FilterBuilder.module.scss";
-import { useState, useRef, useEffect } from "react";
 
 interface FilterValuesProps {
   quantity: string;
@@ -17,10 +18,11 @@ interface FilterBuilderProps {
   topics: TopicsData[];
   levels: LevelsData[];
   btnSubmitFormClick: (type: FilterValuesProps) => void;
+  loader: boolean;
 }
 
 export default function FilterBuilder(props: FilterBuilderProps) {
-  const { topics, levels, btnSubmitFormClick } = props;
+  const { topics, levels, btnSubmitFormClick, loader } = props;
   const refTopicMenu = useRef<HTMLDivElement>(null);
 
   const [selectTopic, setSelectTopic] = useState(topics[0]);
@@ -78,6 +80,7 @@ export default function FilterBuilder(props: FilterBuilderProps) {
                 value="6"
                 checked={true}
                 onChange={onChangeFilterHandler}
+                loader={loader}
               />
               <label className={styles.filterLabel} htmlFor="quantity_6">
                 6
@@ -90,6 +93,7 @@ export default function FilterBuilder(props: FilterBuilderProps) {
                 type="radio"
                 value="8"
                 onChange={onChangeFilterHandler}
+                loader={loader}
               />
               <label className={styles.filterLabel} htmlFor="quantity_8">
                 8
@@ -102,6 +106,7 @@ export default function FilterBuilder(props: FilterBuilderProps) {
                 type="radio"
                 value="10"
                 onChange={onChangeFilterHandler}
+                loader={loader}
               />
               <label className={styles.filterLabel} htmlFor="quantity_10">
                 10
@@ -114,6 +119,7 @@ export default function FilterBuilder(props: FilterBuilderProps) {
                 type="radio"
                 value="12"
                 onChange={onChangeFilterHandler}
+                loader={loader}
               />
               <label className={styles.filterLabel} htmlFor="quantity_12">
                 12
@@ -131,6 +137,7 @@ export default function FilterBuilder(props: FilterBuilderProps) {
                 type="radio"
                 value="1"
                 onChange={onChangeFilterHandler}
+                loader={loader}
               />
               <label className={styles.filterBoolLabel} htmlFor="phrase_yes">
                 Yes
@@ -144,6 +151,7 @@ export default function FilterBuilder(props: FilterBuilderProps) {
                 value="0"
                 checked={true}
                 onChange={onChangeFilterHandler}
+                loader={loader}
               />
               <label className={styles.filterBoolLabel} htmlFor="phrase_no">
                 No
@@ -164,6 +172,7 @@ export default function FilterBuilder(props: FilterBuilderProps) {
                     value={`${level.id}`}
                     checked={index === 0 ? true : false}
                     onChange={onChangeFilterHandler}
+                    loader={loader}
                   />
                   <label
                     className={styles.filterLabel}
@@ -180,6 +189,7 @@ export default function FilterBuilder(props: FilterBuilderProps) {
                   type="radio"
                   value="-1"
                   onChange={onChangeFilterHandler}
+                  loader={loader}
                 />
                 <label className={styles.filterLabel} htmlFor="level_rand">
                   <ShuffleIcon />
@@ -199,7 +209,9 @@ export default function FilterBuilder(props: FilterBuilderProps) {
               ref={refTopicMenu}
             >
               <div
-                className={styles.selectValue}
+                className={`${styles.selectValue} ${
+                  loader ? styles.selectDisabled : ""
+                }`}
                 onClick={() => {
                   setSelectOpen(!selectOpen);
                 }}
@@ -243,6 +255,7 @@ export default function FilterBuilder(props: FilterBuilderProps) {
                 type="radio"
                 value="1"
                 onChange={onChangeFilterHandler}
+                loader={loader}
               />
               <label className={styles.filterBoolLabel} htmlFor="save_yes">
                 Yes
@@ -256,6 +269,7 @@ export default function FilterBuilder(props: FilterBuilderProps) {
                 value="0"
                 checked={true}
                 onChange={onChangeFilterHandler}
+                loader={loader}
               />
               <label className={styles.filterBoolLabel} htmlFor="save_no">
                 No
@@ -271,7 +285,13 @@ export default function FilterBuilder(props: FilterBuilderProps) {
             btnSubmitFormClick(values);
           }}
         >
-          Create
+          {!loader ? (
+            "Create"
+          ) : (
+            <div className={styles.loaderContainer}>
+              <Loader image="/images/loader.svg" />
+            </div>
+          )}
         </div>
       </div>
     </div>

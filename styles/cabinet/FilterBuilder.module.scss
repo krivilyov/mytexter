@@ -26,6 +26,7 @@ $screen-large: "(min-width: 1800px)";
   flex-direction: column;
 
   @media #{$screen-large} {
+    padding: large(15) large(22);
   }
 
   @media #{$screen-medium-up} {
@@ -33,6 +34,7 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium} {
+    padding: medium(15) medium(22);
   }
 
   @media #{$screen-medium-tab} {
@@ -46,6 +48,7 @@ $screen-large: "(min-width: 1800px)";
     flex-wrap: wrap;
 
     @media #{$screen-large} {
+      margin-bottom: large(40);
     }
 
     @media #{$screen-medium-up} {
@@ -53,6 +56,7 @@ $screen-large: "(min-width: 1800px)";
     }
 
     @media #{$screen-medium} {
+      margin-bottom: medium(40);
     }
 
     @media #{$screen-medium-tab} {
@@ -68,6 +72,7 @@ $screen-large: "(min-width: 1800px)";
   flex-direction: column;
 
   @media #{$screen-large} {
+    margin: 0 large(12) large(20);
   }
 
   @media #{$screen-medium-up} {
@@ -75,6 +80,7 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium} {
+    margin: 0 medium(12) medium(20);
   }
 
   @media #{$screen-medium-tab} {
@@ -93,6 +99,9 @@ $screen-large: "(min-width: 1800px)";
   color: #969696;
 
   @media #{$screen-large} {
+    font-size: large(14);
+    line-height: large(16);
+    margin-bottom: large(12);
   }
 
   @media #{$screen-medium-up} {
@@ -102,6 +111,9 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium} {
+    font-size: medium(14);
+    line-height: medium(16);
+    margin-bottom: medium(12);
   }
 
   @media #{$screen-medium-tab} {
@@ -120,6 +132,9 @@ $screen-large: "(min-width: 1800px)";
     border-radius: 50%;
 
     @media #{$screen-large} {
+      width: large(14);
+      height: large(14);
+      margin-right: large(6);
     }
 
     @media #{$screen-medium-up} {
@@ -129,6 +144,9 @@ $screen-large: "(min-width: 1800px)";
     }
 
     @media #{$screen-medium} {
+      width: medium(14);
+      height: medium(14);
+      margin-right: medium(6);
     }
 
     @media #{$screen-medium-tab} {
@@ -149,6 +167,8 @@ $screen-large: "(min-width: 1800px)";
 
   &:first-child {
     @media #{$screen-large} {
+      border-top-left-radius: large(4);
+      border-bottom-left-radius: large(4);
     }
 
     @media #{$screen-medium-up} {
@@ -157,6 +177,8 @@ $screen-large: "(min-width: 1800px)";
     }
 
     @media #{$screen-medium} {
+      border-top-left-radius: medium(4);
+      border-bottom-left-radius: medium(4);
     }
 
     @media #{$screen-medium-tab} {
@@ -167,6 +189,8 @@ $screen-large: "(min-width: 1800px)";
 
     .filterLabel {
       @media #{$screen-large} {
+        border-top-left-radius: large(4);
+        border-bottom-left-radius: large(4);
       }
 
       @media #{$screen-medium-up} {
@@ -175,6 +199,8 @@ $screen-large: "(min-width: 1800px)";
       }
 
       @media #{$screen-medium} {
+        border-top-left-radius: medium(4);
+        border-bottom-left-radius: medium(4);
       }
 
       @media #{$screen-medium-tab} {
@@ -186,6 +212,8 @@ $screen-large: "(min-width: 1800px)";
 
     .filterBoolLabel {
       @media #{$screen-large} {
+        border-top-left-radius: large(4);
+        border-bottom-left-radius: large(4);
       }
 
       @media #{$screen-medium-up} {
@@ -194,6 +222,8 @@ $screen-large: "(min-width: 1800px)";
       }
 
       @media #{$screen-medium} {
+        border-top-left-radius: medium(4);
+        border-bottom-left-radius: medium(4);
       }
 
       @media #{$screen-medium-tab} {
@@ -208,6 +238,8 @@ $screen-large: "(min-width: 1800px)";
     border-right: 1px solid #dadada;
 
     @media #{$screen-large} {
+      border-top-right-radius: large(4);
+      border-bottom-right-radius: large(4);
     }
 
     @media #{$screen-medium-up} {
@@ -216,6 +248,8 @@ $screen-large: "(min-width: 1800px)";
     }
 
     @media #{$screen-medium} {
+      border-top-right-radius: medium(4);
+      border-bottom-right-radius: medium(4);
     }
 
     @media #{$screen-medium-tab} {
@@ -226,6 +260,8 @@ $screen-large: "(min-width: 1800px)";
 
     .filterLabel {
       @media #{$screen-large} {
+        border-top-right-radius: large(4);
+        border-bottom-right-radius: large(4);
       }
 
       @media #{$screen-medium-up} {
@@ -234,6 +270,8 @@ $screen-large: "(min-width: 1800px)";
       }
 
       @media #{$screen-medium} {
+        border-top-right-radius: medium(4);
+        border-bottom-right-radius: medium(4);
       }
 
       @media #{$screen-medium-tab} {
@@ -245,6 +283,8 @@ $screen-large: "(min-width: 1800px)";
 
     .filterBoolLabel {
       @media #{$screen-large} {
+        border-top-right-radius: large(4);
+        border-bottom-right-radius: large(4);
       }
 
       @media #{$screen-medium-up} {
@@ -253,6 +293,8 @@ $screen-large: "(min-width: 1800px)";
       }
 
       @media #{$screen-medium} {
+        border-top-right-radius: medium(4);
+        border-bottom-right-radius: medium(4);
       }
 
       @media #{$screen-medium-tab} {
@@ -279,8 +321,13 @@ $screen-large: "(min-width: 1800px)";
     align-items: center;
     justify-content: center;
     text-transform: uppercase;
+    cursor: pointer;
 
     @media #{$screen-large} {
+      height: large(40);
+      font-size: large(14);
+      line-height: large(16);
+      padding: 0 large(16);
     }
 
     @media #{$screen-medium-up} {
@@ -291,6 +338,10 @@ $screen-large: "(min-width: 1800px)";
     }
 
     @media #{$screen-medium} {
+      height: medium(40);
+      font-size: medium(14);
+      line-height: medium(16);
+      padding: 0 medium(16);
     }
 
     @media #{$screen-medium-tab} {
@@ -307,6 +358,10 @@ $screen-large: "(min-width: 1800px)";
     text-transform: uppercase;
 
     @media #{$screen-large} {
+      height: large(40);
+      font-size: large(14);
+      line-height: large(16);
+      padding: 0 large(25);
     }
 
     @media #{$screen-medium-up} {
@@ -317,6 +372,10 @@ $screen-large: "(min-width: 1800px)";
     }
 
     @media #{$screen-medium} {
+      height: medium(40);
+      font-size: medium(14);
+      line-height: medium(16);
+      padding: 0 medium(25);
     }
 
     @media #{$screen-medium-tab} {
@@ -327,6 +386,8 @@ $screen-large: "(min-width: 1800px)";
 
     svg {
       @media #{$screen-large} {
+        width: large(24);
+        height: large(24);
       }
 
       @media #{$screen-medium-up} {
@@ -335,6 +396,8 @@ $screen-large: "(min-width: 1800px)";
       }
 
       @media #{$screen-medium} {
+        width: medium(24);
+        height: medium(24);
       }
 
       @media #{$screen-medium-tab} {
@@ -354,6 +417,8 @@ $screen-large: "(min-width: 1800px)";
   width: 100%;
 
   @media #{$screen-large} {
+    top: large(40);
+    left: 0;
   }
 
   @media #{$screen-medium-up} {
@@ -362,6 +427,8 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium} {
+    top: medium(40);
+    left: 0;
   }
 
   @media #{$screen-medium-tab} {
@@ -377,6 +444,8 @@ $screen-large: "(min-width: 1800px)";
     border-bottom: 1px solid #dadada;
 
     @media #{$screen-large} {
+      height: large(30);
+      padding: 0 large(10);
     }
 
     @media #{$screen-medium-up} {
@@ -385,6 +454,8 @@ $screen-large: "(min-width: 1800px)";
     }
 
     @media #{$screen-medium} {
+      height: medium(30);
+      padding: 0 medium(10);
     }
 
     @media #{$screen-medium-tab} {
@@ -405,6 +476,8 @@ $screen-large: "(min-width: 1800px)";
   flex-direction: column;
 
   @media #{$screen-large} {
+    font-size: large(14);
+    line-height: large(16);
   }
 
   @media #{$screen-medium-up} {
@@ -413,6 +486,8 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium} {
+    font-size: medium(14);
+    line-height: medium(16);
   }
 
   @media #{$screen-medium-tab} {
@@ -426,6 +501,7 @@ $screen-large: "(min-width: 1800px)";
     border: none;
 
     @media #{$screen-large} {
+      max-height: 0;
     }
 
     @media #{$screen-medium-up} {
@@ -433,6 +509,7 @@ $screen-large: "(min-width: 1800px)";
     }
 
     @media #{$screen-medium} {
+      max-height: 0;
     }
 
     @media #{$screen-medium-tab} {
@@ -459,6 +536,9 @@ $screen-large: "(min-width: 1800px)";
     border-top: none;
 
     @media #{$screen-large} {
+      max-height: large(183);
+      border-bottom-left-radius: large(4);
+      border-bottom-right-radius: large(4);
     }
 
     @media #{$screen-medium-up} {
@@ -468,6 +548,9 @@ $screen-large: "(min-width: 1800px)";
     }
 
     @media #{$screen-medium} {
+      max-height: medium(183);
+      border-bottom-left-radius: medium(4);
+      border-bottom-right-radius: medium(4);
     }
 
     @media #{$screen-medium-tab} {
@@ -487,6 +570,9 @@ $screen-large: "(min-width: 1800px)";
   border: 1px solid #dadada;
 
   @media #{$screen-large} {
+    height: large(40);
+    padding: 0 large(16);
+    border-radius: large(4);
   }
 
   @media #{$screen-medium-up} {
@@ -496,6 +582,9 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium} {
+    height: medium(40);
+    padding: 0 medium(16);
+    border-radius: medium(4);
   }
 
   @media #{$screen-medium-tab} {
@@ -509,6 +598,8 @@ $screen-large: "(min-width: 1800px)";
     transform: rotate(180deg);
 
     @media #{$screen-large} {
+      width: large(12);
+      height: large(10);
     }
 
     @media #{$screen-medium-up} {
@@ -517,6 +608,8 @@ $screen-large: "(min-width: 1800px)";
     }
 
     @media #{$screen-medium} {
+      width: medium(12);
+      height: medium(10);
     }
 
     @media #{$screen-medium-tab} {
@@ -528,11 +621,14 @@ $screen-large: "(min-width: 1800px)";
 }
 
 .filterBtnCreateContainer {
-  text-align: right;
+  display: flex;
+  justify-content: center;
 }
 
 .filterBtnCreate {
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   color: #fff;
   outline: none;
@@ -540,16 +636,24 @@ $screen-large: "(min-width: 1800px)";
   border: 1px solid rgba(0, 0, 0, 0.05);
 
   @media #{$screen-large} {
+    font-size: large(18);
+    height: large(50);
+    border-radius: large(5);
+    width: large(200);
   }
 
   @media #{$screen-medium-up} {
     font-size: 18px;
-    line-height: 22px;
+    height: 50px;
     border-radius: 5px;
-    padding: 8px 20px;
+    width: 200px;
   }
 
   @media #{$screen-medium} {
+    font-size: medium(18);
+    height: medium(50);
+    border-radius: medium(5);
+    width: medium(200);
   }
 
   @media #{$screen-medium-tab} {
@@ -557,4 +661,8 @@ $screen-large: "(min-width: 1800px)";
 
   @media #{$screen-small} {
   }
+}
+
+.selectDisabled {
+  pointer-events: none;
 }

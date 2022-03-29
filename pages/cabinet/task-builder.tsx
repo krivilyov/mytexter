@@ -20,13 +20,14 @@ interface TaskBuilderProps {
   userInfo: UserDocument;
   topics: TopicsData[];
   levels: LevelsData[];
-  loadWords?: WordsData[];
+  loadWords: WordsData[];
 }
 
 export default function TaskBuilder(props: TaskBuilderProps) {
   const { user, userInfo, topics, levels, loadWords } = props;
 
   const [words, setWords] = useState(loadWords);
+  const [loader, isLoader] = useState(false);
 
   interface FilterValuesProps {
     quantity: string;
@@ -37,6 +38,7 @@ export default function TaskBuilder(props: TaskBuilderProps) {
   }
 
   const handleFormSubmit = (filterValues: FilterValuesProps) => {
+    isLoader(!loader);
     axios
       .get(
         `${process.env.NEXT_PUBLIC_API_URL}/api/words/filter?language_id=1&topic_id=${filterValues.topic_id}&level_id=${filterValues.level_id}&is_phrase=${filterValues.phrase}&quantity=${filterValues.quantity}`,
@@ -48,11 +50,12 @@ export default function TaskBuilder(props: TaskBuilderProps) {
         }
       )
       .then((res) => {
-        console.log(res.data);
+        isLoader(false);
         setWords(res.data);
       })
       .catch((error) => {
         if (error.response) {
+          isLoader(false);
           console.log(error.response);
         }
       });
@@ -72,8 +75,9 @@ export default function TaskBuilder(props: TaskBuilderProps) {
             topics={topics}
             levels={levels}
             btnSubmitFormClick={handleFormSubmit}
+            loader={loader}
           />
-          <WordsContainer words={words} />
+          {words.length > 0 && <WordsContainer words={words} />}
         </div>
       </div>
     </>
