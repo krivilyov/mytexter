@@ -39,9 +39,13 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium-tab} {
+    width: medium-tab(312);
+    padding: medium-tab(11) medium-tab(13);
   }
 
   @media #{$screen-small} {
+    width: 100%;
+    padding: small(11) small(13);
   }
 }
 
@@ -65,9 +69,13 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium-tab} {
+    padding: medium-tab(15);
+    border-radius: medium-tab(7);
   }
 
   @media #{$screen-small} {
+    padding: small(15);
+    border-radius: small(7);
   }
 }
 
@@ -91,9 +99,13 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium-tab} {
+    font-size: medium-tab(18);
+    line-height: medium-tab(24);
   }
 
   @media #{$screen-small} {
+    font-size: small(18);
+    line-height: small(24);
   }
 }
 
@@ -117,9 +129,13 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium-tab} {
+    font-size: medium-tab(18);
+    line-height: medium-tab(24);
   }
 
   @media #{$screen-small} {
+    font-size: small(18);
+    line-height: small(24);
   }
 }
 
@@ -145,9 +161,15 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium-tab} {
+    width: medium-tab(24);
+    height: medium-tab(19);
+    left: medium-tab(14);
   }
 
   @media #{$screen-small} {
+    width: small(24);
+    height: small(19);
+    left: small(14);
   }
 }
 
@@ -180,9 +202,17 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium-tab} {
+    height: medium-tab(40);
+    padding: 0 medium-tab(10) 0 medium-tab(40);
+    border-top-left-radius: medium-tab(7);
+    border-top-right-radius: medium-tab(7);
   }
 
   @media #{$screen-small} {
+    height: small(40);
+    padding: 0 small(10) 0 small(40);
+    border-top-left-radius: small(7);
+    border-top-right-radius: small(7);
   }
 }
 
@@ -215,9 +245,17 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium-tab} {
+    height: medium-tab(40);
+    padding: 0 medium-tab(10);
+    border-bottom-left-radius: medium-tab(7);
+    border-bottom-right-radius: medium-tab(7);
   }
 
   @media #{$screen-small} {
+    height: small(40);
+    padding: 0 small(10);
+    border-bottom-left-radius: small(7);
+    border-bottom-right-radius: small(7);
   }
 }
 
@@ -238,9 +276,13 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium-tab} {
+    width: medium-tab(255);
+    margin-bottom: medium-tab(15);
   }
 
   @media #{$screen-small} {
+    width: 100%;
+    margin-bottom: small(15);
   }
 
   img {
@@ -257,9 +299,11 @@ $screen-large: "(min-width: 1800px)";
     }
 
     @media #{$screen-medium-tab} {
+      border-radius: medium-tab(7);
     }
 
     @media #{$screen-small} {
+      border-radius: small(7);
     }
   }
 }
@@ -290,9 +334,15 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium-tab} {
+    font-size: medium-tab(14);
+    line-height: medium-tab(18);
+    padding: medium-tab(11) medium-tab(30) medium-tab(11) medium-tab(14);
   }
 
   @media #{$screen-small} {
+    font-size: small(14);
+    line-height: small(18);
+    padding: small(11) small(30) small(11) small(14);
   }
 
   svg {
@@ -322,9 +372,17 @@ $screen-large: "(min-width: 1800px)";
     }
 
     @media #{$screen-medium-tab} {
+      width: medium-tab(12);
+      height: medium-tab(9);
+      top: medium-tab(16);
+      right: medium-tab(10);
     }
 
     @media #{$screen-small} {
+      width: small(12);
+      height: small(9);
+      top: small(16);
+      right: small(10);
     }
   }
 }
@@ -359,9 +417,19 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium-tab} {
+    font-size: medium-tab(14);
+    line-height: medium-tab(18);
+    border-radius: medium-tab(7);
+    padding: medium-tab(7);
+    margin-top: medium-tab(15);
   }
 
   @media #{$screen-small} {
+    font-size: small(14);
+    line-height: small(18);
+    border-radius: small(7);
+    padding: small(7);
+    margin-top: small(15);
   }
 }
 
@@ -387,9 +455,11 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium-tab} {
+    margin-bottom: medium-tab(15);
   }
 
   @media #{$screen-small} {
+    margin-bottom: small(15);
   }
 }
 
@@ -437,9 +507,17 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium-tab} {
+    font-size: medium-tab(12);
+    line-height: medium-tab(16);
+    padding: medium-tab(5) medium-tab(10);
+    border-radius: medium-tab(4);
   }
 
   @media #{$screen-small} {
+    font-size: small(12);
+    line-height: small(16);
+    padding: small(5) small(10);
+    border-radius: small(4);
   }
 }
 
@@ -476,9 +554,19 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium-tab} {
+    font-size: medium-tab(12);
+    line-height: medium-tab(16);
+    height: medium-tab(25);
+    padding: 0 medium-tab(10) 0 medium-tab(5);
+    border-radius: 4px;
   }
 
   @media #{$screen-small} {
+    font-size: small(12);
+    line-height: small(16);
+    height: small(25);
+    padding: 0 small(10) 0 small(5);
+    border-radius: small(4);
   }
 
   svg {
@@ -498,9 +586,13 @@ $screen-large: "(min-width: 1800px)";
     }
 
     @media #{$screen-medium-tab} {
+      width: medium-tab(20);
+      margin-right: medium-tab(6);
     }
 
     @media #{$screen-small} {
+      width: small(20);
+      margin-right: small(6);
     }
   }
 }
@@ -525,8 +617,14 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium-tab} {
+    font-size: medium-tab(14);
+    line-height: medium-tab(22);
+    margin-bottom: medium-tab(10);
   }
 
   @media #{$screen-small} {
+    font-size: small(14);
+    line-height: small(22);
+    margin-bottom: small(10);
   }
 }

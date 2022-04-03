@@ -49,13 +49,18 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium-tab} {
-    width: 0;
+    width: medium-tab(310);
   }
 
   @media #{$screen-small} {
+    position: fixed;
+    width: 100%;
+    z-index: 100;
   }
 
   &.activeSidebar {
+    transition: all 0.4s linear;
+
     @media #{$screen-large} {
       width: large(310);
     }
@@ -69,10 +74,12 @@ $screen-large: "(min-width: 1800px)";
     }
 
     @media #{$screen-medium-tab} {
-      width: medium-tab(310);
+      width: 0;
     }
 
     @media #{$screen-small} {
+      width: 0;
+      position: relative;
     }
 
     .sidebarBtn {
@@ -92,9 +99,12 @@ $screen-large: "(min-width: 1800px)";
 
       @media #{$screen-medium-tab} {
         right: medium-tab(-15);
+        transform: rotate(180deg);
       }
 
       @media #{$screen-small} {
+        right: small(-30);
+        transform: rotate(180deg);
       }
     }
   }
@@ -108,13 +118,13 @@ $screen-large: "(min-width: 1800px)";
   border: 1px solid #e1e1e1;
   border-radius: 50%;
   background: #fff;
-  transform: rotate(180deg);
 
   @media #{$screen-large} {
     width: large(30);
     height: large(30);
     right: large(-20);
     top: large(55);
+    transform: rotate(180deg);
   }
 
   @media #{$screen-medium-up} {
@@ -122,6 +132,7 @@ $screen-large: "(min-width: 1800px)";
     height: 30px;
     right: -20px;
     top: 55px;
+    transform: rotate(180deg);
   }
 
   @media #{$screen-medium} {
@@ -129,6 +140,7 @@ $screen-large: "(min-width: 1800px)";
     height: medium(30);
     right: medium(-20);
     top: medium(55);
+    transform: rotate(180deg);
   }
 
   @media #{$screen-medium-tab} {
@@ -136,9 +148,15 @@ $screen-large: "(min-width: 1800px)";
     height: medium-tab(30);
     right: medium-tab(-20);
     top: medium-tab(55);
+    transform: rotate(0deg);
   }
 
   @media #{$screen-small} {
+    width: small(30);
+    height: small(30);
+    right: 0;
+    top: small(55);
+    transform: rotate(0deg);
   }
 
   svg {
@@ -163,6 +181,8 @@ $screen-large: "(min-width: 1800px)";
     }
 
     @media #{$screen-small} {
+      width: small(8);
+      height: small(12);
     }
   }
 }
@@ -187,6 +207,7 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-small} {
+    padding: small(30) small(12);
   }
 }
 
@@ -216,6 +237,9 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-small} {
+    width: small(200);
+    height: small(70);
+    margin: 0 0 small(30) small(16);
   }
 }
 
@@ -237,6 +261,7 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-small} {
+    width: small(286);
   }
 }
 
@@ -269,6 +294,9 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-small} {
+    font-size: small(12);
+    line-height: small(16);
+    margin: small(12) small(15);
   }
 
   &:last-of-type {
@@ -289,6 +317,7 @@ $screen-large: "(min-width: 1800px)";
     }
 
     @media #{$screen-small} {
+      margin-top: small(150);
     }
   }
 }
@@ -314,6 +343,7 @@ $screen-large: "(min-width: 1800px)";
     }
 
     @media #{$screen-small} {
+      margin: small(3) 0;
     }
 
     &:hover {
@@ -336,6 +366,7 @@ $screen-large: "(min-width: 1800px)";
       }
 
       @media #{$screen-small} {
+        border-radius: small(8);
       }
 
       .menuLink {
@@ -381,6 +412,9 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-small} {
+    font-size: small(16);
+    line-height: small(24);
+    padding: small(12) small(15);
   }
 
   svg {
@@ -401,6 +435,7 @@ $screen-large: "(min-width: 1800px)";
     }
 
     @media #{$screen-small} {
+      margin-right: small(15);
     }
   }
 }
@@ -425,6 +460,7 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-small} {
+    border-radius: small(8);
   }
 
   .menuLink {

@@ -46,6 +46,8 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-small} {
+    height: small(70);
+    padding: 0 small(25);
   }
 }
 
@@ -82,6 +84,9 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-small} {
+    width: small(35);
+    height: small(35);
+    margin-right: small(8);
   }
 
   span {
@@ -120,5 +125,7 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-small} {
+    font-size: small(18);
+    line-height: small(20);
   }
 }

@@ -38,9 +38,11 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium-tab} {
+    padding: medium-tab(15) medium-tab(22);
   }
 
   @media #{$screen-small} {
+    padding: small(15) small(22);
   }
 
   form {
@@ -60,9 +62,11 @@ $screen-large: "(min-width: 1800px)";
     }
 
     @media #{$screen-medium-tab} {
+      margin-bottom: medium-tab(40);
     }
 
     @media #{$screen-small} {
+      margin-bottom: small(40);
     }
   }
 }
@@ -84,9 +88,11 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium-tab} {
+    margin: 0 medium-tab(12) medium-tab(20);
   }
 
   @media #{$screen-small} {
+    margin: 0 small(12) small(20);
   }
 }
 
@@ -117,9 +123,15 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium-tab} {
+    font-size: medium-tab(14);
+    line-height: medium-tab(16);
+    margin-bottom: medium-tab(12);
   }
 
   @media #{$screen-small} {
+    font-size: small(14);
+    line-height: small(16);
+    margin-bottom: small(12);
   }
 
   &:before {
@@ -150,9 +162,15 @@ $screen-large: "(min-width: 1800px)";
     }
 
     @media #{$screen-medium-tab} {
+      width: medium-tab(14);
+      height: medium-tab(14);
+      margin-right: medium-tab(6);
     }
 
     @media #{$screen-small} {
+      width: small(14);
+      height: small(14);
+      margin-right: small(6);
     }
   }
 }
@@ -182,9 +200,13 @@ $screen-large: "(min-width: 1800px)";
     }
 
     @media #{$screen-medium-tab} {
+      border-top-left-radius: medium-tab(4);
+      border-bottom-left-radius: medium-tab(4);
     }
 
     @media #{$screen-small} {
+      border-top-left-radius: small(4);
+      border-bottom-left-radius: small(4);
     }
 
     .filterLabel {
@@ -204,9 +226,13 @@ $screen-large: "(min-width: 1800px)";
       }
 
       @media #{$screen-medium-tab} {
+        border-top-left-radius: medium-tab(4);
+        border-bottom-left-radius: medium-tab(4);
       }
 
       @media #{$screen-small} {
+        border-top-left-radius: small(4);
+        border-bottom-left-radius: small(4);
       }
     }
 
@@ -227,9 +253,13 @@ $screen-large: "(min-width: 1800px)";
       }
 
       @media #{$screen-medium-tab} {
+        border-top-left-radius: medium-tab(4);
+        border-bottom-left-radius: medium-tab(4);
       }
 
       @media #{$screen-small} {
+        border-top-left-radius: small(4);
+        border-bottom-left-radius: small(4);
       }
     }
   }
@@ -253,9 +283,13 @@ $screen-large: "(min-width: 1800px)";
     }
 
     @media #{$screen-medium-tab} {
+      border-top-right-radius: medium-tab(4);
+      border-bottom-right-radius: medium-tab(4);
     }
 
     @media #{$screen-small} {
+      border-top-right-radius: small(4);
+      border-bottom-right-radius: small(4);
     }
 
     .filterLabel {
@@ -275,9 +309,13 @@ $screen-large: "(min-width: 1800px)";
       }
 
       @media #{$screen-medium-tab} {
+        border-top-right-radius: medium-tab(4);
+        border-bottom-right-radius: medium-tab(4);
       }
 
       @media #{$screen-small} {
+        border-top-right-radius: small(4);
+        border-bottom-right-radius: small(4);
       }
     }
 
@@ -298,9 +336,13 @@ $screen-large: "(min-width: 1800px)";
       }
 
       @media #{$screen-medium-tab} {
+        border-top-right-radius: medium-tab(4);
+        border-bottom-right-radius: medium-tab(4);
       }
 
       @media #{$screen-small} {
+        border-top-right-radius: small(4);
+        border-bottom-right-radius: small(4);
       }
     }
   }
@@ -345,9 +387,17 @@ $screen-large: "(min-width: 1800px)";
     }
 
     @media #{$screen-medium-tab} {
+      height: medium-tab(40);
+      font-size: medium-tab(14);
+      line-height: medium-tab(16);
+      padding: 0 medium-tab(16);
     }
 
     @media #{$screen-small} {
+      height: small(40);
+      font-size: small(14);
+      line-height: small(16);
+      padding: 0 small(16);
     }
   }
 
@@ -379,9 +429,17 @@ $screen-large: "(min-width: 1800px)";
     }
 
     @media #{$screen-medium-tab} {
+      height: medium-tab(40);
+      font-size: medium-tab(14);
+      line-height: medium-tab(16);
+      padding: 0 medium-tab(25);
     }
 
     @media #{$screen-small} {
+      height: small(40);
+      font-size: small(14);
+      line-height: small(16);
+      padding: 0 small(25);
     }
 
     svg {
@@ -401,9 +459,13 @@ $screen-large: "(min-width: 1800px)";
       }
 
       @media #{$screen-medium-tab} {
+        width: medium-tab(24);
+        height: medium-tab(24);
       }
 
       @media #{$screen-small} {
+        width: small(24);
+        height: small(24);
       }
     }
   }
@@ -415,26 +477,26 @@ $screen-large: "(min-width: 1800px)";
   transition: max-height 0.2s ease-in;
   border: none;
   width: 100%;
+  left: 0;
 
   @media #{$screen-large} {
     top: large(40);
-    left: 0;
   }
 
   @media #{$screen-medium-up} {
     top: 40px;
-    left: 0;
   }
 
   @media #{$screen-medium} {
     top: medium(40);
-    left: 0;
   }
 
   @media #{$screen-medium-tab} {
+    top: medium-tab(40);
   }
 
   @media #{$screen-small} {
+    top: small(40);
   }
 
   li {
@@ -459,9 +521,13 @@ $screen-large: "(min-width: 1800px)";
     }
 
     @media #{$screen-medium-tab} {
+      height: medium-tab(30);
+      padding: 0 medium-tab(10);
     }
 
     @media #{$screen-small} {
+      height: small(30);
+      padding: 0 small(10);
     }
 
     &:last-child {
@@ -491,32 +557,19 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium-tab} {
+    font-size: medium-tab(14);
+    line-height: medium-tab(16);
   }
 
   @media #{$screen-small} {
+    font-size: small(14);
+    line-height: small(16);
   }
 
   .selectDropdown {
     overflow-y: hidden;
     border: none;
-
-    @media #{$screen-large} {
-      max-height: 0;
-    }
-
-    @media #{$screen-medium-up} {
-      max-height: 0;
-    }
-
-    @media #{$screen-medium} {
-      max-height: 0;
-    }
-
-    @media #{$screen-medium-tab} {
-    }
-
-    @media #{$screen-small} {
-    }
+    max-height: 0;
   }
 }
 
@@ -554,9 +607,15 @@ $screen-large: "(min-width: 1800px)";
     }
 
     @media #{$screen-medium-tab} {
+      max-height: medium-tab(183);
+      border-bottom-left-radius: medium-tab(4);
+      border-bottom-right-radius: medium-tab(4);
     }
 
     @media #{$screen-small} {
+      max-height: small(183);
+      border-bottom-left-radius: small(4);
+      border-bottom-right-radius: small(4);
     }
   }
 }
@@ -588,9 +647,15 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium-tab} {
+    height: medium-tab(40);
+    padding: 0 medium-tab(16);
+    border-radius: medium-tab(4);
   }
 
   @media #{$screen-small} {
+    height: small(40);
+    padding: 0 small(16);
+    border-radius: small(4);
   }
 
   svg {
@@ -613,9 +678,13 @@ $screen-large: "(min-width: 1800px)";
     }
 
     @media #{$screen-medium-tab} {
+      width: medium-tab(12);
+      height: medium-tab(10);
     }
 
     @media #{$screen-small} {
+      width: small(12);
+      height: small(10);
     }
   }
 }
@@ -657,9 +726,17 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium-tab} {
+    font-size: medium-tab(18);
+    height: medium-tab(50);
+    border-radius: medium-tab(5);
+    width: medium-tab(200);
   }
 
   @media #{$screen-small} {
+    font-size: small(18);
+    height: small(50);
+    border-radius: small(5);
+    width: small(200);
   }
 }
 

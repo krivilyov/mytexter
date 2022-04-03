@@ -57,6 +57,8 @@ $screen-large: "(min-width: 1800px)";
   }
 
   @media #{$screen-medium-tab} {
+    justify-content: center;
+    margin: 0 medium-tab(-13);
   }
 
   @media #{$screen-small} {
