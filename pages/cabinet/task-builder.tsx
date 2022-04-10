@@ -4,6 +4,7 @@ import {
   TopicsData,
   LevelsData,
   WordsData,
+  TasksData,
 } from "../../interfaces/interfaces";
 import Head from "next/head";
 import Sidebar from "../../components/cabinet/Sidebar";
@@ -21,20 +22,25 @@ interface TaskBuilderProps {
   topics: TopicsData[];
   levels: LevelsData[];
   loadWords: WordsData[];
+  tasks: TasksData[];
 }
 
 export default function TaskBuilder(props: TaskBuilderProps) {
-  const { user, userInfo, topics, levels, loadWords } = props;
+  const { user, userInfo, topics, levels, loadWords, tasks } = props;
 
   const [words, setWords] = useState(loadWords);
   const [loader, isLoader] = useState(false);
+  const [saveBtnLoader, setSaveBtnLoader] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
+  const [tasksQuantity, setTasksQuantity] = useState(tasks.length);
+
+  const [showSaveBtn, setShowSaveBtn] = useState(!!words.length);
 
   interface FilterValuesProps {
     quantity: string;
     phrase: string;
     level_id: string;
     topic_id: number;
-    save: string;
   }
 
   const handleFormSubmit = (filterValues: FilterValuesProps) => {
@@ -52,11 +58,41 @@ export default function TaskBuilder(props: TaskBuilderProps) {
       .then((res) => {
         isLoader(false);
         setWords(res.data);
+        setIsSaved(false);
+        setShowSaveBtn(!!res.data.length);
       })
       .catch((error) => {
         if (error.response) {
           isLoader(false);
           console.log(error.response);
+        }
+      });
+  };
+
+  const handleSaveWords = () => {
+    console.log(user.id, words);
+    setSaveBtnLoader(!saveBtnLoader);
+    const data = {
+      user_id: user.id,
+      words: words,
+    };
+
+    axios
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/api/task`, data, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+        withCredentials: true,
+      })
+      .then((res) => {
+        setSaveBtnLoader(false);
+        setTasksQuantity(tasksQuantity + 1);
+        setIsSaved(!isSaved);
+      })
+      .catch((error) => {
+        setSaveBtnLoader(false);
+        if (error.response) {
+          console.log(error.response.data);
         }
       });
   };
@@ -68,14 +104,18 @@ export default function TaskBuilder(props: TaskBuilderProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <div className={styles.container}>
-        <Sidebar />
+        <Sidebar taskQuantity={tasksQuantity} />
         <div className={styles.mainContainer}>
           <Header user={userInfo} />
           <FilterBuilder
             topics={topics}
             levels={levels}
             btnSubmitFormClick={handleFormSubmit}
+            btnSubmitSaveWords={handleSaveWords}
             loader={loader}
+            saveBtnLoader={saveBtnLoader}
+            showSaveBtn={showSaveBtn}
+            isSaved={isSaved}
           />
           {words.length > 0 && <WordsContainer words={words} />}
         </div>
@@ -91,6 +131,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   let topics = null;
   let levels = null;
   let words = null;
+  let tasks = null;
 
   if (token) {
     const res = await fetch(
@@ -106,7 +147,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     }
   }
 
-  if (!user || user.role !== "admin") {
+  if (!user) {
     return {
       redirect: {
         destination: "/auth/login",
@@ -163,6 +204,18 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     words = await wordsRes.json();
   }
 
+  //get tasks by user
+  const tasksRes = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/tasks/${user.id}`,
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
+
+  if (tasksRes.ok) {
+    tasks = await tasksRes.json();
+  }
+
   return {
     props: {
       user: user,
@@ -170,6 +223,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       topics: topics,
       levels: levels,
       loadWords: words,
+      tasks: tasks,
     },
   };
 };

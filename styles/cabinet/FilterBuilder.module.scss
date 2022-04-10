@@ -406,6 +406,7 @@ $screen-large: "(min-width: 1800px)";
     align-items: center;
     justify-content: center;
     text-transform: uppercase;
+    cursor: pointer;
 
     @media #{$screen-large} {
       height: large(40);
@@ -504,6 +505,7 @@ $screen-large: "(min-width: 1800px)";
     align-items: center;
     background: #fff;
     border-bottom: 1px solid #dadada;
+    cursor: pointer;
 
     @media #{$screen-large} {
       height: large(30);
@@ -627,6 +629,7 @@ $screen-large: "(min-width: 1800px)";
   color: #969696;
   background: #fff;
   border: 1px solid #dadada;
+  cursor: pointer;
 
   @media #{$screen-large} {
     height: large(40);
@@ -691,7 +694,11 @@ $screen-large: "(min-width: 1800px)";
 
 .filterBtnCreateContainer {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
+
+  @media #{$screen-small} {
+    justify-content: space-between;
+  }
 }
 
 .filterBtnCreate {
@@ -708,38 +715,95 @@ $screen-large: "(min-width: 1800px)";
     font-size: large(18);
     height: large(50);
     border-radius: large(5);
-    width: large(200);
+    width: large(150);
   }
 
   @media #{$screen-medium-up} {
     font-size: 18px;
     height: 50px;
     border-radius: 5px;
-    width: 200px;
+    width: 150px;
   }
 
   @media #{$screen-medium} {
     font-size: medium(18);
     height: medium(50);
     border-radius: medium(5);
-    width: medium(200);
+    width: medium(150);
   }
 
   @media #{$screen-medium-tab} {
     font-size: medium-tab(18);
     height: medium-tab(50);
     border-radius: medium-tab(5);
-    width: medium-tab(200);
+    width: medium-tab(150);
   }
 
   @media #{$screen-small} {
     font-size: small(18);
     height: small(50);
     border-radius: small(5);
-    width: small(200);
+    width: small(150);
+  }
+}
+
+.filterBtnSave {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #fff;
+  outline: none;
+  background: #56f450;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+
+  @media #{$screen-large} {
+    font-size: large(18);
+    height: large(50);
+    border-radius: large(5);
+    width: large(150);
+    margin-right: large(20);
+  }
+
+  @media #{$screen-medium-up} {
+    font-size: 18px;
+    height: 50px;
+    border-radius: 5px;
+    width: 150px;
+    margin-right: 20px;
+  }
+
+  @media #{$screen-medium} {
+    font-size: medium(18);
+    height: medium(50);
+    border-radius: medium(5);
+    width: medium(150);
+    margin-right: medium(20);
+  }
+
+  @media #{$screen-medium-tab} {
+    font-size: medium-tab(18);
+    height: medium-tab(50);
+    border-radius: medium-tab(5);
+    width: medium-tab(150);
+    margin-right: medium-tab(20);
+  }
+
+  @media #{$screen-small} {
+    font-size: small(18);
+    height: small(50);
+    border-radius: small(5);
+    width: small(150);
   }
 }
 
 .selectDisabled {
   pointer-events: none;
+}
+
+.btnDisabled {
+  background: #969696;
+  border: 1px solid #969696;
+  pointer-events: none;
+  cursor: default;
 }

@@ -1,0 +1,52 @@
+$screen-small: "(max-width: 414px)";
+$screen-medium-tab: "(min-width: 415px) and (max-width: 768px)";
+$screen-medium: "(min-width: 769px) and (max-width: 1279px)";
+$screen-medium-up: "(min-width: 1280px) and (max-width: 1799px)";
+$screen-large: "(min-width: 1800px)";
+
+@function large($value) {
+  @return calc($value * 1.25px);
+}
+
+@function medium($value, $size: 1280) {
+  @return calc($value / $size * 100vw);
+}
+
+@function medium-tab($value, $size: 768) {
+  @return calc($value / $size * 100vw);
+}
+
+@function small($value, $size: 360) {
+  @return calc($value / $size * 100vw);
+}
+
+.container {
+  display: flex;
+  background: #f3f5ff;
+}
+
+.mainContainer {
+  flex: 1 1 auto;
+}
+
+.progressContainer {
+  @media #{$screen-large} {
+    padding: large(15);
+  }
+
+  @media #{$screen-medium-up} {
+    padding: 15px;
+  }
+
+  @media #{$screen-medium} {
+    padding: medium(15);
+  }
+
+  @media #{$screen-medium-tab} {
+    padding: medium-tab(15);
+  }
+
+  @media #{$screen-small} {
+    padding: small(10);
+  }
+}

@@ -471,3 +471,48 @@ $screen-large: "(min-width: 1800px)";
     }
   }
 }
+
+.progress {
+  background: #f98600;
+  color: #fff;
+
+  @media #{$screen-large} {
+    font-size: large(16);
+    line-height: large(24);
+    padding: large(1) large(10);
+    border-radius: large(16);
+    margin-left: large(10);
+  }
+
+  @media #{$screen-medium-up} {
+    font-size: 16px;
+    line-height: 24px;
+    padding: 1px 10px;
+    border-radius: 16px;
+    margin-left: 10px;
+  }
+
+  @media #{$screen-medium} {
+    font-size: medium(16);
+    line-height: medium(24);
+    padding: medium(1) medium(10);
+    border-radius: medium(16);
+    margin-left: medium(10);
+  }
+
+  @media #{$screen-medium-tab} {
+    font-size: medium-tab(16);
+    line-height: medium-tab(24);
+    padding: medium-tab(1) medium-tab(10);
+    border-radius: medium-tab(16);
+    margin-left: medium-tab(10);
+  }
+
+  @media #{$screen-small} {
+    font-size: small(16);
+    line-height: small(24);
+    padding: small(1) small(10);
+    border-radius: small(16);
+    margin-left: small(10);
+  }
+}

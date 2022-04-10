@@ -7,10 +7,17 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import HelpCenterIcon from "@mui/icons-material/HelpCenter";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useRouter } from "next/router";
+import { TasksData } from "../../interfaces/interfaces";
 
 import styles from "../../styles/cabinet/Sidebar.module.scss";
 
-export default function Sidebar() {
+interface SidebarProps {
+  taskQuantity: number;
+}
+
+export default function Sidebar(props: SidebarProps) {
+  const { taskQuantity } = props;
+
   const router = useRouter();
   const [show, isShow] = useState(true);
 
@@ -59,11 +66,18 @@ export default function Sidebar() {
                   </a>
                 </Link>
               </li>
-              <li>
-                <Link href="/">
+              <li
+                className={
+                  router.pathname.indexOf("progress") !== -1
+                    ? styles.menuLinkActive
+                    : ""
+                }
+              >
+                <Link href="/cabinet/progress">
                   <a className={styles.menuLink}>
                     <AssessmentIcon />
                     Your Progress
+                    <span className={styles.progress}>{taskQuantity}</span>
                   </a>
                 </Link>
               </li>

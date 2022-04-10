@@ -1,6 +1,6 @@
 import Input from "../input";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
-import { TopicsData, LevelsData } from "../../interfaces/interfaces";
+import { TopicsData, LevelsData, WordsData } from "../../interfaces/interfaces";
 import { useState, useRef, useEffect } from "react";
 import Loader from "../../components/loader";
 
@@ -11,18 +11,30 @@ interface FilterValuesProps {
   phrase: string;
   level_id: string;
   topic_id: number;
-  save: string;
 }
 
 interface FilterBuilderProps {
   topics: TopicsData[];
   levels: LevelsData[];
   btnSubmitFormClick: (type: FilterValuesProps) => void;
+  btnSubmitSaveWords: () => void;
   loader: boolean;
+  saveBtnLoader: boolean;
+  showSaveBtn: boolean;
+  isSaved: boolean;
 }
 
 export default function FilterBuilder(props: FilterBuilderProps) {
-  const { topics, levels, btnSubmitFormClick, loader } = props;
+  const {
+    topics,
+    levels,
+    btnSubmitFormClick,
+    btnSubmitSaveWords,
+    loader,
+    showSaveBtn,
+    saveBtnLoader,
+    isSaved,
+  } = props;
   const refTopicMenu = useRef<HTMLDivElement>(null);
 
   const [selectTopic, setSelectTopic] = useState(topics[0]);
@@ -33,7 +45,6 @@ export default function FilterBuilder(props: FilterBuilderProps) {
     phrase: "0",
     level_id: `${levels[0] ? levels[0].id : 0}`,
     topic_id: topics[0] ? topics[0].id : 0,
-    save: "0",
   });
 
   const handleClick = (e: CustomEvent) => {
@@ -244,43 +255,35 @@ export default function FilterBuilder(props: FilterBuilderProps) {
             </div>
           </div>
         )}
-
-        <div className={styles.filterGroupItems}>
-          <div className={styles.filterGroupTitle}>Save lesson?</div>
-          <div className={styles.filterGroupItemsContainer}>
-            <div className={styles.filterItem}>
-              <Input
-                id="save_yes"
-                name="save"
-                type="radio"
-                value="1"
-                onChange={onChangeFilterHandler}
-                loader={loader}
-              />
-              <label className={styles.filterBoolLabel} htmlFor="save_yes">
-                Yes
-              </label>
-            </div>
-            <div className={styles.filterItem}>
-              <Input
-                id="save_no"
-                name="save"
-                type="radio"
-                value="0"
-                checked={true}
-                onChange={onChangeFilterHandler}
-                loader={loader}
-              />
-              <label className={styles.filterBoolLabel} htmlFor="save_no">
-                No
-              </label>
-            </div>
-          </div>
-        </div>
       </form>
       <div className={styles.filterBtnCreateContainer}>
+        {showSaveBtn && (
+          <div
+            className={`${styles.filterBtnSave} ${
+              isSaved ? styles.btnDisabled : ""
+            }`}
+            onClick={() => {
+              btnSubmitSaveWords();
+            }}
+          >
+            {!saveBtnLoader ? (
+              !isSaved ? (
+                "Сохранить"
+              ) : (
+                "Сохранено"
+              )
+            ) : (
+              <div className={styles.loaderContainer}>
+                <Loader image="/images/loader.svg" />
+              </div>
+            )}
+          </div>
+        )}
+
         <div
-          className={styles.filterBtnCreate}
+          className={`${styles.filterBtnCreate} ${
+            saveBtnLoader ? styles.btnDisabled : ""
+          }`}
           onClick={() => {
             btnSubmitFormClick(values);
           }}

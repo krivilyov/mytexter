@@ -60,3 +60,11 @@ export interface WordsData {
   isClicked?: boolean;
   t_words: any;
 }
+
+export interface TasksData {
+  id: number;
+  user_id: number;
+  createdAt: string;
+  updatedAt: string;
+  words: WordsData[];
+}
