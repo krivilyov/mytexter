@@ -31,22 +31,283 @@ $screen-large: "(min-width: 1800px)";
 
 .progressContainer {
   @media #{$screen-large} {
-    padding: large(15);
+    padding: large(20) large(15);
+    font-size: large(14);
+    line-height: large(21);
   }
 
   @media #{$screen-medium-up} {
-    padding: 15px;
+    padding: 20px 15px;
+    font-size: 14px;
+    line-height: 21px;
   }
 
   @media #{$screen-medium} {
-    padding: medium(15);
+    padding: medium(20) medium(15);
+    font-size: medium(14);
+    line-height: medium(21);
   }
 
   @media #{$screen-medium-tab} {
-    padding: medium-tab(15);
+    padding: medium-tab(20) medium-tab(15);
   }
 
   @media #{$screen-small} {
-    padding: small(10);
+    padding: small(15) small(10);
+  }
+}
+
+.tableHeader {
+  display: flex;
+  align-items: center;
+  color: #969696;
+
+  @media #{$screen-large} {
+    height: large(52);
+  }
+
+  @media #{$screen-medium-up} {
+    height: 52px;
+  }
+
+  @media #{$screen-medium} {
+    height: medium(52);
+  }
+
+  @media #{$screen-medium-tab} {
+  }
+
+  @media #{$screen-small} {
+  }
+}
+
+.tableCol_1 {
+  display: flex;
+  justify-content: flex-start;
+
+  @media #{$screen-large} {
+    flex: 1 1 large(494);
+    padding: 0 large(14);
+  }
+
+  @media #{$screen-medium-up} {
+    flex: 1 1 494px;
+    padding: 0 14px;
+  }
+
+  @media #{$screen-medium} {
+    flex: 1 1 medium(494);
+    padding: 0 medium(14);
+  }
+
+  @media #{$screen-medium-tab} {
+  }
+
+  @media #{$screen-small} {
+  }
+}
+
+.tableCol_2 {
+  display: flex;
+  justify-content: center;
+
+  @media #{$screen-large} {
+    flex: 1 1 large(191);
+    padding: 0 large(14);
+  }
+
+  @media #{$screen-medium-up} {
+    flex: 1 1 191px;
+    padding: 0 14px;
+  }
+
+  @media #{$screen-medium} {
+    flex: 1 1 medium(191);
+    padding: 0 medium(14);
+  }
+
+  @media #{$screen-medium-tab} {
+  }
+
+  @media #{$screen-small} {
+  }
+}
+
+.tableCol_3 {
+  display: flex;
+  justify-content: center;
+
+  @media #{$screen-large} {
+    flex: 1 1 large(143);
+    padding: 0 large(14);
+  }
+
+  @media #{$screen-medium-up} {
+    flex: 1 1 143px;
+    padding: 0 14px;
+  }
+
+  @media #{$screen-medium} {
+    flex: 1 1 medium(143);
+    padding: 0 medium(14);
+  }
+
+  @media #{$screen-medium-tab} {
+  }
+
+  @media #{$screen-small} {
+  }
+}
+
+.tableCol_4 {
+  display: flex;
+  justify-content: center;
+
+  @media #{$screen-large} {
+    flex: 1 1 large(88);
+    padding: 0 large(14);
+  }
+
+  @media #{$screen-medium-up} {
+    flex: 1 1 88px;
+    padding: 0 14px;
+  }
+
+  @media #{$screen-medium} {
+    flex: 1 1 medium(88);
+    padding: 0 medium(14);
+  }
+
+  @media #{$screen-medium-tab} {
+  }
+
+  @media #{$screen-small} {
+  }
+}
+
+.tableRow {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border-bottom: 1px solid #e8e8e8;
+
+  @media #{$screen-large} {
+    height: large(52);
+    font-size: large(16);
+    line-height: large(25);
+  }
+
+  @media #{$screen-medium-up} {
+    height: 52px;
+    font-size: 16px;
+    line-height: 25px;
+  }
+
+  @media #{$screen-medium} {
+    height: medium(52);
+    font-size: medium(16);
+    line-height: medium(25);
+  }
+
+  @media #{$screen-medium-tab} {
+  }
+
+  @media #{$screen-small} {
+  }
+}
+
+.tableRowWhite {
+  background: #fff;
+}
+.tableBody {
+  .tableRow {
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.02);
+    }
+
+    .tableCol_1 {
+      color: #585757;
+    }
+
+    .tableCol_2 {
+      svg {
+        @media #{$screen-large} {
+          width: large(23);
+          height: large(23);
+        }
+
+        @media #{$screen-medium-up} {
+          width: 23px;
+          height: 23px;
+        }
+
+        @media #{$screen-medium} {
+          width: medium(23);
+          height: medium(23);
+        }
+
+        @media #{$screen-medium-tab} {
+        }
+
+        @media #{$screen-small} {
+        }
+      }
+    }
+
+    .tableCol_3 {
+      .checkCircleOutlineIcon {
+        color: #00ba34;
+      }
+
+      svg {
+        @media #{$screen-large} {
+          width: large(23);
+          height: large(23);
+        }
+
+        @media #{$screen-medium-up} {
+          width: 23px;
+          height: 23px;
+        }
+
+        @media #{$screen-medium} {
+          width: medium(23);
+          height: medium(23);
+        }
+
+        @media #{$screen-medium-tab} {
+        }
+
+        @media #{$screen-small} {
+        }
+      }
+    }
+
+    .tableCol_4 {
+      svg {
+        @media #{$screen-large} {
+          width: large(23);
+          height: large(23);
+        }
+
+        @media #{$screen-medium-up} {
+          width: 23px;
+          height: 23px;
+        }
+
+        @media #{$screen-medium} {
+          width: medium(23);
+          height: medium(23);
+        }
+
+        @media #{$screen-medium-tab} {
+        }
+
+        @media #{$screen-small} {
+        }
+      }
+    }
   }
 }

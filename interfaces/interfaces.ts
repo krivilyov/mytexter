@@ -64,6 +64,7 @@ export interface WordsData {
 export interface TasksData {
   id: number;
   user_id: number;
+  status: number;
   createdAt: string;
   updatedAt: string;
   words: WordsData[];

@@ -7,7 +7,6 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import HelpCenterIcon from "@mui/icons-material/HelpCenter";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useRouter } from "next/router";
-import { TasksData } from "../../interfaces/interfaces";
 
 import styles from "../../styles/cabinet/Sidebar.module.scss";
 
