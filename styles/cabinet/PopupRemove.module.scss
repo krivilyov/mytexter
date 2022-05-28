@@ -1,0 +1,248 @@
+$screen-small: "(max-width: 414px)";
+$screen-medium-tab: "(min-width: 415px) and (max-width: 768px)";
+$screen-medium: "(min-width: 769px) and (max-width: 1279px)";
+$screen-medium-up: "(min-width: 1280px) and (max-width: 1799px)";
+$screen-large: "(min-width: 1800px)";
+
+@function large($value) {
+	@return calc($value * 1.25px);
+}
+
+@function medium($value, $size: 1280) {
+	@return calc($value / $size * 100vw);
+}
+
+@function medium-tab($value, $size: 768) {
+	@return calc($value / $size * 100vw);
+}
+
+@function small($value, $size: 360) {
+	@return calc($value / $size * 100vw);
+}
+
+.popupContainer {
+	position: relative;
+	box-sizing: border-box;
+	position: absolute;
+	background: #fff;
+
+	@media #{$screen-large} {
+		width: large(365);
+		bottom: large(10);
+		right: large(10);
+		padding: large(11) 0 large(15) 0;
+	}
+
+	@media #{$screen-medium-up} {
+		width: 365px;
+		bottom: 10px;
+		right: 10px;
+		padding: 11px 0 15px 0;
+	}
+
+	@media #{$screen-medium} {
+		width: medium(365);
+		bottom: medium(10);
+		right: medium(10);
+		padding: medium(11) 0 medium(15) 0;
+	}
+
+	@media #{$screen-medium-tab} {
+		width: medium-tab(365);
+		bottom: medium-tab(10);
+		right: medium-tab(10);
+		padding: medium-tab(11) 0 medium-tab(15) 0;
+	}
+
+	@media #{$screen-small} {
+		width: 94%;
+		bottom: 10px;
+		right: 0;
+		left: 0;
+		margin: auto;
+		padding: 11px 0 15px 0;
+	}
+}
+
+.popupBtn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #fff;
+	cursor: pointer;
+
+	@media #{$screen-large} {
+		font-size: large(13);
+		line-height: large(18);
+		width: large(50);
+		height: large(30);
+	}
+
+	@media #{$screen-medium-up} {
+		font-size: 13px;
+		line-height: 18px;
+		width: 50px;
+		height: 30px;
+	}
+
+	@media #{$screen-medium} {
+		font-size: medium(13);
+		line-height: medium(18);
+		width: medium(50);
+		height: medium(30);
+	}
+
+	@media #{$screen-medium-tab} {
+		font-size: medium-tab(13);
+		line-height: medium-tab(18);
+		width: medium-tab(50);
+		height: medium-tab(30);
+	}
+
+	@media #{$screen-small} {
+		font-size: small(13);
+		line-height: small(18);
+		width: small(50);
+		height: small(30);
+	}
+}
+
+.popupBtnYes {
+	background: #00ba34;
+
+	@media #{$screen-large} {
+		margin-right: large(15);
+	}
+
+	@media #{$screen-medium-up} {
+		margin-right: 15px;
+	}
+
+	@media #{$screen-medium} {
+		margin-right: medium(15);
+	}
+
+	@media #{$screen-medium-tab} {
+		margin-right: medium-tab(15);
+	}
+
+	@media #{$screen-small} {
+		margin-right: small(15);
+	}
+}
+
+.popupBtnNo {
+	background: #d32f2f;
+}
+
+.btnsContainer {
+	display: flex;
+	justify-content: center;
+}
+
+.popupMessage {
+	@media #{$screen-large} {
+		font-size: large(13);
+		line-height: large(18);
+		margin-bottom: large(10);
+		padding: 0 large(40) 0 large(20);
+	}
+
+	@media #{$screen-medium-up} {
+		font-size: 13px;
+		line-height: 18px;
+		margin-bottom: 10px;
+		padding: 0 40px 0 20px;
+	}
+
+	@media #{$screen-medium} {
+		font-size: medium(13);
+		line-height: medium(18);
+		margin-bottom: medium(10);
+		padding: 0 medium(40) 0 medium(20);
+	}
+
+	@media #{$screen-medium-tab} {
+		font-size: medium-tab(13);
+		line-height: medium-tab(18);
+		margin-bottom: medium-tab(10);
+		padding: 0 medium-tab(40) 0 medium-tab(20);
+	}
+
+	@media #{$screen-small} {
+		font-size: small(13);
+		line-height: small(18);
+		margin-bottom: small(10);
+		padding: 0 small(40) 0 small(20);
+	}
+}
+
+.popupCloseBtn {
+	position: absolute;
+	cursor: pointer;
+
+	@media #{$screen-large} {
+		top: large(10);
+		right: large(10);
+		width: large(20);
+		height: large(20);
+	}
+
+	@media #{$screen-medium-up} {
+		top: 10px;
+		right: 10px;
+		width: 20px;
+		height: 20px;
+	}
+
+	@media #{$screen-medium} {
+		top: medium(10);
+		right: medium(10);
+		width: medium(20);
+		height: medium(20);
+	}
+
+	@media #{$screen-medium-tab} {
+		top: medium-tab(10);
+		right: medium-tab(10);
+		width: medium-tab(20);
+		height: medium-tab(20);
+	}
+
+	@media #{$screen-small} {
+		top: small(10);
+		right: small(10);
+		width: small(20);
+		height: small(20);
+	}
+
+	svg {
+		width: 100%;
+		height: 100%;
+
+		@media #{$screen-large} {
+			top: large(10);
+			right: large(10);
+		}
+
+		@media #{$screen-medium-up} {
+			top: 10px;
+			right: 10px;
+		}
+
+		@media #{$screen-medium} {
+			top: medium(10);
+			right: medium(10);
+		}
+
+		@media #{$screen-medium-tab} {
+			top: medium-tab(10);
+			right: medium-tab(10);
+		}
+
+		@media #{$screen-small} {
+			top: small(10);
+			right: small(10);
+		}
+	}
+}

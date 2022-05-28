@@ -5,309 +5,424 @@ $screen-medium-up: "(min-width: 1280px) and (max-width: 1799px)";
 $screen-large: "(min-width: 1800px)";
 
 @function large($value) {
-  @return calc($value * 1.25px);
+	@return calc($value * 1.25px);
 }
 
 @function medium($value, $size: 1280) {
-  @return calc($value / $size * 100vw);
+	@return calc($value / $size * 100vw);
 }
 
 @function medium-tab($value, $size: 768) {
-  @return calc($value / $size * 100vw);
+	@return calc($value / $size * 100vw);
 }
 
 @function small($value, $size: 360) {
-  @return calc($value / $size * 100vw);
+	@return calc($value / $size * 100vw);
 }
 
 .container {
-  display: flex;
-  background: #f3f5ff;
+	display: flex;
+	position: relative;
+	background: #f3f5ff;
 }
 
 .mainContainer {
-  flex: 1 1 auto;
+	flex: 1 1 auto;
 }
 
 .progressContainer {
-  @media #{$screen-large} {
-    padding: large(20) large(15);
-    font-size: large(14);
-    line-height: large(21);
-  }
+	@media #{$screen-large} {
+		padding: large(20) large(15);
+		font-size: large(14);
+		line-height: large(21);
+	}
 
-  @media #{$screen-medium-up} {
-    padding: 20px 15px;
-    font-size: 14px;
-    line-height: 21px;
-  }
+	@media #{$screen-medium-up} {
+		padding: 20px 15px;
+		font-size: 14px;
+		line-height: 21px;
+	}
 
-  @media #{$screen-medium} {
-    padding: medium(20) medium(15);
-    font-size: medium(14);
-    line-height: medium(21);
-  }
+	@media #{$screen-medium} {
+		padding: medium(20) medium(15);
+		font-size: medium(14);
+		line-height: medium(21);
+	}
 
-  @media #{$screen-medium-tab} {
-    padding: medium-tab(20) medium-tab(15);
-  }
+	@media #{$screen-medium-tab} {
+		padding: medium-tab(20) medium-tab(15);
+		font-size: medium-tab(14);
+		line-height: medium-tab(21);
+	}
 
-  @media #{$screen-small} {
-    padding: small(15) small(10);
-  }
+	@media #{$screen-small} {
+		padding: small(15) small(10);
+		font-size: small(14);
+		line-height: small(21);
+	}
 }
 
 .tableHeader {
-  display: flex;
-  align-items: center;
-  color: #969696;
+	display: flex;
+	align-items: center;
+	color: #969696;
 
-  @media #{$screen-large} {
-    height: large(52);
-  }
+	@media #{$screen-large} {
+		height: large(52);
+	}
 
-  @media #{$screen-medium-up} {
-    height: 52px;
-  }
+	@media #{$screen-medium-up} {
+		height: 52px;
+	}
 
-  @media #{$screen-medium} {
-    height: medium(52);
-  }
+	@media #{$screen-medium} {
+		height: medium(52);
+	}
 
-  @media #{$screen-medium-tab} {
-  }
+	@media #{$screen-medium-tab} {
+		height: medium-tab(52);
+	}
 
-  @media #{$screen-small} {
-  }
+	@media #{$screen-small} {
+		height: small(52);
+	}
 }
 
 .tableCol_1 {
-  display: flex;
-  justify-content: flex-start;
+	display: flex;
+	justify-content: flex-start;
 
-  @media #{$screen-large} {
-    flex: 1 1 large(494);
-    padding: 0 large(14);
-  }
+	@media #{$screen-large} {
+		flex: 1 1 large(494);
+		padding: 0 large(14);
+	}
 
-  @media #{$screen-medium-up} {
-    flex: 1 1 494px;
-    padding: 0 14px;
-  }
+	@media #{$screen-medium-up} {
+		flex: 1 1 494px;
+		padding: 0 14px;
+	}
 
-  @media #{$screen-medium} {
-    flex: 1 1 medium(494);
-    padding: 0 medium(14);
-  }
+	@media #{$screen-medium} {
+		flex: 1 1 medium(494);
+		padding: 0 medium(14);
+	}
 
-  @media #{$screen-medium-tab} {
-  }
+	@media #{$screen-medium-tab} {
+		flex: 1 1 medium-tab(494);
+		padding: 0 medium-tab(14);
+	}
 
-  @media #{$screen-small} {
-  }
+	@media #{$screen-small} {
+		flex: 1 1 small(494);
+		padding: 0 small(14);
+	}
 }
 
 .tableCol_2 {
-  display: flex;
-  justify-content: center;
+	display: flex;
+	justify-content: center;
 
-  @media #{$screen-large} {
-    flex: 1 1 large(191);
-    padding: 0 large(14);
-  }
+	@media #{$screen-large} {
+		flex: 1 1 large(191);
+		padding: 0 large(14);
+	}
 
-  @media #{$screen-medium-up} {
-    flex: 1 1 191px;
-    padding: 0 14px;
-  }
+	@media #{$screen-medium-up} {
+		flex: 1 1 191px;
+		padding: 0 14px;
+	}
 
-  @media #{$screen-medium} {
-    flex: 1 1 medium(191);
-    padding: 0 medium(14);
-  }
+	@media #{$screen-medium} {
+		flex: 1 1 medium(191);
+		padding: 0 medium(14);
+	}
 
-  @media #{$screen-medium-tab} {
-  }
+	@media #{$screen-medium-tab} {
+		flex: 1 1 medium-tab(191);
+		padding: 0 medium-tab(14);
+	}
 
-  @media #{$screen-small} {
-  }
+	@media #{$screen-small} {
+		flex: 1 1 small(191);
+		padding: 0 small(14);
+	}
 }
 
 .tableCol_3 {
-  display: flex;
-  justify-content: center;
+	display: flex;
+	justify-content: center;
 
-  @media #{$screen-large} {
-    flex: 1 1 large(143);
-    padding: 0 large(14);
-  }
+	@media #{$screen-large} {
+		flex: 1 1 large(143);
+		padding: 0 large(14);
+	}
 
-  @media #{$screen-medium-up} {
-    flex: 1 1 143px;
-    padding: 0 14px;
-  }
+	@media #{$screen-medium-up} {
+		flex: 1 1 143px;
+		padding: 0 14px;
+	}
 
-  @media #{$screen-medium} {
-    flex: 1 1 medium(143);
-    padding: 0 medium(14);
-  }
+	@media #{$screen-medium} {
+		flex: 1 1 medium(143);
+		padding: 0 medium(14);
+	}
 
-  @media #{$screen-medium-tab} {
-  }
+	@media #{$screen-medium-tab} {
+		flex: 1 1 medium-tab(143);
+		padding: 0 medium-tab(14);
+	}
 
-  @media #{$screen-small} {
-  }
+	@media #{$screen-small} {
+		flex: 1 1 small(143);
+		padding: 0 small(14);
+	}
 }
 
 .tableCol_4 {
-  display: flex;
-  justify-content: center;
+	display: flex;
+	justify-content: center;
 
-  @media #{$screen-large} {
-    flex: 1 1 large(88);
-    padding: 0 large(14);
-  }
+	@media #{$screen-large} {
+		flex: 1 1 large(88);
+		padding: 0 large(14);
+	}
 
-  @media #{$screen-medium-up} {
-    flex: 1 1 88px;
-    padding: 0 14px;
-  }
+	@media #{$screen-medium-up} {
+		flex: 1 1 88px;
+		padding: 0 14px;
+	}
 
-  @media #{$screen-medium} {
-    flex: 1 1 medium(88);
-    padding: 0 medium(14);
-  }
+	@media #{$screen-medium} {
+		flex: 1 1 medium(88);
+		padding: 0 medium(14);
+	}
 
-  @media #{$screen-medium-tab} {
-  }
+	@media #{$screen-medium-tab} {
+		flex: 1 1 medium-tab(88);
+		padding: 0 medium-tab(14);
+	}
 
-  @media #{$screen-small} {
-  }
+	@media #{$screen-small} {
+		flex: 1 1 small(88);
+		padding: 0 small(14);
+	}
 }
 
 .tableRow {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  border-bottom: 1px solid #e8e8e8;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	border-bottom: 1px solid #e8e8e8;
+	z-index: 1;
 
-  @media #{$screen-large} {
-    height: large(52);
-    font-size: large(16);
-    line-height: large(25);
-  }
+	@media #{$screen-large} {
+		height: large(52);
+		font-size: large(16);
+		line-height: large(25);
+	}
 
-  @media #{$screen-medium-up} {
-    height: 52px;
-    font-size: 16px;
-    line-height: 25px;
-  }
+	@media #{$screen-medium-up} {
+		height: 52px;
+		font-size: 16px;
+		line-height: 25px;
+	}
 
-  @media #{$screen-medium} {
-    height: medium(52);
-    font-size: medium(16);
-    line-height: medium(25);
-  }
+	@media #{$screen-medium} {
+		height: medium(52);
+		font-size: medium(16);
+		line-height: medium(25);
+	}
 
-  @media #{$screen-medium-tab} {
-  }
+	@media #{$screen-medium-tab} {
+		height: medium-tab(52);
+		font-size: medium-tab(16);
+		line-height: medium-tab(25);
+	}
 
-  @media #{$screen-small} {
-  }
+	@media #{$screen-small} {
+		height: small(52);
+		font-size: small(16);
+		line-height: small(25);
+	}
 }
 
 .tableRowWhite {
-  background: #fff;
+	background: #fff;
 }
 .tableBody {
-  .tableRow {
-    cursor: pointer;
+	.tableRow {
+		cursor: pointer;
 
-    &:hover {
-      background: rgba(0, 0, 0, 0.02);
-    }
+		&:hover {
+			background: rgba(0, 0, 0, 0.02);
+		}
 
-    .tableCol_1 {
-      color: #585757;
-    }
+		.tableCol_1 {
+			color: #585757;
+		}
 
-    .tableCol_2 {
-      svg {
-        @media #{$screen-large} {
-          width: large(23);
-          height: large(23);
-        }
+		.tableCol_2 {
+			.timeIcon {
+				@media #{$screen-large} {
+					width: large(23);
+					height: large(23);
+				}
 
-        @media #{$screen-medium-up} {
-          width: 23px;
-          height: 23px;
-        }
+				@media #{$screen-medium-up} {
+					width: 23px;
+					height: 23px;
+				}
 
-        @media #{$screen-medium} {
-          width: medium(23);
-          height: medium(23);
-        }
+				@media #{$screen-medium} {
+					width: medium(23);
+					height: medium(23);
+				}
 
-        @media #{$screen-medium-tab} {
-        }
+				@media #{$screen-medium-tab} {
+					width: medium-tab(23);
+					height: medium-tab(23);
+				}
 
-        @media #{$screen-small} {
-        }
-      }
-    }
+				@media #{$screen-small} {
+					width: small(23);
+					height: small(23);
+				}
 
-    .tableCol_3 {
-      .checkCircleOutlineIcon {
-        color: #00ba34;
-      }
+				svg {
+					color: #ccc;
+					width: 100%;
+				}
+			}
+		}
 
-      svg {
-        @media #{$screen-large} {
-          width: large(23);
-          height: large(23);
-        }
+		.tableCol_3 {
+			.checkCircleOutlineIcon {
+				color: #00ba34;
 
-        @media #{$screen-medium-up} {
-          width: 23px;
-          height: 23px;
-        }
+				@media #{$screen-large} {
+					width: large(23);
+					height: large(23);
+				}
 
-        @media #{$screen-medium} {
-          width: medium(23);
-          height: medium(23);
-        }
+				@media #{$screen-medium-up} {
+					width: 23px;
+					height: 23px;
+				}
 
-        @media #{$screen-medium-tab} {
-        }
+				@media #{$screen-medium} {
+					width: medium(23);
+					height: medium(23);
+				}
 
-        @media #{$screen-small} {
-        }
-      }
-    }
+				@media #{$screen-medium-tab} {
+					width: medium-tab(23);
+					height: medium-tab(23);
+				}
 
-    .tableCol_4 {
-      svg {
-        @media #{$screen-large} {
-          width: large(23);
-          height: large(23);
-        }
+				@media #{$screen-small} {
+					width: small(23);
+					height: small(23);
+				}
 
-        @media #{$screen-medium-up} {
-          width: 23px;
-          height: 23px;
-        }
+				svg {
+					width: 100%;
+					height: 100%;
+				}
+			}
 
-        @media #{$screen-medium} {
-          width: medium(23);
-          height: medium(23);
-        }
+			.progressIcon {
+				@media #{$screen-large} {
+					width: large(32);
+				}
 
-        @media #{$screen-medium-tab} {
-        }
+				@media #{$screen-medium-up} {
+					width: 32px;
+				}
 
-        @media #{$screen-small} {
-        }
-      }
-    }
-  }
+				@media #{$screen-medium} {
+					width: medium(32);
+				}
+
+				@media #{$screen-medium-tab} {
+					width: medium-tab(32);
+				}
+
+				@media #{$screen-small} {
+					width: small(32);
+				}
+
+				svg {
+					width: 100%;
+					height: 100%;
+				}
+			}
+		}
+
+		.tableCol_4 {
+			.deleteIcon {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				z-index: 2;
+
+				@media #{$screen-large} {
+					width: large(40);
+					height: large(40);
+				}
+
+				@media #{$screen-medium-up} {
+					width: 40px;
+					height: 40px;
+				}
+
+				@media #{$screen-medium} {
+					width: medium(40);
+					height: medium(40);
+				}
+
+				@media #{$screen-medium-tab} {
+					width: medium-tab(40);
+					height: medium-tab(40);
+				}
+
+				@media #{$screen-small} {
+					width: small(40);
+					height: small(40);
+				}
+
+				svg {
+					@media #{$screen-large} {
+						width: large(23);
+						height: large(23);
+					}
+
+					@media #{$screen-medium-up} {
+						width: 23px;
+						height: 23px;
+					}
+
+					@media #{$screen-medium} {
+						width: medium(23);
+						height: medium(23);
+					}
+
+					@media #{$screen-medium-tab} {
+						width: medium-tab(23);
+						height: medium-tab(23);
+					}
+
+					@media #{$screen-small} {
+						width: small(23);
+						height: small(23);
+					}
+				}
+
+				&:hover {
+					svg {
+						color: #d32f2f;
+					}
+				}
+			}
+		}
+	}
 }
