@@ -17,8 +17,6 @@ interface TaskProps {
 export default function Task(props: TaskProps) {
 	const { userInfo, task, tasks } = props;
 
-	console.log(task);
-
 	return (
 		<>
 			<Head>
