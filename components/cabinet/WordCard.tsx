@@ -22,7 +22,7 @@ export default function WordCard(props: WordCardProps) {
 
 		axios
 			.get(
-				`http://api.voicerss.org/?key=${process.env.NEXT_PUBLIC_VOICE_RSS_KEY}&hl=en-us&v=Amy&b64=true&src=${title}`
+				`https://api.voicerss.org/?key=${process.env.NEXT_PUBLIC_VOICE_RSS_KEY}&hl=en-us&v=Amy&b64=true&src=${title}`
 			)
 			.then((res) => {
 				const audio = new Audio(res.data);
