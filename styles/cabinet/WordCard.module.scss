@@ -635,3 +635,253 @@ $screen-large: "(min-width: 1800px)";
 		margin-bottom: small(10);
 	}
 }
+
+.userDescriptionContainer {
+	@media #{$screen-large} {
+		margin-bottom: large(15);
+	}
+
+	@media #{$screen-medium-up} {
+		margin-bottom: 15px;
+	}
+
+	@media #{$screen-medium} {
+		margin-bottom: medium(15);
+	}
+
+	@media #{$screen-medium-tab} {
+		margin-bottom: medium-tab(15);
+	}
+
+	@media #{$screen-small} {
+		margin-bottom: small(15);
+	}
+}
+
+.userDescriptionField {
+	display: block;
+	resize: none;
+	font-family: "Inter", sans-serif;
+	outline: none;
+	width: 100%;
+	border: 1px solid rgba(245, 201, 156, 0.5);
+
+	@media #{$screen-large} {
+		height: large(200);
+		font-size: large(14);
+		line-height: large(18);
+		border-radius: large(7);
+		padding: large(7);
+	}
+
+	@media #{$screen-medium-up} {
+		height: 200px;
+		font-size: 14px;
+		line-height: 18px;
+		border-radius: 7px;
+		padding: 7px;
+	}
+
+	@media #{$screen-medium} {
+		height: medium(200);
+		font-size: medium(14);
+		line-height: medium(18);
+		border-radius: medium(7);
+		padding: medium(7);
+	}
+
+	@media #{$screen-medium-tab} {
+		height: medium-tab(200);
+		font-size: medium-tab(14);
+		line-height: medium-tab(18);
+		border-radius: medium-tab(7);
+		padding: medium-tab(7);
+	}
+
+	@media #{$screen-small} {
+		height: small(200);
+		font-size: small(14);
+		line-height: small(18);
+		border-radius: small(7);
+		padding: small(7);
+	}
+}
+
+.userDescriptionHeroContainer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	@media #{$screen-large} {
+		margin: large(25) 0 large(5) 0;
+	}
+
+	@media #{$screen-medium-up} {
+		margin: 25px 0 5px 0;
+	}
+
+	@media #{$screen-medium} {
+		margin: medium(25) 0 medium(5) 0;
+	}
+
+	@media #{$screen-medium-tab} {
+		margin: medium-tab(25) 0 medium-tab(5) 0;
+	}
+
+	@media #{$screen-small} {
+		margin: small(25) 0 small(5) 0;
+	}
+}
+
+.userDescriptionTitle {
+	@media #{$screen-large} {
+		font-size: large(14);
+		line-height: large(18);
+	}
+
+	@media #{$screen-medium-up} {
+		font-size: 14px;
+		line-height: 18px;
+	}
+
+	@media #{$screen-medium} {
+		font-size: medium(14);
+		line-height: medium(18);
+	}
+
+	@media #{$screen-medium-tab} {
+		font-size: medium-tab(14);
+		line-height: medium-tab(18);
+	}
+
+	@media #{$screen-small} {
+		font-size: small(14);
+		line-height: small(18);
+	}
+}
+
+.userDescriptionSaveBtn {
+	outline: none;
+	text-decoration: none;
+	cursor: pointer;
+	display: flex;
+
+	@media #{$screen-large} {
+		width: large(24);
+		height: large(24);
+	}
+
+	@media #{$screen-medium-up} {
+		width: 24px;
+		height: 24px;
+	}
+
+	@media #{$screen-medium} {
+		width: medium(24);
+		height: medium(24);
+	}
+
+	@media #{$screen-medium-tab} {
+		width: medium-tab(24);
+		height: medium-tab(24);
+	}
+
+	@media #{$screen-small} {
+		width: small(24);
+		height: small(24);
+	}
+
+	svg {
+		width: 100%;
+		color: #00ba34;
+	}
+}
+
+.loaderContainer {
+	@media #{$screen-large} {
+		width: large(28);
+		height: large(28);
+	}
+
+	@media #{$screen-medium-up} {
+		width: 28px;
+		height: 28px;
+	}
+
+	@media #{$screen-medium} {
+		width: medium(28);
+		height: medium(28);
+	}
+
+	@media #{$screen-medium-tab} {
+		width: medium-tab(28);
+		height: medium-tab(28);
+	}
+
+	@media #{$screen-small} {
+		width: small(28);
+		height: small(28);
+	}
+}
+
+.errorContainer {
+	@media #{$screen-large} {
+		width: large(24);
+		height: large(24);
+	}
+
+	@media #{$screen-medium-up} {
+		width: 24px;
+		height: 24px;
+	}
+
+	@media #{$screen-medium} {
+		width: medium(24);
+		height: medium(24);
+	}
+
+	@media #{$screen-medium-tab} {
+		width: medium-tab(24);
+		height: medium-tab(24);
+	}
+
+	@media #{$screen-small} {
+		width: small(24);
+		height: small(24);
+	}
+
+	svg {
+		fill: #f45b39;
+	}
+}
+
+.successContainer {
+	@media #{$screen-large} {
+		width: large(24);
+		height: large(24);
+	}
+
+	@media #{$screen-medium-up} {
+		width: 24px;
+		height: 24px;
+	}
+
+	@media #{$screen-medium} {
+		width: medium(24);
+		height: medium(24);
+	}
+
+	@media #{$screen-medium-tab} {
+		width: medium-tab(24);
+		height: medium-tab(24);
+	}
+
+	@media #{$screen-small} {
+		width: small(24);
+		height: small(24);
+	}
+
+	svg {
+		fill: #00ba34;
+	}
+}

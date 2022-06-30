@@ -59,6 +59,7 @@ export interface WordsData {
 	language: LanguagesData;
 	isClicked?: boolean;
 	t_words: any;
+	TaskWords?: any;
 }
 
 export interface TasksData {

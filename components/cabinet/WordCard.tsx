@@ -2,19 +2,42 @@ import styles from "../../styles/cabinet/WordCard.module.scss";
 import Image from "next/image";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import { useState } from "react";
-import { WordsData } from "../../interfaces/interfaces";
+import {
+	WordsData,
+	TasksData,
+	UserDocument,
+} from "../../interfaces/interfaces";
 import GraphicEqIcon from "@mui/icons-material/GraphicEq";
+import SaveIcon from "@mui/icons-material/Save";
 import axios from "axios";
+import Loader from "../../components/loader";
+import ErrorIcon from "@mui/icons-material/Error";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 interface WordCardProps {
 	word: WordsData;
+	type: string;
+	task?: TasksData;
+	user: UserDocument;
 }
 
 export default function WordCard(props: WordCardProps) {
-	const { word } = props;
+	const { word, type, task, user } = props;
 
 	const [openExample, setOpenExample] = useState(false);
 	const [isPlaying, setIsPlaying] = useState(false);
+	const [cardValues, setCardValues] = useState({
+		taskId: task ? task.id : null,
+		wordId: word.id,
+		userDescription: word.TaskWords ? word.TaskWords.description : "",
+	});
+	const [cardActionStates, setCardActionStates] = useState({
+		saveActive: false,
+		saveLoading: false,
+		saveSuccess: cardValues.userDescription ? true : false,
+		saveError: false,
+	});
+	const [isChangeUserDescription, setIsChangeUserDescription] = useState(false);
 
 	const playSoundHandler = (title: string) => {
 		//use Voice RSS API
@@ -32,6 +55,60 @@ export default function WordCard(props: WordCardProps) {
 				};
 			})
 			.catch((error) => console.log(error));
+	};
+
+	const onChangeUserDescriptionHandler = (
+		e: React.ChangeEvent<HTMLTextAreaElement>
+	) => {
+		setCardValues({ ...cardValues, [e.target.name]: e.target.value });
+		setCardActionStates({
+			...cardActionStates,
+			saveActive: true,
+			saveSuccess: false,
+		});
+	};
+
+	const saveUserDescriptionHandler = (e: React.MouseEvent<HTMLElement>) => {
+		e.preventDefault();
+
+		setCardActionStates({
+			...cardActionStates,
+			saveActive: false,
+			saveLoading: true,
+		});
+
+		axios
+			.put(
+				`${process.env.NEXT_PUBLIC_API_URL}/api/task/update-word/`,
+				{
+					task_id: cardValues.taskId,
+					word_id: cardValues.wordId,
+					description: cardValues.userDescription,
+				},
+				{
+					headers: {
+						Authorization: `Bearer ${user.token}`,
+					},
+					withCredentials: true,
+				}
+			)
+			.then((res) => {
+				setCardActionStates({
+					...cardActionStates,
+					saveActive: false,
+					saveLoading: false,
+					saveSuccess: true,
+				});
+			})
+			.catch((error) => {
+				console.log(error);
+				setCardActionStates({
+					...cardActionStates,
+					saveLoading: false,
+					saveSuccess: false,
+					saveError: true,
+				});
+			});
 	};
 
 	return (
@@ -200,6 +277,49 @@ export default function WordCard(props: WordCardProps) {
 						<div className={styles.descriptionContent}>{word.description}</div>
 					</div>
 				</div>
+				{type === "task" && (
+					<div className={styles.userDescriptionContainer}>
+						<div className={styles.userDescriptionHeroContainer}>
+							<div className={styles.userDescriptionTitle}>
+								Ваш вариант <br /> описания изображения
+							</div>
+
+							{cardActionStates.saveActive && (
+								<a
+									href="#"
+									className={styles.userDescriptionSaveBtn}
+									onClick={saveUserDescriptionHandler}
+								>
+									<SaveIcon />
+								</a>
+							)}
+
+							{cardActionStates.saveLoading && (
+								<div className={styles.loaderContainer}>
+									<Loader image="/images/loader_gray.svg" />
+								</div>
+							)}
+
+							{cardActionStates.saveSuccess && (
+								<div className={styles.successContainer}>
+									<CheckCircleIcon />
+								</div>
+							)}
+
+							{cardActionStates.saveError && (
+								<div className={styles.errorContainer}>
+									<ErrorIcon />
+								</div>
+							)}
+						</div>
+						<textarea
+							className={styles.userDescriptionField}
+							name="userDescription"
+							onChange={onChangeUserDescriptionHandler}
+							defaultValue={cardValues.userDescription}
+						></textarea>
+					</div>
+				)}
 				<div className={styles.btnContainer}>
 					<div className={styles.levelLable}>{word.level.title}</div>
 					<div

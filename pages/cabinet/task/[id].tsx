@@ -15,7 +15,7 @@ interface TaskProps {
 }
 
 export default function Task(props: TaskProps) {
-	const { userInfo, task, tasks } = props;
+	const { userInfo, task, tasks, user } = props;
 
 	return (
 		<>
@@ -27,7 +27,14 @@ export default function Task(props: TaskProps) {
 				<Sidebar taskQuantity={tasks.length} />
 				<div className={styles.mainContainer}>
 					<Header user={userInfo} />
-					{task.words.length > 0 && <WordsContainer words={task.words} />}
+					{task.words.length > 0 && (
+						<WordsContainer
+							type="task"
+							task={task}
+							words={task.words}
+							user={user}
+						/>
+					)}
 				</div>
 			</div>
 		</>
@@ -61,7 +68,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 	if (!user) {
 		return {
 			redirect: {
-				destination: "/login",
+				destination: "/auth/login",
 				statusCode: 302,
 			},
 		};

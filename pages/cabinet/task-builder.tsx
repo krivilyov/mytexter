@@ -116,7 +116,7 @@ export default function TaskBuilder(props: TaskBuilderProps) {
 						showSaveBtn={showSaveBtn}
 						isSaved={isSaved}
 					/>
-					{words.length > 0 && <WordsContainer words={words} />}
+					{words.length > 0 && <WordsContainer type="builder" words={words} />}
 				</div>
 			</div>
 		</>
