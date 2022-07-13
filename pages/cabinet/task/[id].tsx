@@ -26,7 +26,7 @@ export default function Task(props: TaskProps) {
 			<div className={styles.container}>
 				<Sidebar taskQuantity={tasks.length} />
 				<div className={styles.mainContainer}>
-					<Header user={userInfo} />
+					<Header user={userInfo} searchOpen={false} />
 					{task.words.length > 0 && (
 						<WordsContainer
 							type="task"

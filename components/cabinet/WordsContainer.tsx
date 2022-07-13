@@ -12,7 +12,7 @@ interface WordsContainerProps {
 	type: string;
 	task?: TasksData;
 	user: UserDocument;
-	handleCardAddToTask: (word: WordsData) => void;
+	handleCardAddToTask?: (word: WordsData) => void;
 }
 
 export default function WordsContainer(props: WordsContainerProps) {
@@ -28,9 +28,11 @@ export default function WordsContainer(props: WordsContainerProps) {
 						word={word}
 						key={word.id}
 						user={user}
-						handleCardAddToTask={handleCardAddToTask}
-						// wordsInTask={wordsInTask}
-						// setWordsInTask={setWordsInTask}
+						handleCardAddToTask={
+							typeof handleCardAddToTask !== "undefined"
+								? handleCardAddToTask
+								: () => {}
+						}
 					/>
 				))}
 			</div>
