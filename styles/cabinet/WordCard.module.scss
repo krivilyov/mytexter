@@ -50,6 +50,7 @@ $screen-large: "(min-width: 1800px)";
 }
 
 .wordCard {
+	position: relative;
 	background: #fff;
 	border: 1px solid rgba(245, 201, 156, 0.5);
 
@@ -883,5 +884,65 @@ $screen-large: "(min-width: 1800px)";
 
 	svg {
 		fill: #00ba34;
+	}
+}
+
+.addToTaskBtn {
+	position: absolute;
+	z-index: 3;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #f98600;
+	color: #fff;
+
+	@media #{$screen-large} {
+		right: large(-16);
+		top: large(-13);
+		border-radius: large(16);
+		width: large(32);
+		height: large(27);
+		font-size: large(16);
+		line-height: large(24);
+	}
+
+	@media #{$screen-medium-up} {
+		right: -16px;
+		top: -13px;
+		border-radius: 16px;
+		width: 32px;
+		height: 27px;
+		font-size: 16px;
+		line-height: 24px;
+	}
+
+	@media #{$screen-medium} {
+		right: medium(-16);
+		top: medium(-13);
+		border-radius: medium(16);
+		width: medium(32);
+		height: medium(27);
+		font-size: medium(16);
+		line-height: medium(24);
+	}
+
+	@media #{$screen-medium-tab} {
+		right: medium-tab(-16);
+		top: medium-tab(-13);
+		border-radius: medium-tab(16);
+		width: medium-tab(32);
+		height: medium-tab(27);
+		font-size: medium-tab(16);
+		line-height: medium-tab(24);
+	}
+
+	@media #{$screen-small} {
+		right: 0;
+		top: small(-13);
+		border-radius: small(16);
+		width: small(32);
+		height: small(27);
+		font-size: small(16);
+		line-height: small(24);
 	}
 }

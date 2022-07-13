@@ -1,0 +1,669 @@
+$screen-small: "(max-width: 414px)";
+$screen-medium-tab: "(min-width: 415px) and (max-width: 768px)";
+$screen-medium: "(min-width: 769px) and (max-width: 1279px)";
+$screen-medium-up: "(min-width: 1280px) and (max-width: 1799px)";
+$screen-large: "(min-width: 1800px)";
+
+@function large($value) {
+	@return calc($value * 1.25px);
+}
+
+@function medium($value, $size: 1280) {
+	@return calc($value / $size * 100vw);
+}
+
+@function medium-tab($value, $size: 768) {
+	@return calc($value / $size * 100vw);
+}
+
+@function small($value, $size: 360) {
+	@return calc($value / $size * 100vw);
+}
+
+.searchedWordsMainContainer {
+	@media #{$screen-large} {
+		padding: large(30);
+	}
+
+	@media #{$screen-medium-up} {
+		padding: 30px;
+	}
+
+	@media #{$screen-medium} {
+		padding: medium(30);
+	}
+
+	@media #{$screen-medium-tab} {
+		padding: medium-tab(30);
+	}
+
+	@media #{$screen-small} {
+		padding: small(30);
+	}
+}
+
+.shortCard {
+	position: relative;
+	background: #fff;
+
+	@media #{$screen-large} {
+		width: large(156);
+		padding: large(8);
+		border-radius: large(3);
+	}
+
+	@media #{$screen-medium-up} {
+		width: 156px;
+		padding: 8px;
+		border-radius: 3px;
+	}
+
+	@media #{$screen-medium} {
+		width: medium(156);
+		padding: medium(8);
+		border-radius: medium(3);
+	}
+
+	@media #{$screen-medium-tab} {
+		width: medium-tab(156);
+		padding: medium-tab(8);
+		border-radius: medium-tab(3);
+	}
+
+	@media #{$screen-small} {
+		width: small(156);
+		padding: small(8);
+		border-radius: small(3);
+	}
+}
+
+.searchedWordsList {
+	display: flex;
+	flex-wrap: wrap;
+	list-style-type: none;
+
+	@media #{$screen-large} {
+		padding: large(15);
+		margin: 0 large(-30);
+	}
+
+	@media #{$screen-medium-up} {
+		padding: 15px;
+		margin: 0 -30px;
+	}
+
+	@media #{$screen-medium} {
+		padding: medium(15);
+		margin: 0 medium(-30);
+	}
+
+	@media #{$screen-medium-tab} {
+		justify-content: center;
+		padding: medium-tab(15);
+		margin: 0 medium-tab(-30);
+	}
+
+	@media #{$screen-small} {
+		justify-content: center;
+		padding: small(15);
+		margin: 0 small(-30);
+	}
+}
+
+.wordsItem {
+	@media #{$screen-large} {
+		padding: large(15);
+	}
+
+	@media #{$screen-medium-up} {
+		padding: 15px;
+	}
+
+	@media #{$screen-medium} {
+		padding: medium(15);
+	}
+
+	@media #{$screen-medium-tab} {
+		padding: medium-tab(15);
+	}
+
+	@media #{$screen-small} {
+		padding: small(15);
+	}
+}
+
+.imageContainer {
+	@media #{$screen-large} {
+		margin-bottom: large(7);
+	}
+
+	@media #{$screen-medium-up} {
+		margin-bottom: 7px;
+	}
+
+	@media #{$screen-medium} {
+		margin-bottom: medium(7);
+	}
+
+	@media #{$screen-medium-tab} {
+		margin-bottom: medium-tab(7);
+	}
+
+	@media #{$screen-small} {
+		margin-bottom: small(7);
+	}
+
+	img {
+		@media #{$screen-large} {
+			border-radius: large(3);
+		}
+
+		@media #{$screen-medium-up} {
+			border-radius: 3px;
+		}
+
+		@media #{$screen-medium} {
+			border-radius: medium(3);
+		}
+
+		@media #{$screen-medium-tab} {
+			border-radius: medium-tab(3);
+		}
+
+		@media #{$screen-small} {
+			border-radius: small(3);
+		}
+	}
+}
+
+.shortCardTranscription {
+	@media #{$screen-large} {
+		font-size: large(10);
+		line-height: large(16);
+		margin-bottom: large(8);
+	}
+
+	@media #{$screen-medium-up} {
+		font-size: 10px;
+		line-height: 16px;
+		margin-bottom: 8px;
+	}
+
+	@media #{$screen-medium} {
+		font-size: medium(10);
+		line-height: medium(16);
+		margin-bottom: medium(8);
+	}
+
+	@media #{$screen-medium-tab} {
+		font-size: medium-tab(10);
+		line-height: medium-tab(16);
+		margin-bottom: medium-tab(8);
+	}
+
+	@media #{$screen-small} {
+		font-size: small(10);
+		line-height: small(16);
+		margin-bottom: small(8);
+	}
+}
+
+.searchedMainWordWrap {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	background: rgba(196, 196, 196, 0.25);
+
+	@media #{$screen-large} {
+		height: large(20);
+		padding: 0 large(5) 0 large(20);
+		border-top-left-radius: large(5);
+		border-top-right-radius: large(5);
+	}
+
+	@media #{$screen-medium-up} {
+		height: 20px;
+		padding: 0 5px 0 20px;
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
+	}
+
+	@media #{$screen-medium} {
+		height: medium(20);
+		padding: 0 medium(5) 0 medium(20);
+		border-top-left-radius: medium(5);
+		border-top-right-radius: medium(5);
+	}
+
+	@media #{$screen-medium-tab} {
+		height: medium-tab(20);
+		padding: 0 medium-tab(5) 0 medium-tab(20);
+		border-top-left-radius: medium-tab(5);
+		border-top-right-radius: medium-tab(5);
+	}
+
+	@media #{$screen-small} {
+		height: small(20);
+		padding: 0 small(5) 0 small(20);
+		border-top-left-radius: small(5);
+		border-top-right-radius: small(5);
+	}
+}
+
+.searchedWordLanguageFlag {
+	position: absolute;
+	display: flex;
+
+	@media #{$screen-large} {
+		width: large(12);
+		height: large(10);
+		left: large(7);
+	}
+
+	@media #{$screen-medium-up} {
+		width: 12px;
+		height: 10px;
+		left: 7px;
+	}
+
+	@media #{$screen-medium} {
+		width: medium(12);
+		height: medium(10);
+		left: medium(7);
+	}
+
+	@media #{$screen-medium-tab} {
+		width: medium-tab(12);
+		height: medium-tab(10);
+		left: medium-tab(7);
+	}
+
+	@media #{$screen-small} {
+		width: small(12);
+		height: small(10);
+		left: small(7);
+	}
+}
+
+.searchedMainWord {
+	color: #6a6a6a;
+	font-weight: 700;
+
+	@media #{$screen-large} {
+		font-size: large(12);
+		line-height: large(18);
+	}
+
+	@media #{$screen-medium-up} {
+		font-size: 12px;
+		line-height: 18px;
+	}
+
+	@media #{$screen-medium} {
+		font-size: medium(12);
+		line-height: medium(18);
+	}
+
+	@media #{$screen-medium-tab} {
+		font-size: medium-tab(12);
+		line-height: medium-tab(18);
+	}
+
+	@media #{$screen-small} {
+		font-size: small(12);
+		line-height: small(18);
+	}
+}
+
+.searchedTransWordWrap {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	background: #fff5e8;
+
+	@media #{$screen-large} {
+		height: large(20);
+		padding: 0 0 0 large(20);
+		border-bottom-left-radius: large(5);
+		border-bottom-right-radius: large(5);
+	}
+
+	@media #{$screen-medium-up} {
+		height: 20px;
+		padding: 0 0 0 20px;
+		border-bottom-left-radius: 5px;
+		border-bottom-right-radius: 5px;
+	}
+
+	@media #{$screen-medium} {
+		height: medium(20);
+		padding: 0 0 0 medium(20);
+		border-bottom-left-radius: medium(5);
+		border-bottom-right-radius: medium(5);
+	}
+
+	@media #{$screen-medium-tab} {
+		height: medium-tab(20);
+		padding: 0 0 0 medium-tab(20);
+		border-bottom-left-radius: medium-tab(5);
+		border-bottom-right-radius: medium-tab(5);
+	}
+
+	@media #{$screen-small} {
+		height: small(20);
+		padding: 0 0 0 small(20);
+		border-bottom-left-radius: small(5);
+		border-bottom-right-radius: small(5);
+	}
+}
+
+.searchedTransWord {
+	color: #f98600;
+	font-weight: 700;
+
+	@media #{$screen-large} {
+		font-size: large(12);
+		line-height: large(18);
+	}
+
+	@media #{$screen-medium-up} {
+		font-size: 12px;
+		line-height: 18px;
+	}
+
+	@media #{$screen-medium} {
+		font-size: medium(12);
+		line-height: medium(18);
+	}
+
+	@media #{$screen-medium-tab} {
+		font-size: medium-tab(12);
+		line-height: medium-tab(18);
+	}
+
+	@media #{$screen-small} {
+		font-size: small(12);
+		line-height: small(18);
+	}
+}
+
+.searchedLevelLable {
+	display: inline-block;
+	text-transform: uppercase;
+	background: #e5f8eb;
+	color: #00ba34;
+
+	@media #{$screen-large} {
+		font-size: large(10);
+		line-height: large(16);
+		padding: large(2) large(6);
+		border-radius: large(2);
+	}
+
+	@media #{$screen-medium-up} {
+		font-size: 10px;
+		line-height: 16px;
+		padding: 2px 6px;
+		border-radius: 2px;
+	}
+
+	@media #{$screen-medium} {
+		font-size: medium(10);
+		line-height: medium(16);
+		padding: medium(2) medium(6);
+		border-radius: medium(2);
+	}
+
+	@media #{$screen-medium-tab} {
+		font-size: medium-tab(10);
+		line-height: medium-tab(16);
+		padding: medium-tab(2) medium-tab(6);
+		border-radius: medium-tab(2);
+	}
+
+	@media #{$screen-small} {
+		font-size: small(10);
+		line-height: small(16);
+		padding: small(2) small(6);
+		border-radius: small(2);
+	}
+}
+
+.removeFromTaskBtn {
+	position: absolute;
+	z-index: 3;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #f98600;
+	color: #fff;
+
+	@media #{$screen-large} {
+		right: large(-16);
+		top: large(-13);
+		border-radius: large(16);
+		width: large(28);
+		height: large(24);
+		font-size: large(16);
+		line-height: large(24);
+	}
+
+	@media #{$screen-medium-up} {
+		right: -16px;
+		top: -13px;
+		border-radius: 16px;
+		width: 28px;
+		height: 24px;
+		font-size: 16px;
+		line-height: 24px;
+	}
+
+	@media #{$screen-medium} {
+		right: medium(-16);
+		top: medium(-13);
+		border-radius: medium(16);
+		width: medium(28);
+		height: medium(24);
+		font-size: medium(16);
+		line-height: medium(24);
+	}
+
+	@media #{$screen-medium-tab} {
+		right: medium-tab(-16);
+		top: medium-tab(-13);
+		border-radius: medium-tab(16);
+		width: medium-tab(28);
+		height: medium-tab(24);
+		font-size: medium-tab(16);
+		line-height: medium-tab(24);
+	}
+
+	@media #{$screen-small} {
+		right: small(-16);
+		top: small(-13);
+		border-radius: small(16);
+		width: small(28);
+		height: small(24);
+		font-size: small(16);
+		line-height: small(24);
+	}
+
+	svg {
+		@media #{$screen-large} {
+			width: large(20);
+			height: large(20);
+		}
+
+		@media #{$screen-medium-up} {
+			width: 20px;
+			height: 20px;
+		}
+
+		@media #{$screen-medium} {
+			width: medium(20);
+			height: medium(20);
+		}
+
+		@media #{$screen-medium-tab} {
+			width: medium-tab(20);
+			height: medium-tab(20);
+		}
+
+		@media #{$screen-small} {
+			width: small(20);
+			height: small(20);
+		}
+	}
+}
+
+.searchedWordsContainer {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+
+	@media #{$screen-large} {
+		padding-bottom: large(20);
+		margin-bottom: large(7);
+	}
+
+	@media #{$screen-medium-up} {
+		padding-bottom: 20px;
+		margin-bottom: 7px;
+	}
+
+	@media #{$screen-medium} {
+		padding-bottom: medium(20);
+		margin-bottom: medium(7);
+	}
+
+	@media #{$screen-medium-tab} {
+		padding-bottom: medium-tab(20);
+		margin-bottom: medium-tab(7);
+	}
+
+	@media #{$screen-small} {
+		padding-bottom: small(20);
+		margin-bottom: small(7);
+	}
+}
+
+.filterBtnSave {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	color: #fff;
+	outline: none;
+	background: #56f450;
+	border: 1px solid rgba(0, 0, 0, 0.05);
+
+	@media #{$screen-large} {
+		font-size: large(18);
+		height: large(50);
+		border-radius: large(5);
+		width: large(150);
+		margin-right: large(20);
+	}
+
+	@media #{$screen-medium-up} {
+		font-size: 18px;
+		height: 50px;
+		border-radius: 5px;
+		width: 150px;
+		margin-right: 20px;
+	}
+
+	@media #{$screen-medium} {
+		font-size: medium(18);
+		height: medium(50);
+		border-radius: medium(5);
+		width: medium(150);
+		margin-right: medium(20);
+	}
+
+	@media #{$screen-medium-tab} {
+		font-size: medium-tab(18);
+		height: medium-tab(50);
+		border-radius: medium-tab(5);
+		width: medium-tab(150);
+		margin-right: medium-tab(20);
+	}
+
+	@media #{$screen-small} {
+		font-size: small(18);
+		height: small(50);
+		border-radius: small(5);
+		width: small(150);
+	}
+}
+
+.selectDisabled {
+	pointer-events: none;
+}
+
+.btnDisabled {
+	background: #969696;
+	border: 1px solid #969696;
+	pointer-events: none;
+	cursor: default;
+}
+
+.searchedWordsBtnCreateContainer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.searchedWordsTitle {
+	font-weight: 700;
+
+	@media #{$screen-large} {
+		font-size: large(22);
+		line-height: large(28);
+	}
+
+	@media #{$screen-medium-up} {
+		font-size: 22px;
+		line-height: 28px;
+	}
+
+	@media #{$screen-medium} {
+		font-size: medium(22);
+		line-height: medium(28);
+	}
+
+	@media #{$screen-medium-tab} {
+		font-size: medium-tab(22);
+		line-height: medium-tab(28);
+	}
+
+	@media #{$screen-small} {
+		font-size: small(22);
+		line-height: small(28);
+	}
+}
+
+.searchedWordsTopBorder {
+	height: 2px;
+	background: #f98600;
+
+	@media #{$screen-large} {
+		margin: 0 large(30);
+	}
+
+	@media #{$screen-medium-up} {
+		margin: 0 30px;
+	}
+
+	@media #{$screen-medium} {
+		margin: 0 medium(30);
+	}
+
+	@media #{$screen-medium-tab} {
+		margin: 0 medium-tab(30);
+	}
+
+	@media #{$screen-small} {
+		margin: 0 small(30);
+	}
+}

@@ -13,16 +13,18 @@ import axios from "axios";
 import Loader from "../../components/loader";
 import ErrorIcon from "@mui/icons-material/Error";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import AddIcon from "@mui/icons-material/Add";
 
 interface WordCardProps {
 	word: WordsData;
 	type: string;
 	task?: TasksData;
 	user: UserDocument;
+	handleCardAddToTask: (word: WordsData) => void;
 }
 
 export default function WordCard(props: WordCardProps) {
-	const { word, type, task, user } = props;
+	const { word, type, task, user, handleCardAddToTask } = props;
 
 	const [openExample, setOpenExample] = useState(false);
 	const [isPlaying, setIsPlaying] = useState(false);
@@ -114,6 +116,15 @@ export default function WordCard(props: WordCardProps) {
 	return (
 		<div className={styles.wordCardWrap}>
 			<div className={styles.wordCard}>
+				{type === "search-builder" && (
+					<div
+						className={styles.addToTaskBtn}
+						onClick={() => handleCardAddToTask(word)}
+					>
+						<AddIcon />
+					</div>
+				)}
+
 				<div className={styles.imageContainer}>
 					<Image
 						className={styles.image}

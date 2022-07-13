@@ -5,62 +5,62 @@ $screen-medium-up: "(min-width: 1280px) and (max-width: 1799px)";
 $screen-large: "(min-width: 1800px)";
 
 @function large($value) {
-  @return calc($value * 1.25px);
+	@return calc($value * 1.25px);
 }
 
 @function medium($value, $size: 1280) {
-  @return calc($value / $size * 100vw);
+	@return calc($value / $size * 100vw);
 }
 
 @function medium-tab($value, $size: 768) {
-  @return calc($value / $size * 100vw);
+	@return calc($value / $size * 100vw);
 }
 
 @function small($value, $size: 360) {
-  @return calc($value / $size * 100vw);
+	@return calc($value / $size * 100vw);
 }
 
 .wordsContainer {
-  @media #{$screen-large} {
-    padding: large(34) large(20) large(34) large(34);
-  }
+	@media #{$screen-large} {
+		padding: large(34) large(20) large(34) large(34);
+	}
 
-  @media #{$screen-medium-up} {
-    padding: 34px 20px 34px 34px;
-  }
+	@media #{$screen-medium-up} {
+		padding: 34px 20px 34px 34px;
+	}
 
-  @media #{$screen-medium} {
-    padding: medium(34) medium(20) medium(34) medium(34);
-  }
+	@media #{$screen-medium} {
+		padding: medium(34) medium(20) medium(34) medium(34);
+	}
 
-  @media #{$screen-medium-tab} {
-  }
+	@media #{$screen-medium-tab} {
+	}
 
-  @media #{$screen-small} {
-  }
+	@media #{$screen-small} {
+	}
 }
 
 .wordWrapper {
-  display: flex;
-  flex-wrap: wrap;
+	display: flex;
+	flex-wrap: wrap;
 
-  @media #{$screen-large} {
-    margin: 0 large(-13);
-  }
+	@media #{$screen-large} {
+		margin: 0 large(-13);
+	}
 
-  @media #{$screen-medium-up} {
-    margin: 0 -13px;
-  }
+	@media #{$screen-medium-up} {
+		margin: 0 -13px;
+	}
 
-  @media #{$screen-medium} {
-    margin: 0 medium(-13);
-  }
+	@media #{$screen-medium} {
+		margin: 0 medium(-13);
+	}
 
-  @media #{$screen-medium-tab} {
-    justify-content: center;
-    margin: 0 medium-tab(-13);
-  }
+	@media #{$screen-medium-tab} {
+		justify-content: center;
+		margin: 0;
+	}
 
-  @media #{$screen-small} {
-  }
+	@media #{$screen-small} {
+	}
 }

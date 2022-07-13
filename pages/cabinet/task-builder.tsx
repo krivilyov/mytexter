@@ -11,7 +11,8 @@ import Sidebar from "../../components/cabinet/Sidebar";
 import Header from "../../components/cabinet/Header";
 import FilterBuilder from "../../components/cabinet/FilterBuilder";
 import WordsContainer from "../../components/cabinet/WordsContainer";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import SearchWordsBuilder from "../../components/cabinet/SearchWordsBuilder";
 import axios from "axios";
 
 import styles from "../../styles/cabinet/Cabinet.module.scss";
@@ -29,12 +30,18 @@ export default function TaskBuilder(props: TaskBuilderProps) {
 	const { user, userInfo, topics, levels, loadWords, tasks } = props;
 
 	const [words, setWords] = useState(loadWords);
+	const [wordsInTask, setWordsInTask] = useState<WordsData[]>([]);
 	const [loader, isLoader] = useState(false);
 	const [saveBtnLoader, setSaveBtnLoader] = useState(false);
 	const [isSaved, setIsSaved] = useState(false);
 	const [tasksQuantity, setTasksQuantity] = useState(tasks.length);
+	const [cardsType, setCardsType] = useState("builder");
 
-	const [showSaveBtn, setShowSaveBtn] = useState(!!words.length);
+	const [showSaveBtn, setShowSaveBtn] = useState(
+		!!words.length || !!wordsInTask.length
+	);
+	const [searchOpen, setSearchOpen] = useState(false);
+	const [query, setQuery] = useState("");
 
 	interface FilterValuesProps {
 		quantity: string;
@@ -96,6 +103,116 @@ export default function TaskBuilder(props: TaskBuilderProps) {
 			});
 	};
 
+	const handleSaveWordsFromSearch = () => {
+		setSaveBtnLoader(!saveBtnLoader);
+		const data = {
+			user_id: user.id,
+			words: wordsInTask,
+		};
+
+		axios
+			.post(`${process.env.NEXT_PUBLIC_API_URL}/api/task`, data, {
+				headers: {
+					Authorization: `Bearer ${user.token}`,
+				},
+				withCredentials: true,
+			})
+			.then((res) => {
+				setSaveBtnLoader(false);
+				setTasksQuantity(tasksQuantity + 1);
+				setIsSaved(!isSaved);
+			})
+			.catch((error) => {
+				setSaveBtnLoader(false);
+				if (error.response) {
+					console.log(error.response.data);
+				}
+			});
+	};
+
+	// Hook
+	function useDebounce(value: string, delay: number) {
+		// State and setters for debounced value
+		const [debouncedValue, setDebouncedValue] = useState(value);
+		useEffect(
+			() => {
+				// Update debounced value after delay
+				const handler = setTimeout(() => {
+					setDebouncedValue(value);
+				}, delay);
+				// Cancel the timeout if value changes (also on delay change or unmount)
+				// This is how we prevent debounced value from updating if value is changed ...
+				// .. within the delay period. Timeout gets cleared and restarted.
+				return () => {
+					clearTimeout(handler);
+				};
+			},
+			[value, delay] // Only re-call effect if value or delay changes
+		);
+		return debouncedValue;
+	}
+
+	const debouncedSearchTerm = useDebounce(query, 500);
+
+	useEffect(() => {
+		const query = debouncedSearchTerm.trim();
+
+		if (query.length >= 3) {
+			axios
+				.get(`${process.env.NEXT_PUBLIC_API_URL}/api/words/query`, {
+					params: {
+						lang: "en",
+						query: debouncedSearchTerm.trim(),
+					},
+					headers: {
+						Authorization: `Bearer ${user.token}`,
+					},
+					withCredentials: true,
+				})
+				.then((res) => {
+					setWords(res.data);
+				})
+				.catch((error) => {
+					if (error.response) {
+						console.log(error.response);
+					}
+				});
+		}
+	}, [debouncedSearchTerm]);
+
+	useEffect(() => {
+		setWords([]);
+		setQuery("");
+
+		if (!searchOpen) {
+			setCardsType("builder");
+			setShowSaveBtn(false);
+			setWordsInTask([]);
+		} else {
+			setCardsType("search-builder");
+		}
+	}, [searchOpen]);
+
+	const handleCardAddToTask = (word: WordsData) => {
+		//check isset sdded word
+		const currentWord = wordsInTask.find(
+			(cWord: WordsData) => cWord.id === word.id
+		);
+		if (!currentWord) {
+			setShowSaveBtn(true);
+			setWordsInTask([...wordsInTask, word]);
+		}
+	};
+
+	const handleCardRemoveFromTask = (word: WordsData) => {
+		const newWords = wordsInTask.filter((cWord) => cWord.id != word.id);
+		setWordsInTask(newWords);
+	};
+
+	useEffect(() => {
+		setIsSaved(false);
+	}, [wordsInTask]);
+
 	return (
 		<>
 			<Head>
@@ -105,19 +222,45 @@ export default function TaskBuilder(props: TaskBuilderProps) {
 			<div className={styles.container}>
 				<Sidebar taskQuantity={tasksQuantity} />
 				<div className={styles.mainContainer}>
-					<Header user={userInfo} />
-					<FilterBuilder
-						topics={topics}
-						levels={levels}
-						btnSubmitFormClick={handleFormSubmit}
-						btnSubmitSaveWords={handleSaveWords}
-						loader={loader}
-						saveBtnLoader={saveBtnLoader}
-						showSaveBtn={showSaveBtn}
-						isSaved={isSaved}
+					<Header
+						user={userInfo}
+						searchOpen={searchOpen}
+						setSearchOpen={setSearchOpen}
+						setQuery={setQuery}
+						query={query}
 					/>
+					{!searchOpen && (
+						<FilterBuilder
+							topics={topics}
+							levels={levels}
+							btnSubmitFormClick={handleFormSubmit}
+							btnSubmitSaveWords={handleSaveWords}
+							loader={loader}
+							saveBtnLoader={saveBtnLoader}
+							showSaveBtn={showSaveBtn}
+							isSaved={isSaved}
+						/>
+					)}
+
 					{words.length > 0 && (
-						<WordsContainer type="builder" words={words} user={user} />
+						<WordsContainer
+							type={cardsType}
+							words={words}
+							user={user}
+							handleCardAddToTask={handleCardAddToTask}
+						/>
+					)}
+
+					{searchOpen && wordsInTask.length > 0 && (
+						<SearchWordsBuilder
+							handleCardRemoveFromTask={handleCardRemoveFromTask}
+							wordsInTask={wordsInTask}
+							loader={loader}
+							saveBtnLoader={saveBtnLoader}
+							showSaveBtn={showSaveBtn}
+							isSaved={isSaved}
+							btnSubmitSaveWords={handleSaveWordsFromSearch}
+						/>
 					)}
 				</div>
 			</div>

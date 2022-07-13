@@ -12,10 +12,12 @@ interface WordsContainerProps {
 	type: string;
 	task?: TasksData;
 	user: UserDocument;
+	handleCardAddToTask: (word: WordsData) => void;
 }
 
 export default function WordsContainer(props: WordsContainerProps) {
-	const { words, type, task, user } = props;
+	const { words, type, task, user, handleCardAddToTask } = props;
+
 	return (
 		<div className={styles.wordsContainer}>
 			<div className={styles.wordWrapper}>
@@ -26,6 +28,9 @@ export default function WordsContainer(props: WordsContainerProps) {
 						word={word}
 						key={word.id}
 						user={user}
+						handleCardAddToTask={handleCardAddToTask}
+						// wordsInTask={wordsInTask}
+						// setWordsInTask={setWordsInTask}
 					/>
 				))}
 			</div>
