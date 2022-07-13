@@ -11,9 +11,9 @@ import styles from "../../styles/cabinet/Header.module.scss";
 interface HeaderProps {
 	user: UserDocument;
 	searchOpen: boolean;
-	setSearchOpen: (type: boolean) => void;
-	setQuery: (type: string) => void;
-	query: string;
+	setSearchOpen?: (type: boolean) => void;
+	setQuery?: (type: string) => void;
+	query?: string;
 }
 
 export default function Header(props: HeaderProps) {
@@ -48,16 +48,32 @@ export default function Header(props: HeaderProps) {
 								id="search"
 								name="search"
 								type="text"
-								onChange={(e) => setQuery(e.target.value)}
+								onChange={(e) => {
+									typeof setQuery !== "undefined"
+										? setQuery(e.target.value)
+										: {};
+								}}
 								value={query}
 								placeholder={"Search..."}
 							/>
 							<div className={styles.searchCross}>
-								<ClearIcon onClick={() => setSearchOpen(!searchOpen)} />
+								<ClearIcon
+									onClick={() => {
+										typeof setSearchOpen !== "undefined"
+											? setSearchOpen(!searchOpen)
+											: {};
+									}}
+								/>
 							</div>
 						</div>
 					) : (
-						<SearchIcon onClick={() => setSearchOpen(!searchOpen)} />
+						<SearchIcon
+							onClick={() => {
+								typeof setSearchOpen !== "undefined"
+									? setSearchOpen(!searchOpen)
+									: {};
+							}}
+						/>
 					)}
 				</div>
 			)}

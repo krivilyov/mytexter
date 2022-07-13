@@ -82,7 +82,7 @@ export default function Progress(props: ProgressProps) {
 			<div className={styles.container}>
 				<Sidebar taskQuantity={userTasks.length} />
 				<div className={styles.mainContainer}>
-					<Header user={userInfo} />
+					<Header user={userInfo} searchOpen={false} />
 					<div className={styles.progressContainer}>
 						{userTasks.length ? (
 							<>
