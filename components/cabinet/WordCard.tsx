@@ -20,11 +20,12 @@ interface WordCardProps {
 	type: string;
 	task?: TasksData;
 	user: UserDocument;
+	userInfo: UserDocument;
 	handleCardAddToTask: (word: WordsData) => void;
 }
 
 export default function WordCard(props: WordCardProps) {
-	const { word, type, task, user, handleCardAddToTask } = props;
+	const { word, type, task, user, userInfo, handleCardAddToTask } = props;
 
 	const [openExample, setOpenExample] = useState(false);
 	const [isPlaying, setIsPlaying] = useState(false);
@@ -45,9 +46,12 @@ export default function WordCard(props: WordCardProps) {
 		//use Voice RSS API
 		setIsPlaying(true);
 
+		const langStr =
+			type !== "task" ? getLangStr(Number(userInfo.learningLang)) : "en-us";
+
 		axios
 			.get(
-				`https://api.voicerss.org/?key=${process.env.NEXT_PUBLIC_VOICE_RSS_KEY}&hl=en-us&v=Amy&b64=true&src=${title}`
+				`https://api.voicerss.org/?key=${process.env.NEXT_PUBLIC_VOICE_RSS_KEY}&hl=${langStr}&v=Amy&b64=true&src=${title}`
 			)
 			.then((res) => {
 				const audio = new Audio(res.data);
@@ -57,6 +61,25 @@ export default function WordCard(props: WordCardProps) {
 				};
 			})
 			.catch((error) => console.log(error));
+	};
+
+	//lerningLangId = 1 -> EN
+	const getLangStr = (lerningLangId: number = 1) => {
+		const languagesMap = [
+			{ lang_id: 1, voice: "en-us" },
+			{ lang_id: 3, voice: "ru-ru" },
+			{ lang_id: 7, voice: "fi-fi" },
+		];
+
+		let voiceStr = "en-us";
+
+		languagesMap.map((item) => {
+			if (item.lang_id === lerningLangId) {
+				voiceStr = item.voice;
+			}
+		});
+
+		return voiceStr;
 	};
 
 	const onChangeUserDescriptionHandler = (
@@ -138,7 +161,7 @@ export default function WordCard(props: WordCardProps) {
 						height={372}
 					/>
 				</div>
-				{word.transcription.length && (
+				{word.transcription.length > 0 && (
 					<div className={styles.wordTranscription}>{word.transcription}</div>
 				)}
 				<div className={styles.wordsContainer}>
@@ -259,7 +282,14 @@ export default function WordCard(props: WordCardProps) {
 							</svg>
 						</div>
 						<div className={styles.transWord}>
-							{word.t_words.length ? word.t_words[0]["title"] : ""}
+							{word.t_words.length > 0 &&
+								word.t_words.map((currentWord: WordsData) => {
+									if (
+										Number(currentWord.language_id) ===
+										Number(userInfo.userLang)
+									)
+										return currentWord.title;
+								})}
 						</div>
 					</div>
 				</div>

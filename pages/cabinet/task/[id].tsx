@@ -33,6 +33,7 @@ export default function Task(props: TaskProps) {
 							task={task}
 							words={task.words}
 							user={user}
+							userInfo={userInfo}
 						/>
 					)}
 				</div>

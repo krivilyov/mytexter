@@ -54,7 +54,7 @@ export default function TaskBuilder(props: TaskBuilderProps) {
 		isLoader(!loader);
 		axios
 			.get(
-				`${process.env.NEXT_PUBLIC_API_URL}/api/words/filter?language_id=1&topic_id=${filterValues.topic_id}&level_id=${filterValues.level_id}&is_phrase=${filterValues.phrase}&quantity=${filterValues.quantity}`,
+				`${process.env.NEXT_PUBLIC_API_URL}/api/words/filter?learningLang=${userInfo.learningLang}&topic_id=${filterValues.topic_id}&level_id=${filterValues.level_id}&is_phrase=${filterValues.phrase}&quantity=${filterValues.quantity}`,
 				{
 					headers: {
 						Authorization: `Bearer ${user.token}`,
@@ -161,7 +161,7 @@ export default function TaskBuilder(props: TaskBuilderProps) {
 			axios
 				.get(`${process.env.NEXT_PUBLIC_API_URL}/api/words/query`, {
 					params: {
-						lang: "en",
+						lang: userInfo.learningLang,
 						query: debouncedSearchTerm.trim(),
 					},
 					headers: {
@@ -181,6 +181,7 @@ export default function TaskBuilder(props: TaskBuilderProps) {
 	}, [debouncedSearchTerm]);
 
 	useEffect(() => {
+		//TO DO ломает логику первичной отрисовки слов при загрузке страницы
 		setWords([]);
 		setQuery("");
 
@@ -247,6 +248,7 @@ export default function TaskBuilder(props: TaskBuilderProps) {
 							type={cardsType}
 							words={words}
 							user={user}
+							userInfo={userInfo}
 							handleCardAddToTask={handleCardAddToTask}
 						/>
 					)}
@@ -338,7 +340,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
 	//get words from filter
 	const wordsRes = await fetch(
-		`${process.env.NEXT_PUBLIC_API_URL}/api/words/filter?language_id=1&topic_id=1&level_id=1&is_phrase=1&quantity=6`,
+		`${process.env.NEXT_PUBLIC_API_URL}/api/words/filter?learningLang=${userInfo.learningLang}&topic_id=11&level_id=1&is_phrase=0&quantity=6`,
 		{
 			headers: { Authorization: `Bearer ${token}` },
 		}

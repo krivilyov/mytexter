@@ -8,6 +8,8 @@ export interface UserDocument {
 	avatar: string;
 	token?: string;
 	isActive: number;
+	userLang: string;
+	learningLang: string;
 }
 
 export interface UsersData {

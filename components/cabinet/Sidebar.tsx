@@ -85,8 +85,14 @@ export default function Sidebar(props: SidebarProps) {
 
 						<div className={styles.menuTitle}>General</div>
 						<ul className={styles.nav}>
-							<li>
-								<Link href="/">
+							<li
+								className={
+									router.pathname.indexOf("settings") !== -1
+										? styles.menuLinkActive
+										: ""
+								}
+							>
+								<Link href="/cabinet/settings">
 									<a className={styles.menuLink}>
 										<SettingsIcon />
 										Settings

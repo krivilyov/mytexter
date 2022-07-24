@@ -12,11 +12,12 @@ interface WordsContainerProps {
 	type: string;
 	task?: TasksData;
 	user: UserDocument;
+	userInfo: UserDocument;
 	handleCardAddToTask?: (word: WordsData) => void;
 }
 
 export default function WordsContainer(props: WordsContainerProps) {
-	const { words, type, task, user, handleCardAddToTask } = props;
+	const { words, type, task, user, userInfo, handleCardAddToTask } = props;
 
 	return (
 		<div className={styles.wordsContainer}>
@@ -28,6 +29,7 @@ export default function WordsContainer(props: WordsContainerProps) {
 						word={word}
 						key={word.id}
 						user={user}
+						userInfo={userInfo}
 						handleCardAddToTask={
 							typeof handleCardAddToTask !== "undefined"
 								? handleCardAddToTask
