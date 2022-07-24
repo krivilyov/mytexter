@@ -64,6 +64,7 @@ $screen-large: "(min-width: 1800px)";
 
 .description {
 	@media #{$screen-large} {
+		margin-bottom: large(20);
 	}
 
 	@media #{$screen-medium-up} {
@@ -71,17 +72,21 @@ $screen-large: "(min-width: 1800px)";
 	}
 
 	@media #{$screen-medium} {
+		margin-bottom: medium(20);
 	}
 
 	@media #{$screen-medium-tab} {
+		margin-bottom: medium-tab(20);
 	}
 
 	@media #{$screen-small} {
+		margin-bottom: small(20);
 	}
 }
 
 .languagesContainer {
 	@media #{$screen-large} {
+		max-width: large(400);
 	}
 
 	@media #{$screen-medium-up} {
@@ -89,17 +94,21 @@ $screen-large: "(min-width: 1800px)";
 	}
 
 	@media #{$screen-medium} {
+		max-width: medium(400);
 	}
 
 	@media #{$screen-medium-tab} {
+		max-width: medium-tab(400);
 	}
 
 	@media #{$screen-small} {
+		width: 100%;
 	}
 }
 
 .formControl {
 	@media #{$screen-large} {
+		margin-bottom: large(30);
 	}
 
 	@media #{$screen-medium-up} {
@@ -107,12 +116,15 @@ $screen-large: "(min-width: 1800px)";
 	}
 
 	@media #{$screen-medium} {
+		margin-bottom: medium(30);
 	}
 
 	@media #{$screen-medium-tab} {
+		margin-bottom: medium-tab(30);
 	}
 
 	@media #{$screen-small} {
+		margin-bottom: small(30);
 	}
 }
 
