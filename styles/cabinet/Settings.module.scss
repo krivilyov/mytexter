@@ -108,23 +108,23 @@ $screen-large: "(min-width: 1800px)";
 
 .formControl {
 	@media #{$screen-large} {
-		margin-bottom: large(30);
+		margin-bottom: large(30) !important;
 	}
 
 	@media #{$screen-medium-up} {
-		margin-bottom: 30px;
+		margin-bottom: 30px !important;
 	}
 
 	@media #{$screen-medium} {
-		margin-bottom: medium(30);
+		margin-bottom: medium(30) !important;
 	}
 
 	@media #{$screen-medium-tab} {
-		margin-bottom: medium-tab(30);
+		margin-bottom: medium-tab(30) !important;
 	}
 
 	@media #{$screen-small} {
-		margin-bottom: small(30);
+		margin-bottom: small(30) !important;
 	}
 }
 
