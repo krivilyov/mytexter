@@ -667,3 +667,25 @@ $screen-large: "(min-width: 1800px)";
 		margin: 0 small(30);
 	}
 }
+
+.inageContainer {
+	@media #{$screen-large} {
+		margin-bottom: large(8);
+	}
+
+	@media #{$screen-medium-up} {
+		margin-bottom: 8px;
+	}
+
+	@media #{$screen-medium} {
+		margin-bottom: medium(8);
+	}
+
+	@media #{$screen-medium-tab} {
+		margin-bottom: medium-tab(8);
+	}
+
+	@media #{$screen-small} {
+		margin-bottom: small(8);
+	}
+}

@@ -255,6 +255,7 @@ export default function TaskBuilder(props: TaskBuilderProps) {
 
 					{searchOpen && wordsInTask.length > 0 && (
 						<SearchWordsBuilder
+							userInfo={userInfo}
 							handleCardRemoveFromTask={handleCardRemoveFromTask}
 							wordsInTask={wordsInTask}
 							loader={loader}
