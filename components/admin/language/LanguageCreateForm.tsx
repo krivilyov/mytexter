@@ -3,13 +3,15 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import SaveIcon from "@mui/icons-material/Save";
 import TextField from "@mui/material/TextField";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { errors } from "../../../lib/messages";
 import axios from "axios";
 import { useRouter } from "next/router";
 import Checkbox from "@mui/material/Checkbox";
 import AlertComponent from "../AlertComponent";
 import { AlertColor } from "@mui/material/Alert";
+import DownloadIcon from "@mui/icons-material/Download";
+import Image from "next/image";
 
 import styles from "../../../styles/admin/language/LanguageCreateForm.module.scss";
 
@@ -22,9 +24,13 @@ export default function LanguageCreateForm(props: LanguageCreateFormProps) {
 	const { user, language } = props;
 	const router = useRouter();
 
+	const [image, setImage] = useState<File | null>(null);
+	const [preview, setPreview] = useState<string>();
+
 	const [values, setValues] = useState({
 		title: language ? language.title : "",
 		code: language ? language.code : "",
+		image: image,
 	});
 	const [checked, setChecked] = useState(
 		language && language.isActive ? true : false
@@ -49,17 +55,25 @@ export default function LanguageCreateForm(props: LanguageCreateFormProps) {
 		e.preventDefault();
 
 		const validate = formValidate();
+		const file = values.image ? values.image : "";
 
 		if (validate) {
+			const data = new FormData();
+			data.append("title", values.title);
+			console.log(data, values.title);
+			data.append("code", values.code);
+
+			const isActive = checked ? "1" : "0";
+			data.append("isActive", isActive);
+
+			const file = values.image ? values.image : "";
+			data.append("file", file);
+
 			if (language) {
 				axios
 					.put(
 						`${process.env.NEXT_PUBLIC_API_URL}/api/language/${language.id}`,
-						{
-							title: values.title,
-							code: values.code,
-							isActive: checked ? 1 : 0,
-						},
+						data,
 						{
 							headers: {
 								Authorization: `Bearer ${user.token}`,
@@ -89,20 +103,12 @@ export default function LanguageCreateForm(props: LanguageCreateFormProps) {
 					});
 			} else {
 				axios
-					.post(
-						`${process.env.NEXT_PUBLIC_API_URL}/api/language`,
-						{
-							title: values.title,
-							code: values.code,
-							isActive: checked ? 1 : 0,
+					.post(`${process.env.NEXT_PUBLIC_API_URL}/api/language`, data, {
+						headers: {
+							Authorization: `Bearer ${user.token}`,
 						},
-						{
-							headers: {
-								Authorization: `Bearer ${user.token}`,
-							},
-							withCredentials: true,
-						}
-					)
+						withCredentials: true,
+					})
 					.then((res) => router.push("/admin/languages"))
 					.catch((error) => {
 						if (error.response) {
@@ -163,6 +169,18 @@ export default function LanguageCreateForm(props: LanguageCreateFormProps) {
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setChecked(event.target.checked);
 	};
+
+	useEffect(() => {
+		if (image) {
+			const reader = new FileReader();
+			reader.onloadend = () => {
+				setPreview(reader.result as string);
+			};
+			reader.readAsDataURL(image);
+		} else {
+			setPreview("");
+		}
+	}, [image]);
 
 	return (
 		<>
@@ -232,6 +250,51 @@ export default function LanguageCreateForm(props: LanguageCreateFormProps) {
 							onChange={handleChange}
 							inputProps={{ "aria-label": "controlled" }}
 						/>
+					</div>
+
+					<div className={styles.imageContainer}>
+						<div className={styles.imageWrapper}>
+							<Image
+								className={styles.image}
+								src={
+									preview
+										? preview
+										: language && language.img
+										? `${process.env.NEXT_PUBLIC_API_URL}/${language.img}`
+										: "/images/no_image.png"
+								}
+								alt="Empty flag"
+								width={48}
+								height={38}
+							/>
+							<div className={styles.imageDescription}>
+								Image 48x38px (.jpg/.png)
+							</div>
+						</div>
+
+						<div className={styles.imageDownloadContainer}>
+							<label htmlFor="file">
+								<DownloadIcon className={styles.imageDownloadIcon} />
+							</label>
+							<input
+								type="file"
+								id="file"
+								name="image"
+								accept="image/jpeg,image/png"
+								style={{ display: "none" }}
+								onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+									const file =
+										typeof e.target.files?.length !== "undefined"
+											? e.target.files[0]
+											: null;
+
+									if (file && file.type.substr(0, 5) === "image") {
+										setImage(file);
+										setValues({ ...values, [e.target.name]: file });
+									}
+								}}
+							/>
+						</div>
 					</div>
 				</div>
 				<Button type="submit" variant="contained" startIcon={<SaveIcon />}>

@@ -126,4 +126,63 @@ $screen-large: "(min-width: 1800px)";
 .activeContainer {
 	display: flex;
 	align-items: center;
+
+	@media #{$screen-large} {
+		margin-bottom: large(30) !important;
+	}
+
+	@media #{$screen-medium-up} {
+		margin-bottom: 30px !important;
+	}
+
+	@media #{$screen-medium-down} {
+		margin-bottom: medium-down(30) !important;
+	}
+
+	@media #{$screen-small} {
+	}
+}
+
+.imageContainer {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.imageWrapper {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+
+	@media #{$screen-large} {
+		margin-right: large(30);
+	}
+
+	@media #{$screen-medium-up} {
+		margin-right: 30px;
+	}
+
+	@media #{$screen-medium-down} {
+		margin-right: medium-down(30);
+	}
+
+	@media #{$screen-small} {
+	}
+}
+
+.imageDescription {
+	@media #{$screen-large} {
+		margin-left: large(30);
+	}
+
+	@media #{$screen-medium-up} {
+		margin-left: 30px;
+	}
+
+	@media #{$screen-medium-down} {
+		margin-left: medium-down(30);
+	}
+
+	@media #{$screen-small} {
+	}
 }

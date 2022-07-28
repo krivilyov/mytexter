@@ -42,6 +42,7 @@ export interface LanguagesData {
 	title: string;
 	code: string;
 	isActive: number;
+	img: string;
 }
 
 export interface WordsData {
