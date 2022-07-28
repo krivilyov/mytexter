@@ -1,13 +1,14 @@
 {
-  "metadescription": "Learn English yourself or with a teacher. Get ready for tasks or do yours. Describe plot pictures and learn English effectively with us!",
-  "metakeywords": "MyTexter, studies, languages.",
+	"metadescription": "Learn English yourself or with a teacher. Get ready for tasks or do yours. Describe plot pictures and learn English effectively with us!",
+	"metakeywords": "MyTexter, studies, languages.",
 
-  "title-with-html": "<0>Improve</0> <1></1>your English skills <2></2>and confidence.",
-  "subtitle": "Learn English by describing plot pictures!",
-  "form-title-with-html": "Sign up. We will inform you <0></0> about the launch date of the service.",
-  "subscribe-button": "Subscribe",
-  "info": "We are here to improve your English vocabulary. Whether you are  starting with the basics or want to understand complex vocabulary, we have everything covered. We provide you with lists of words and plot pictures. Describe them and check yourself!",
-  "success-sending-form": "Congratulations! Occasionally, we’ll send you My Texter newsletters, with language learning tips and special offers",
-  "error-email-wrong": "This must be a valid email address",
-  "empty-field": "The field should not be empty"
+	"title-with-html": "<0>Improve</0> <1></1>your English skills <2></2>and confidence.",
+	"subtitle": "Learn English by describing plot pictures!",
+	"form-title-with-html": "<0>We are looking for investors!</0> Sign up. We will inform you about the launch date of the service.",
+	"subscribe-button": "Subscribe",
+	"info": "We are here to improve your English vocabulary. Whether you are  starting with the basics or want to understand complex vocabulary, we have everything covered. We provide you with lists of words and plot pictures. Describe them and check yourself!",
+	"success-sending-form": "Congratulations! Occasionally, we’ll send you My Texter newsletters, with language learning tips and special offers",
+	"error-email-wrong": "This must be a valid email address",
+	"empty-field": "The field should not be empty",
+	"login": "Login"
 }

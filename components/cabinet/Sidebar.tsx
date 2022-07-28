@@ -7,6 +7,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import HelpCenterIcon from "@mui/icons-material/HelpCenter";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useRouter } from "next/router";
+import axios from "axios";
 
 import styles from "../../styles/cabinet/Sidebar.module.scss";
 
@@ -19,6 +20,25 @@ export default function Sidebar(props: SidebarProps) {
 
 	const router = useRouter();
 	const [show, isShow] = useState(true);
+
+	const handleLogaut = (e: React.MouseEvent<HTMLElement>) => {
+		e.preventDefault();
+
+		axios
+			.post(
+				`${process.env.NEXT_PUBLIC_API_URL}/api/auth/logout`,
+				{},
+				{
+					withCredentials: true,
+				}
+			)
+			.then((res) => router.push("/"))
+			.catch((error) => {
+				if (error.response) {
+					console.log(error.response);
+				}
+			});
+	};
 
 	return (
 		<div className={`${styles.sidebar} ${show ? styles.activeSidebar : ""}`}>
@@ -100,7 +120,7 @@ export default function Sidebar(props: SidebarProps) {
 								</Link>
 							</li>
 							<li>
-								<Link href="/">
+								<Link href="/cabinet/task-builder">
 									<a className={styles.menuLink}>
 										<HelpCenterIcon />
 										Help
@@ -108,12 +128,10 @@ export default function Sidebar(props: SidebarProps) {
 								</Link>
 							</li>
 							<li>
-								<Link href="/">
-									<a className={styles.menuLink}>
-										<LogoutIcon />
-										Log out
-									</a>
-								</Link>
+								<a className={styles.menuLink} onClick={handleLogaut}>
+									<LogoutIcon />
+									Log out
+								</a>
 							</li>
 						</ul>
 					</div>

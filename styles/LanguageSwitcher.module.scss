@@ -6,91 +6,91 @@ $screen-medium-up: "(min-width: 1280px) and (max-width: 1799px)";
 $screen-large: "(min-width: 1800px)";
 
 @function large($value) {
-  @return calc($value * 1.25px);
+	@return calc($value * 1.25px);
 }
 
 @function medium($value, $size: 1280) {
-  @return calc($value / $size * 100vw);
+	@return calc($value / $size * 100vw);
 }
 
 @function medium-tab($value, $size: 768) {
-  @return calc($value / $size * 100vw);
+	@return calc($value / $size * 100vw);
 }
 
 @function small($value, $size: 360) {
-  @return calc($value / $size * 100vw);
+	@return calc($value / $size * 100vw);
 }
 
 .switcher {
-  display: flex;
-  list-style-type: none;
-  text-transform: uppercase;
-  font-weight: 500;
+	display: flex;
+	list-style-type: none;
+	text-transform: uppercase;
+	font-weight: 500;
 
-  @media #{$screen-large} {
-    font-size: large(20);
-    line-height: large(24);
-    margin-right: large(10);
-  }
+	@media #{$screen-large} {
+		font-size: large(20);
+		line-height: large(24);
+		margin-right: large(40);
+	}
 
-  @media #{$screen-medium-up} {
-    font-size: 20px;
-    line-height: 24px;
-    margin-right: 10px;
-  }
+	@media #{$screen-medium-up} {
+		font-size: 20px;
+		line-height: 24px;
+		margin-right: 40px;
+	}
 
-  @media #{$screen-medium} {
-    font-size: medium(20);
-    line-height: medium(24);
-    margin-right: medium(10);
-  }
+	@media #{$screen-medium} {
+		font-size: medium(20);
+		line-height: medium(24);
+		margin-right: medium(40);
+	}
 
-  @media #{$screen-medium-tab} {
-    font-size: medium-tab(20);
-    line-height: medium-tab(24);
-    margin-right: medium-tab(10);
-  }
+	@media #{$screen-medium-tab} {
+		font-size: medium-tab(20);
+		line-height: medium-tab(24);
+		margin-right: medium-tab(40);
+	}
 
-  @media #{$screen-small} {
-    font-size: small(18);
-    line-height: small(22);
-    margin-right: small(10);
-  }
+	@media #{$screen-small} {
+		font-size: small(18);
+		line-height: small(22);
+		margin-right: small(40);
+	}
 }
 
 .switcherItem {
-  cursor: pointer;
-  color: #666;
+	cursor: pointer;
+	color: #666;
 
-  &:first-child {
-    &:after {
-      content: "";
-      border-right: 2px solid #666;
+	&:first-child {
+		&:after {
+			content: "";
+			border-right: 2px solid #666;
 
-      @media #{$screen-large} {
-        margin: 0 large(5);
-      }
+			@media #{$screen-large} {
+				margin: 0 large(5);
+			}
 
-      @media #{$screen-medium-up} {
-        margin: 0 5px;
-      }
+			@media #{$screen-medium-up} {
+				margin: 0 5px;
+			}
 
-      @media #{$screen-medium} {
-        margin: 0 medium(5);
-      }
+			@media #{$screen-medium} {
+				margin: 0 medium(5);
+			}
 
-      @media #{$screen-medium-tab} {
-        margin: 0 medium-tab(5);
-      }
+			@media #{$screen-medium-tab} {
+				margin: 0 medium-tab(5);
+			}
 
-      @media #{$screen-small} {
-        margin: 0 small(5);
-      }
-    }
-  }
+			@media #{$screen-small} {
+				margin: 0 small(5);
+			}
+		}
+	}
 }
 
 .active {
-  color: #f98600;
-  font-weight: 700;
+	color: #f98600;
+	font-weight: 700;
 }
