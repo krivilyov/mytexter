@@ -60,7 +60,6 @@ export default function LanguageCreateForm(props: LanguageCreateFormProps) {
 		if (validate) {
 			const data = new FormData();
 			data.append("title", values.title);
-			console.log(data, values.title);
 			data.append("code", values.code);
 
 			const isActive = checked ? "1" : "0";

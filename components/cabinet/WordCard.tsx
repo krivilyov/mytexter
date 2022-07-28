@@ -136,8 +136,6 @@ export default function WordCard(props: WordCardProps) {
 			});
 	};
 
-	console.log(word);
-
 	return (
 		<div className={styles.wordCardWrap}>
 			<div className={styles.wordCard}>
